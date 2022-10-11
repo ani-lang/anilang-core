@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/ani-lang/anilang-core.svg)](https://jitpack.io/#ani-lang/anilang-core)
+
 # ani lang
 
 Core tools for the programming language **ani**.
