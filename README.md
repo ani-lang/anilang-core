@@ -19,7 +19,7 @@ Step 2: Add the dependency
 
 ```xml
 <dependency>
-    <groupId>com.github.anilang</groupId>
+    <groupId>com.github.ani-lang</groupId>
     <artifactId>anilang-core</artifactId>
     <version>0.1.0</version>
 </dependency>
