@@ -1,0 +1,7 @@
+# idea files
+.idea
+*.iml
+
+# macOs files
+.DS_Store
+target/
