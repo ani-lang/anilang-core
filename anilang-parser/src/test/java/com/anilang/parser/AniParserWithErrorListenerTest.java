@@ -1,56 +1,119 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
-
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class AniParserWithErrorListenerTest {
+/**
+ * Test file.
+ *
+ * @since 0.1.0
+ */
+class AniParserWithErrorListenerTest {
+
+    // @checkstyle JavadocMethodCheck (500 lines)
 
     @Test
-    public void errorListenerAddedToTheParser() throws IOException {
-        assertThat(
-                "listener is added to the parser",
-                new AniParserExec(
-                        new AniParserSupplier(
-                                new ExampleFile("invalid_assignation").inputStream()
-                        ),
-                        new BasicBaseErrorListener()
-                ).getError(),
-                notNullValue()
+    void errorListenerAddedToTheParser() throws IOException {
+        Assertions.assertNotNull(
+            new AniParserExec(
+                new AniParserSupplier(
+                    new ExampleFile(ExampleCode.INVALID_ASSIGNATION).inputStream()
+                ),
+                new BasicBaseErrorListener()
+            ).getError(),
+            "add a error listener"
         );
     }
 
-    private record AniParserExec(AniParserSupplier parserSupplier, BasicBaseErrorListener errorListener) {
-        String getError() throws IOException {
+    /**
+     * Trigger the parser's tree build.
+     *
+     * @since 0.1.0
+     */
+    private static final class AniParserExec {
+
+        /**
+         * Parser supplier.
+         */
+        private final AniParserSupplier supplier;
+
+        /**
+         * Error listener.
+         */
+        private final BasicBaseErrorListener listener;
+
+        /**
+         * Ctor.
+         *
+         * @param supplier Parser supplier.
+         * @param listener Error listener.
+         */
+        private AniParserExec(
+            final AniParserSupplier supplier,
+            final BasicBaseErrorListener listener
+        ) {
+            this.supplier = supplier;
+            this.listener = listener;
+        }
+
+        /**
+         * Return the caught error if any.
+         *
+         * @return Error.
+         * @throws IOException when the read of the input fails.
+         */
+        ParseError getError() throws IOException {
             new AniParserWithErrorListener(
-                    parserSupplier,
-                    errorListener
+                this.supplier,
+                this.listener
             ).get().file();
-            return errorListener.getError();
+            return this.listener.getError();
         }
     }
 
+    /**
+     * Error listener that catches an error.
+     *
+     * @since 0.1.0
+     */
     private static final class BasicBaseErrorListener extends BaseErrorListener {
 
-        private String error;
+        /**
+         * Error.
+         */
+        private ParseError error;
 
+        // @checkstyle ParameterNumberCheck (10 lines)
         @Override
-        public void syntaxError(Recognizer<?, ?> recognizer,
-                                Object offendingSymbol,
-                                int line,
-                                int charPositionInLine,
-                                String msg,
-                                RecognitionException e) {
-            error = msg;
+        public void syntaxError(
+            final Recognizer<?, ?> recognizer,
+            final Object symbol,
+            final int line,
+            final int column,
+            final String msg,
+            final RecognitionException exception
+        ) {
+            this.error = new ParseError(
+                line,
+                column,
+                msg
+            );
         }
 
-        public String getError() {
-            return error;
+        /**
+         * Return the error.
+         *
+         * @return Parser error.
+         */
+        public ParseError getError() {
+            return this.error;
         }
     }
 }

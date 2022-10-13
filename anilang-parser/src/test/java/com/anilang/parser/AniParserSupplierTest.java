@@ -1,22 +1,30 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class AniParserSupplierTest {
+/**
+ * Test file.
+ *
+ * @since 0.1.0
+ */
+class AniParserSupplierTest {
+
+    // @checkstyle JavadocMethodCheck (500 lines)
+
     @Test
-    public void nonNullParser() throws IOException {
-        assertThat(
-                "return a non null parser",
-                new AniParserSupplier(
-                        new ExampleFile(
-                                "literal_assignation"
-                        ).inputStream()
-                ).get(),
-                notNullValue()
+    void nonNullParser() throws IOException {
+        Assertions.assertNotNull(
+            new AniParserSupplier(
+                new ExampleFile(
+                    ExampleCode.LITERAL_ASSIGNATION
+                ).inputStream()
+            ).get(),
+            "by default not null parser"
         );
     }
 }

@@ -1,3 +1,6 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 import com.anilang.parser.antlr.AniParser;
@@ -8,28 +11,46 @@ import java.util.List;
 /**
  * Represents an Ani file that can be parsed or scanned for errors.
  * This parser includes a base error listener for errors.
+ *
+ * @since 0.1.0
  */
 public final class AniFile {
 
-    private final InputStream inputStream;
+    /**
+     * The input stream.
+     */
+    private final InputStream input;
 
-    public AniFile(final InputStream inputStream) {
-        this.inputStream = inputStream;
+    /**
+     * Ctor.
+     *
+     * @param input Input source to parse.
+     */
+    public AniFile(final InputStream input) {
+        this.input = input;
     }
 
     /**
-     * @return {@link AniParser.FileContext} containing the parsed tree.
-     * @throws IOException when source input stream fails.
+     * Return a parser.
+     *
+     * @return Parsed tree {@link AniParser.FileContext}.
+     * @throws IOException When source input stream fails.
      */
     public AniParser parse() throws IOException {
         return new UncheckedAniParser(
-                inputStream
+            this.input
         ).get();
     }
 
+    /**
+     * Return parser errors.
+     *
+     * @return List of errors.
+     * @throws IOException When input read fails.
+     */
     public List<ParseError> errors() throws IOException {
         return new AniParserCheck(
-                inputStream
+            this.input
         ).errors();
     }
 }

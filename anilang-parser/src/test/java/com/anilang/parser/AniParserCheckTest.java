@@ -1,37 +1,44 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
+/**
+ * Test file.
+ *
+ * @since 0.1.0
+ */
+class AniParserCheckTest {
 
-public class AniParserCheckTest {
+    // @checkstyle JavadocMethodCheck (500 lines)
+
     @Test
-    public void invalidCharacterAssignation() throws IOException {
-        assertThat(
-                "invalid assignation is an error",
-                new AniParserCheck(
-                        new ExampleFile(
-                                "invalid_assignation"
-                        ).inputStream()
-                ).errors().size(),
-                is(1)
+    void invalidCharacterAssignation() throws IOException {
+        Assertions.assertEquals(
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.INVALID_ASSIGNATION
+                ).inputStream()
+            ).errors().size(),
+            1,
+            "invalid input return errors"
         );
     }
 
     @Test
-    public void validCharacterAssignation() throws IOException {
-        assertThat(
-                "valid assignation return empty list of errors",
-                new AniParserCheck(
-                        new ExampleFile(
-                                "literal_assignation"
-                        ).inputStream()
-                ).errors().size(),
-                is(0)
+    void validCharacterAssignation() throws IOException {
+        Assertions.assertEquals(
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.LITERAL_ASSIGNATION
+                ).inputStream()
+            ).errors().size(),
+            0,
+            "no errors for valid input"
         );
     }
 }

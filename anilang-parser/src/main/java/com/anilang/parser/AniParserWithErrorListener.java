@@ -1,3 +1,6 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 import com.anilang.parser.antlr.AniParser;
@@ -6,29 +9,38 @@ import org.antlr.v4.runtime.BaseErrorListener;
 
 /**
  * Add a listener to the {@link AniParser} provided.
+ *
+ * @since 0.1.0
  */
-final class AniParserWithErrorListener implements IOCheckedSupplier<AniParser> {
-    private final IOCheckedSupplier<AniParser> aniParserSupplier;
-    private final BaseErrorListener baseErrorListener;
+final class AniParserWithErrorListener implements IoCheckedSupplier<AniParser> {
+    /**
+     * Parser supplier.
+     */
+    private final IoCheckedSupplier<AniParser> supplier;
 
     /**
-     * ctor.
-     *
-     * @param aniParserSupplier parser supplier.
-     * @param baseErrorListener listener to be added to the parser.
+     * Error listener.
      */
-    AniParserWithErrorListener(final IOCheckedSupplier<AniParser> aniParserSupplier, final BaseErrorListener baseErrorListener) {
-        this.aniParserSupplier = aniParserSupplier;
-        this.baseErrorListener = baseErrorListener;
+    private final BaseErrorListener listener;
+
+    /**
+     * Ctor.
+     *
+     * @param supplier Parser supplier.
+     * @param listener Listener to be added to the parser.
+     */
+    AniParserWithErrorListener(
+        final IoCheckedSupplier<AniParser> supplier,
+        final BaseErrorListener listener
+    ) {
+        this.supplier = supplier;
+        this.listener = listener;
     }
 
-    /**
-     * @return adds an error listener to the parser.
-     */
     @Override
     public AniParser get() throws IOException {
-        final AniParser aniParser = aniParserSupplier.get();
-        aniParser.addErrorListener(baseErrorListener);
-        return aniParser;
+        final AniParser parser = this.supplier.get();
+        parser.addErrorListener(this.listener);
+        return parser;
     }
 }

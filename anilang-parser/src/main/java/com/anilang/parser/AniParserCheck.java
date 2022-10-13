@@ -1,3 +1,6 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 import com.anilang.parser.antlr.AniParser;
@@ -11,68 +14,87 @@ import org.antlr.v4.runtime.Recognizer;
 
 /**
  * Parse the source and provides a list of errors found.
+ *
+ * @since 0.1.0
  */
 final class AniParserCheck {
-    private final InputStream inputStream;
+    /**
+     * The input stream.
+     */
+    private final InputStream input;
 
     /**
-     * ctor.
+     * Ctor.
      *
-     * @param inputStream source input stream to parse.
+     * @param input Source input stream to parse.
      */
-    AniParserCheck(final InputStream inputStream) {
-        this.inputStream = inputStream;
+    AniParserCheck(final InputStream input) {
+        this.input = input;
     }
 
     /**
      * Provide a list of errors after parsing the source.
      *
-     * @return list of {@link ParseError}.
+     * @return List of {@link ParseError}.
      * @throws IOException when source read fails.
      */
     public List<ParseError> errors() throws IOException {
-        final InternalBaseErrorListener internalBaseErrorListener = new InternalBaseErrorListener();
-        final AniParser aniParser = new AniParserWithErrorListener(
-                new AniParserSupplier(
-                        inputStream
-                ),
-                internalBaseErrorListener
+        final ListErrorListener listener = new ListErrorListener();
+        final AniParser parser = new AniParserWithErrorListener(
+            new AniParserSupplier(
+                this.input
+            ),
+            listener
         ).get();
-        aniParser.file();
-        return internalBaseErrorListener.getErrors();
+        parser.file();
+        return listener.getErrors();
     }
 
     /**
      * Error listener that stores each error.
+     *
+     * @since 0.1.0
      */
-    private static final class InternalBaseErrorListener extends BaseErrorListener {
+    private static final class ListErrorListener extends BaseErrorListener {
 
-        private final List<ParseError> parseErrors;
+        /**
+         * The errors.
+         */
+        private final List<ParseError> errors;
 
-        public InternalBaseErrorListener() {
-            this.parseErrors = new LinkedList<>();
+        /**
+         * Ctor.
+         */
+        ListErrorListener() {
+            this.errors = new LinkedList<>();
         }
 
+        // @checkstyle ParameterNumberCheck (10 lines)
         @Override
-        public void syntaxError(Recognizer<?, ?> recognizer,
-                                Object offendingSymbol,
-                                int line,
-                                int charPositionInLine,
-                                String msg,
-                                RecognitionException e) {
-            parseErrors.add(
-                    new ParseError(
-                            recognizer,
-                            offendingSymbol,
-                            line,
-                            charPositionInLine,
-                            msg
-                    )
+        public void syntaxError(
+            final Recognizer<?, ?> recognizer,
+            final Object symbol,
+            final int line,
+            final int column,
+            final String msg,
+            final RecognitionException exception
+        ) {
+            this.errors.add(
+                new ParseError(
+                    line,
+                    column,
+                    msg
+                )
             );
         }
 
+        /**
+         * Return errors.
+         *
+         * @return List of errors.
+         */
         public List<ParseError> getErrors() {
-            return parseErrors;
+            return this.errors;
         }
     }
 }

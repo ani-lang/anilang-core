@@ -1,3 +1,6 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 import com.anilang.parser.antlr.AniLexer;
@@ -9,31 +12,33 @@ import org.antlr.v4.runtime.CommonTokenStream;
 
 /**
  * Basic creation of a {@link AniParser}.
+ *
+ * @since 0.1.0
  */
-final class AniParserSupplier implements IOCheckedSupplier<AniParser> {
-
-    private final InputStream inputStream;
+final class AniParserSupplier implements IoCheckedSupplier<AniParser> {
 
     /**
-     * ctor.
-     *
-     * @param inputStream source input stream to parse.
+     * The input source.
      */
-    AniParserSupplier(final InputStream inputStream) {
-        this.inputStream = inputStream;
+    private final InputStream input;
+
+    /**
+     * Ctor.
+     *
+     * @param input Source input stream to parse.
+     */
+    AniParserSupplier(final InputStream input) {
+        this.input = input;
     }
 
-    /**
-     * @return AniParser from source.
-     */
     @Override
     public AniParser get() throws IOException {
         return new AniParser(
-                new CommonTokenStream(
-                        new AniLexer(
-                                CharStreams.fromStream(inputStream)
-                        )
+            new CommonTokenStream(
+                new AniLexer(
+                    CharStreams.fromStream(this.input)
                 )
+            )
         );
     }
 }

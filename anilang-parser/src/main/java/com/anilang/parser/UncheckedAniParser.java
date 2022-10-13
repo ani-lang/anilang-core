@@ -1,6 +1,7 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
-
-import static java.lang.String.format;
 
 import com.anilang.parser.antlr.AniParser;
 import java.io.IOException;
@@ -11,48 +12,54 @@ import org.antlr.v4.runtime.Recognizer;
 
 /**
  * Read the source and create a parser without checking for {@link IOException}.
+ *
+ * @since 0.1.0
  */
-final class UncheckedAniParser implements IOCheckedSupplier<AniParser> {
-    private final InputStream inputStream;
+final class UncheckedAniParser implements IoCheckedSupplier<AniParser> {
 
     /**
-     * ctor.
-     *
-     * @param inputStream source input stream to parse.
+     * The input source.
      */
-    UncheckedAniParser(final InputStream inputStream) {
-        this.inputStream = inputStream;
+    private final InputStream input;
+
+    /**
+     * Ctor.
+     *
+     * @param input Source input stream to parse.
+     */
+    UncheckedAniParser(final InputStream input) {
+        this.input = input;
     }
 
-    /**
-     * @return a parser.
-     * @throws IOException when input source read fails.
-     */
     @Override
     public AniParser get() throws IOException {
         return new AniParserWithErrorListener(
-                new AniParserSupplier(
-                        inputStream
-                ),
-                new InternalBaseErrorListener()
+            new AniParserSupplier(
+                this.input
+            ),
+            new InternalBaseErrorListener()
         ).get();
     }
 
     /**
      * Error listener that throws and exception if a parser error is found.
+     *
+     * @since 0.1.0
      */
     private static final class InternalBaseErrorListener extends BaseErrorListener {
 
-        private static final String PARSE_ERROR_TEMPLATE = "Failed to parse at [Line:Column] = [%s:%s] caused by %s";
-
+        // @checkstyle ParameterNumberCheck (10 lines)
         @Override
-        public void syntaxError(Recognizer<?, ?> recognizer,
-                                Object offendingSymbol,
-                                int line,
-                                int charPositionInLine,
-                                String msg,
-                                RecognitionException e) {
-            throw new IllegalStateException(format(PARSE_ERROR_TEMPLATE, line, charPositionInLine, msg), e);
+        public void syntaxError(
+            final Recognizer<?, ?> recognizer,
+            final Object symbol,
+            final int line,
+            final int column,
+            final String msg,
+            final RecognitionException exception
+        ) {
+            final String template = "Failed to parse at [Line:Column] = [%s:%s] caused by %s";
+            throw new IllegalStateException(String.format(template, line, column, msg), exception);
         }
     }
 }

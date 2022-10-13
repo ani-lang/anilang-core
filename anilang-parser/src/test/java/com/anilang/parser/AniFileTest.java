@@ -1,40 +1,49 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class AniFileTest {
+/**
+ * Test file.
+ *
+ * @since 0.1.0
+ */
+class AniFileTest {
 
-    @Test(expected = IllegalStateException.class)
-    public void uncheckedParse() throws IOException {
-        new AniFile(
-                new ExampleFile("invalid_assignation").inputStream()
-        ).parse().file();
-    }
+    // @checkstyle JavadocMethodCheck (500 lines)
 
     @Test
-    public void nonNullParser() throws IOException {
-        assertThat(
-                "parser is not null",
-                new AniFile(
-                        new ExampleFile("literal_assignation").inputStream()
-                ).parse(),
-                notNullValue()
+    void uncheckedParse() {
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new AniFile(
+                new ExampleFile(ExampleCode.INVALID_ASSIGNATION).inputStream()
+            ).parse().file(),
+            "invalid input throw exceptions"
         );
     }
 
     @Test
-    public void getListOfErrors() throws IOException {
-        assertThat(
-                "return list of errors",
-                new AniFile(
-                        new ExampleFile("invalid_assignation").inputStream()
-                ).errors().isEmpty(),
-                is(false)
+    void nonNullParser() throws IOException {
+        Assertions.assertNotNull(
+            new AniFile(
+                new ExampleFile(ExampleCode.LITERAL_ASSIGNATION).inputStream()
+            ).parse(),
+            "default parser is not null"
+        );
+    }
+
+    @Test
+    void getListOfErrors() throws IOException {
+        Assertions.assertFalse(
+            new AniFile(
+                new ExampleFile(ExampleCode.INVALID_ASSIGNATION).inputStream()
+            ).errors().isEmpty(),
+            "invalid input has errors"
         );
     }
 }

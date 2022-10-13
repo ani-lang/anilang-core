@@ -1,14 +1,28 @@
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
-import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class UncheckedAniParserTest {
+/**
+ * Test for AniParser.
+ *
+ * @since 0.1.0
+ */
+class UncheckedAniParserTest {
 
-    @Test(expected = IllegalStateException.class)
-    public void throwErrorIfParserFails() throws IOException {
-        new UncheckedAniParser(
-                new ExampleFile("invalid_assignation").inputStream()
-        ).get().file();
+    // @checkstyle JavadocMethodCheck (500 lines)
+
+    @Test
+    void throwErrorIfParserFails() {
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new UncheckedAniParser(
+                new ExampleFile(ExampleCode.INVALID_ASSIGNATION).inputStream()
+            ).get().file(),
+            "failure throws an exception"
+        );
     }
 }

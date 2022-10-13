@@ -33,7 +33,7 @@ You can parse an **ani** piece of code
 
 ```java
 // file.ani => a = 1 + (2 - 3)
-final AniParser parser = new AniFile(inputStream).parse(); 
+final AniParser parser = new AniFile(input).parse(); 
 ```
 
 If the parsed content has grammar errors it will throw an exception when parsing `AniParser.file()`. To avoid this
@@ -41,13 +41,13 @@ situation you can scan for errors before you parse
 
 ```java
 // file.ani => a = .
-final List<ParseError> errors = new AniFile(inputStream).errors();
+final List<ParseError> errors = new AniFile(input).errors();
 ```
 
 ## Contribute
 
 ````shell
-$ ./mnvw install
+$ ./mvnw clean install
 ````
 
 It's required to set up the ANTLR plugin for intellij
