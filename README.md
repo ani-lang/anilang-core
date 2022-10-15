@@ -20,9 +20,11 @@ Step 1: Add the JitPack repository to your build file
 Step 2: Add the dependency
 
 ```xml
+<!-- Ani parser -->
 <dependency>
-    <groupId>com.github.ani-lang</groupId>
-    <artifactId>anilang-core</artifactId>
+    <groupId>com.github.ani-lang.anilang-core</groupId>
+    <artifactId>anilang-parser</artifactId>
+    <version>0.2.0</version>
 </dependency>
 ```
 
