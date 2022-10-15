@@ -18,7 +18,17 @@ public enum ExampleCode {
     /**
      * A valid example.
      */
-    LITERAL_ASSIGNATION("literal_assignation");
+    LITERAL_ASSIGNATION("literal_assignation"),
+
+    /**
+     * Invalid Java example.
+     */
+    JAVA_INVALID("invalid_java"),
+
+    /**
+     * Invalid Java example.
+     */
+    JAVA_VALID("valid_java");
 
     /**
      * File name.
