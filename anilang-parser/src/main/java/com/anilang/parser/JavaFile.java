@@ -18,6 +18,10 @@ import org.antlr.v4.runtime.CommonTokenStream;
  * @since 0.2.0
  */
 public final class JavaFile {
+
+    /**
+     * File source.
+     */
     private final InputStream input;
 
     /**

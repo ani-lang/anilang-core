@@ -22,7 +22,7 @@ class JavaFileTest {
         Assertions.assertThrows(
             IllegalStateException.class,
             () -> new JavaFile(
-                new ExampleFile(ExampleCode.JAVA_INVALID, "java").inputStream()
+                new ExampleFile(ExampleCode.JAVA_INVALID, "example").inputStream()
             ).parse().compilationUnit(),
             "invalid input throw exceptions"
         );
@@ -32,7 +32,7 @@ class JavaFileTest {
     void nonNullParser() throws IOException {
         Assertions.assertNotNull(
             new JavaFile(
-                new ExampleFile(ExampleCode.JAVA_VALID, "java").inputStream()
+                new ExampleFile(ExampleCode.JAVA_VALID, "example").inputStream()
             ).parse(),
             "default parser is not null"
         );
@@ -42,7 +42,7 @@ class JavaFileTest {
     void getListOfErrors() throws IOException {
         Assertions.assertFalse(
             new JavaFile(
-                new ExampleFile(ExampleCode.JAVA_INVALID, "java").inputStream()
+                new ExampleFile(ExampleCode.JAVA_INVALID, "example").inputStream()
             ).errors().isEmpty(),
             "invalid input has errors"
         );

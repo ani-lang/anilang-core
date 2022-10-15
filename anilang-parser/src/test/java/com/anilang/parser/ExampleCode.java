@@ -23,12 +23,12 @@ public enum ExampleCode {
     /**
      * Invalid Java example.
      */
-    JAVA_INVALID("Invalid"),
+    JAVA_INVALID("invalid_java"),
 
     /**
      * Invalid Java example.
      */
-    JAVA_VALID("Valid");
+    JAVA_VALID("valid_java");
 
     /**
      * File name.

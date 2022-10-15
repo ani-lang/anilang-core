@@ -42,7 +42,6 @@ public final class ExampleFile {
         this.extension = extension;
     }
 
-
     /**
      * Return the input source.
      *
