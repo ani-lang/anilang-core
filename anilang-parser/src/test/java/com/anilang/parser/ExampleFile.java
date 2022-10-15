@@ -18,13 +18,30 @@ public final class ExampleFile {
     private final ExampleCode example;
 
     /**
+     * File extension.
+     */
+    private final String extension;
+
+    /**
      * Ctor.
      *
      * @param example Example code name.
      */
     public ExampleFile(final ExampleCode example) {
-        this.example = example;
+        this(example, "ani");
     }
+
+    /**
+     * Ctor.
+     *
+     * @param example File name.
+     * @param extension Extension name.
+     */
+    public ExampleFile(final ExampleCode example, final String extension) {
+        this.example = example;
+        this.extension = extension;
+    }
+
 
     /**
      * Return the input source.
@@ -33,7 +50,7 @@ public final class ExampleFile {
      */
     public InputStream inputStream() {
         return this.getClass().getResourceAsStream(
-            String.format("/com/anilang/parser/%s.ani", this.example.toString())
+            String.format("/com/anilang/parser/%s.%s", this.example.toString(), this.extension)
         );
     }
 }
