@@ -28,7 +28,7 @@ Identifier
 expression
     :   primary
     |   expression '.' Identifier
-    |   expression ('+'|'-') expression
+    |   expression ('+'|'-'|'*'|'/') expression
     ;
 
 primary
