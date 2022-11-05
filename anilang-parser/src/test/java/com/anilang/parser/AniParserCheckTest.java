@@ -1,6 +1,10 @@
 /*
  * Property of Opencore
  */
+
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 import java.io.IOException;
@@ -19,12 +23,12 @@ class AniParserCheckTest {
     @Test
     void invalidCharacterAssignation() throws IOException {
         Assertions.assertEquals(
+            2,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.INVALID_ASSIGNATION
                 ).inputStream()
             ).errors().size(),
-            1,
             "invalid input return errors"
         );
     }
