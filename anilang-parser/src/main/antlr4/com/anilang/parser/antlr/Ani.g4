@@ -5,7 +5,7 @@ file
     ;
 
 body
-    : (variableDeclarator '\n'*)*
+    :   (variableDeclarator '\n'*)*
     ;
 
 variableDeclarator
@@ -13,8 +13,7 @@ variableDeclarator
     ;
 
 variableDeclaratorId
-    :   Identifier
-    |   Identifier '.' Identifier
+    :   expression
     ;
 
 variableInitializer
