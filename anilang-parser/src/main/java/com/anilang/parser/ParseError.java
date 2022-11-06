@@ -1,6 +1,10 @@
 /*
  * Property of Opencore
  */
+
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 /**
@@ -17,7 +21,7 @@ public final class ParseError {
     /**
      * Ctor.
      *
-     * @param row  The row position.
+     * @param row The row position.
      * @param column The column position.
      * @param message The error message.
      */
