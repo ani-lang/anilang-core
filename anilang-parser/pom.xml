@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Property of Opencore
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -51,4 +55,26 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>qulice</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.qulice</groupId>
+                        <artifactId>qulice-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes combine.children="append">
+                                <exclude>checkstyle:/src/test/resources/.*</exclude>
+                                <exclude>pmd:.*/src/test/resources/.*</exclude>
+                                <exclude>dependencies:org.antlr</exclude>
+                                <exclude>dependencies:org.junit.jupiter</exclude>
+                            </excludes>
+                            <license>file:${basedir}/LICENSE.txt</license>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

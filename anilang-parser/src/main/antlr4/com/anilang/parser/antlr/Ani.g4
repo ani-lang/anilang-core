@@ -1,6 +1,10 @@
 grammar Ani;
 
 file
+    :   body EOF
+    ;
+
+body
     :   (variableDeclarator '\n'*)*
     ;
 
@@ -8,9 +12,8 @@ variableDeclarator
     :   variableDeclaratorId ('=' variableInitializer)?
     ;
 
-
 variableDeclaratorId
-    :   Identifier
+    :   expression
     ;
 
 variableInitializer
@@ -18,12 +21,13 @@ variableInitializer
     ;
 
 Identifier
-    :   [a-zA-Z]+
+    :   [a-zA-Z_]+
     ;
 
 expression
     :   primary
-    |   expression ('+'|'-') expression
+    |   expression '.' Identifier
+    |   expression ('+'|'-'|'*'|'/') expression
     ;
 
 primary
