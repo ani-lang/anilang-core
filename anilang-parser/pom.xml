@@ -7,6 +7,10 @@
   ~ Property of Opencore
   -->
 
+<!--
+  ~ Property of Opencore
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -14,13 +18,13 @@
     <parent>
         <groupId>com.anilang</groupId>
         <artifactId>anilang-core</artifactId>
-        <version>0.4.0</version>
+        <version>0.3.1</version>
     </parent>
     <artifactId>anilang-parser</artifactId>
     <packaging>jar</packaging>
     <name>ani-parser</name>
     <description>Ani parser</description>
-    <version>0.4.0</version>
+    <version>0.3.1</version>
     <dependencies>
         <dependency>
             <groupId>org.antlr</groupId>
