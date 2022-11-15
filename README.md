@@ -47,7 +47,7 @@ final List<ParseError> errors = new AniFile(input).errors();
 ## Contribute
 
 ````shell
-$ ./mvnw clean install
+$ ./mvnw clean package -Pqulice
 ````
 
 It's required to set up the ANTLR plugin for intellij
