@@ -15,6 +15,10 @@
   ~ Property of Opencore
   -->
 
+<!--
+  ~ Property of Opencore
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -79,6 +83,22 @@
                         <groupId>com.qulice</groupId>
                         <artifactId>qulice-maven-plugin</artifactId>
                         <version>0.22.0</version>
+                        <configuration>
+                            <excludes combine.children="append">
+                                <exclude>checkstyle:/src/test/resources/.*</exclude>
+                                <exclude>pmd:.*/src/test/resources/.*</exclude>
+                                <exclude>dependencies:.*</exclude>
+                            </excludes>
+                            <license>file:${basedir}/LICENSE.txt</license>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>

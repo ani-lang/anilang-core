@@ -1,6 +1,10 @@
 /*
  * Property of Opencore
  */
+
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 /**
@@ -28,7 +32,12 @@ public enum ExampleCode {
     /**
      * Invalid Java example.
      */
-    JAVA_VALID("valid_java");
+    JAVA_VALID("valid_java"),
+
+    /**
+     * Valid if statement.
+     */
+    IF_VALID("if_valid");
 
     /**
      * File name.

@@ -5,6 +5,10 @@
 /*
  * Property of Opencore
  */
+
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 import com.anilang.parser.antlr.AniLexer;
@@ -37,14 +41,14 @@ final class AniParserSupplier implements IoCheckedSupplier<AniParser> {
 
     @Override
     public AniParser get() throws IOException {
-        final AniParser aniParser = new AniParser(
+        final AniParser parser = new AniParser(
             new CommonTokenStream(
                 new AniLexer(
                     CharStreams.fromStream(this.input)
                 )
             )
         );
-        aniParser.removeErrorListeners();
-        return aniParser;
+        parser.removeErrorListeners();
+        return parser;
     }
 }

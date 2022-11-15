@@ -5,15 +5,25 @@ file
     ;
 
 body
-    :   (variableDeclarator '\n'*)*
+    :   (line '\n'*)*
+    |   '\n'*
+    ;
+
+line
+    :   variableDeclarator
+    |   statement
     ;
 
 variableDeclarator
-    :   variableDeclaratorId ('=' variableInitializer)?
+    :   variableDeclaratorId '=' variableInitializer
+    ;
+
+statement
+    :   'if' expression ':' '\n' body ('else' '\n' body)? 'end'
     ;
 
 variableDeclaratorId
-    :   expression
+    :   Identifier
     ;
 
 variableInitializer
@@ -27,7 +37,14 @@ Identifier
 expression
     :   primary
     |   expression '.' Identifier
-    |   expression ('+'|'-'|'*'|'/') expression
+    |   expression ('+'|'-') expression
+    |   expression ('*'|'/') expression
+    |   expression ('=' | '!=') expression
+    |   expression ('<' '=' | '>' '=' | '<' | '>') expression
+    |   expression '&' expression
+    |   expression '|' expression
+    |   expression '&&' expression
+    |   expression '||' expression
     ;
 
 primary
