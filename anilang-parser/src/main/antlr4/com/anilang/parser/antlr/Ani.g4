@@ -20,6 +20,15 @@ variableDeclarator
 
 statement
     :   'if' expression ':' '\n' body ('else' '\n' body)? 'end'
+    |   'for' forControl ':' '\n' body 'end'
+    ;
+
+forControl
+    :   itemForControl
+    ;
+
+itemForControl
+    :   Identifier 'in' expression
     ;
 
 variableDeclaratorId

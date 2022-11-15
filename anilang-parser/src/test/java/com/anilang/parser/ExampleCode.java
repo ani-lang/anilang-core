@@ -5,6 +5,10 @@
 /*
  * Property of Opencore
  */
+
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 /**
@@ -37,7 +41,12 @@ public enum ExampleCode {
     /**
      * Valid if statement.
      */
-    IF_VALID("if_valid");
+    IF_VALID("if_valid"),
+
+    /**
+     * Valid for statement.
+     */
+    FOR_VALID("for_valid");
 
     /**
      * File name.
