@@ -39,6 +39,12 @@ expression
     |   expression '.' Identifier
     |   expression ('+'|'-') expression
     |   expression ('*'|'/') expression
+    |   expression ('=' | '!=') expression
+    |   expression ('<' '=' | '>' '=' | '<' | '>') expression
+    |   expression '&' expression
+    |   expression '|' expression
+    |   expression '&&' expression
+    |   expression '||' expression
     ;
 
 primary
