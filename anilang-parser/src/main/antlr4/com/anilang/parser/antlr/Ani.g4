@@ -9,11 +9,11 @@ body
     ;
 
 variableDeclarator
-    :   variableDeclaratorId ('=' variableInitializer)?
+    :   variableDeclaratorId '=' variableInitializer
     ;
 
 variableDeclaratorId
-    :   expression
+    :   Identifier
     ;
 
 variableInitializer
@@ -27,7 +27,8 @@ Identifier
 expression
     :   primary
     |   expression '.' Identifier
-    |   expression ('+'|'-'|'*'|'/') expression
+    |   expression ('+'|'-') expression
+    |   expression ('*'|'/') expression
     ;
 
 primary
