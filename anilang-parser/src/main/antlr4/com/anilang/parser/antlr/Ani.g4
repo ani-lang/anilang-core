@@ -5,11 +5,21 @@ file
     ;
 
 body
-    :   (variableDeclarator '\n'*)*
+    :   (line '\n'*)*
+    |   '\n'*
+    ;
+
+line
+    :   variableDeclarator
+    |   statement
     ;
 
 variableDeclarator
     :   variableDeclaratorId '=' variableInitializer
+    ;
+
+statement
+    :   'if' expression ':' '\n' body ('else' '\n' body)? 'end'
     ;
 
 variableDeclaratorId

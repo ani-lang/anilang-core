@@ -1,0 +1,8 @@
+if a:
+    a = 0
+    if c:
+        g = g.f + 0
+    else
+        c = 2
+    end
+end

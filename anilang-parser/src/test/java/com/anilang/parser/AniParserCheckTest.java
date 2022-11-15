@@ -5,6 +5,10 @@
 /*
  * Property of Opencore
  */
+
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 import java.io.IOException;
@@ -39,6 +43,19 @@ class AniParserCheckTest {
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.LITERAL_ASSIGNATION
+                ).inputStream()
+            ).errors().size(),
+            0,
+            "no errors for valid input"
+        );
+    }
+
+    @Test
+    void validIfStatement() throws IOException {
+        Assertions.assertEquals(
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.IF_VALID
                 ).inputStream()
             ).errors().size(),
             0,
