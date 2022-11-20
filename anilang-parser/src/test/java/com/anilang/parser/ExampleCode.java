@@ -48,7 +48,12 @@ public enum ExampleCode {
     /**
      * Full syntax example.
      */
-    FULL_SYNTAX("full_syntax");
+    FULL_SYNTAX("full_syntax"),
+
+    /**
+     * Valid method calls.
+     */
+    METHOD_CALL_VALID("method_call_valid");
 
     /**
      * File name.

@@ -17,6 +17,7 @@ bodyMember
 scriptLine
     :   variableDeclarator
     |   statement
+    |   expression '(' expressionList? ')'
     |   '\n'+
     ;
 
@@ -91,6 +92,7 @@ expression
     |   expression ('<' '=' | '>' '=' | '<' | '>') expression
     |   expression '&&' expression
     |   expression '||' expression
+    |   expression '(' expressionList? ')'
     ;
 
 primary
@@ -105,6 +107,10 @@ literal
 
 integerLiteral
     :   DecimalLiteral
+    ;
+
+expressionList
+    :   expression (',' expression)*
     ;
 
 DecimalLiteral
