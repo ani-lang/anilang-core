@@ -23,7 +23,7 @@ Step 2: Add the dependency
 <dependency>
     <groupId>com.github.ani-lang</groupId>
     <artifactId>anilang-core</artifactId>
-    <version>0.3.1</version>
+    <version>0.4.0</version>
 </dependency>
 ```
 
