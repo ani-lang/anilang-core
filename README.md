@@ -27,7 +27,33 @@ Step 2: Add the dependency
 </dependency>
 ```
 
-## Quick guide
+## Syntax example
+This is an example of the supported syntax.
+```
+v = v + 1
+def fun(a,b,c):
+    if (a.r > 2 && 1 < 3 || d >= 2 || (9 <= 4 && s = 2)) != 4:
+        a = 0
+        if c:
+            g = g.f + 0
+        else
+            c = 2
+        else
+            c = 2
+            return
+        end
+    return 0 + 1
+    end
+    a = 8.i
+    for g in h.p:
+        a = 9
+        return 9
+    end
+    return a
+end
+```
+
+## Quick start
 
 You can parse an **ani** piece of code
 
