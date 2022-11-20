@@ -1,10 +1,6 @@
 /*
  * Property of Opencore
  */
-
-/*
- * Property of Opencore
- */
 package com.anilang.parser;
 
 /**
@@ -45,7 +41,7 @@ public enum ExampleCode {
     FOR_VALID("for_valid"),
 
     /**
-     * def fun valid.
+     * Def fun valid.
      */
     DEF_VALID("def_valid"),
 

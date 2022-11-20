@@ -1,10 +1,6 @@
 /*
  * Property of Opencore
  */
-
-/*
- * Property of Opencore
- */
 package com.anilang.parser;
 
 import java.io.IOException;
@@ -42,7 +38,7 @@ class AniParserCheckTest {
                 ).inputStream()
             ).errors().size(),
             0,
-            "no errors for valid input"
+            "no errors for valid literal"
         );
     }
 
@@ -55,7 +51,7 @@ class AniParserCheckTest {
                 ).inputStream()
             ).errors().size(),
             0,
-            "no errors for valid input"
+            "no errors for valid if statement"
         );
     }
 
@@ -68,7 +64,7 @@ class AniParserCheckTest {
                 ).inputStream()
             ).errors().size(),
             0,
-            "no errors for valid input"
+            "no errors for valid for loop"
         );
     }
 
@@ -81,7 +77,7 @@ class AniParserCheckTest {
                 ).inputStream()
             ).errors().size(),
             0,
-            "no errors for valid input"
+            "no errors for valid fun def"
         );
     }
 
@@ -94,7 +90,7 @@ class AniParserCheckTest {
                 ).inputStream()
             ).errors().size(),
             0,
-            "no errors for valid input"
+            "no errors for valid full example"
         );
     }
 }
