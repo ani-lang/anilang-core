@@ -2,6 +2,9 @@
  * Property of Opencore
  */
 
+/*
+ * Property of Opencore
+ */
 package com.anilang.parser;
 
 import java.io.IOException;
