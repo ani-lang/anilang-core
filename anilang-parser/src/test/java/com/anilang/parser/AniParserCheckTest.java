@@ -19,7 +19,7 @@ class AniParserCheckTest {
     @Test
     void invalidCharacterAssignation() throws IOException {
         Assertions.assertEquals(
-            2,
+            1,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.INVALID_ASSIGNATION
@@ -91,6 +91,19 @@ class AniParserCheckTest {
             ).errors().size(),
             0,
             "no errors for valid full example"
+        );
+    }
+
+    @Test
+    void validMethodCallExample() throws IOException {
+        Assertions.assertEquals(
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.METHOD_CALL_VALID
+                ).inputStream()
+            ).errors().size(),
+            0,
+            "no errors for valid method call example"
         );
     }
 }

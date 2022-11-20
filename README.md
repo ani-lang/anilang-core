@@ -30,7 +30,7 @@ Step 2: Add the dependency
 ## Syntax example
 This is an example of the supported syntax.
 ```
-v = v + 1
+v = v + 1 + ((2 - 3) * 4) / p.g(a)
 def fun(a,b,c):
     if (a.r > 2 && 1 < 3 || d >= 2 || (9 <= 4 && s = 2)) != 4:
         a = 0
@@ -47,10 +47,14 @@ def fun(a,b,c):
     a = 8.i
     for g in h.p:
         a = 9
+        f(a, 4)
         return 9
     end
+    c()
     return a
 end
+c(8,9)
+
 ```
 
 ## Quick start

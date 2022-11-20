@@ -1,0 +1,5 @@
+a = a.b(4, f, t)
+if a.is():
+    b = 4 + a.b(4, f.g(), t)
+end
+c(8,9)
