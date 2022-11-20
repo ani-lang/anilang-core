@@ -1,10 +1,6 @@
 /*
  * Property of Opencore
  */
-
-/*
- * Property of Opencore
- */
 package com.anilang.parser;
 
 /**
