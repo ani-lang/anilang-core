@@ -5,22 +5,61 @@ file
     ;
 
 body
-    :   (line '\n'*)*
-    |   '\n'*
+    :   bodyMember*
     ;
 
-line
+bodyMember
+    :   scriptLine
+    |   funcDeclaration
+    |   '\n'+
+    ;
+
+scriptLine
     :   variableDeclarator
     |   statement
+    |   '\n'+
+    ;
+
+funcDeclaration
+    :   'def' Identifier formalParameters methodDeclarationRest
     ;
 
 variableDeclarator
     :   variableDeclaratorId '=' variableInitializer
     ;
 
+formalParameters
+    :   '(' formalParameterDecls? ')'
+    ;
+
+formalParameterDecls
+    :   formalParameterDeclsRest
+    ;
+
+formalParameterDeclsRest
+    :   variableDeclaratorId (',' formalParameterDecls)?
+    ;
+
+methodDeclarationRest
+    :   methodBody
+    ;
+
+methodBody
+    :   scriptBlock
+    ;
+
+scriptBlock
+    :   ':' '\n' scriptLine* '\n' 'end'
+    ;
+
 statement
-    :   'if' expression ':' '\n' body ('else' '\n' body)? 'end'
-    |   'for' forControl ':' '\n' body 'end'
+    :   'if' expression elseScriptBlock
+    |   'for' forControl scriptBlock
+    |   'return' expression?
+    ;
+
+elseScriptBlock
+    :   ':' '\n' scriptLine* ('else' '\n' scriptLine*)* '\n' 'end'
     ;
 
 forControl
@@ -50,8 +89,6 @@ expression
     |   expression ('*'|'/') expression
     |   expression ('=' | '!=') expression
     |   expression ('<' '=' | '>' '=' | '<' | '>') expression
-    |   expression '&' expression
-    |   expression '|' expression
     |   expression '&&' expression
     |   expression '||' expression
     ;

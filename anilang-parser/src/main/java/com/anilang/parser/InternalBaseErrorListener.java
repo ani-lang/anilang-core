@@ -1,7 +1,6 @@
 /*
  * Property of Opencore
  */
-
 package com.anilang.parser;
 
 import org.antlr.v4.runtime.BaseErrorListener;

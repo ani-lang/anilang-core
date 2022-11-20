@@ -1,7 +1,6 @@
 /*
  * Property of Opencore
  */
-
 package com.anilang.parser;
 
 import com.anilang.parser.antlr.JavaLexer;
