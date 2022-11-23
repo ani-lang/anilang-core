@@ -106,6 +106,7 @@ primary
 literal
     :   integerLiteral
     |   booleanLiteral
+    |   StringLiteral
     ;
 
 integerLiteral
@@ -123,6 +124,10 @@ expressionList
 
 DecimalLiteral
     :   ('0' | '1'..'9' '0'..'9'*)
+    ;
+
+StringLiteral
+    :   '\'' .*? '\''
     ;
 
 // toss out whitespace
