@@ -3,8 +3,11 @@ for a in b:
     for j in k:
         if j > 0:
             c = 2
+            continue
         end
+        continue
         break
     end
+    continue
     break
 end

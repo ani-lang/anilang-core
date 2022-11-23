@@ -58,6 +58,7 @@ statement
     |   'for' forControl scriptBlock
     |   'return' expression?
     |   'break'
+    |   'continue'
     ;
 
 elseScriptBlock
