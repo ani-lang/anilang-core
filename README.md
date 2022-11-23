@@ -36,8 +36,10 @@ def fun(a,b,c):
         a = 0
         if c:
             g = g.f + 0
+            continue
         else
             c = 2
+            continue
         else
             break
             return
