@@ -82,10 +82,6 @@ variableInitializer
     :   expression
     ;
 
-Identifier
-    :   [a-zA-Z_]+
-    ;
-
 expression
     :   primary
     |   expression '.' Identifier
@@ -105,13 +101,10 @@ primary
     ;
 
 literal
-    :   integerLiteral
+    :   IntegerLiteral
+    |   DecimalLiteral
     |   booleanLiteral
     |   StringLiteral
-    ;
-
-integerLiteral
-    :   DecimalLiteral
     ;
 
 booleanLiteral
@@ -123,8 +116,17 @@ expressionList
     :   expression (',' expression)*
     ;
 
-DecimalLiteral
+
+Identifier
+    :   [a-zA-Z_]+
+    ;
+
+IntegerLiteral
     :   ('0' | '1'..'9' '0'..'9'*)
+    ;
+
+DecimalLiteral
+    :   ('0'..'9')+ '.' ('0'..'9')*
     ;
 
 StringLiteral
