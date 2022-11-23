@@ -1,25 +1,25 @@
 v = v + 1 + ((2 - 3) * 4) / p.g(a)
-def fun(a,b,c):
-    if (a.r > 2 and 1 < 3 or d >= 2 or (9 <= 4 and s = 2)) != 4:
-        a = 'hello' + 'world'
-        if true or false:
-            g = g.f + 0
-            continue
-        else
-            c = 2
-            continue
-        else
-            break
-        end
-        return
+def greeting(name, suffix):
+    return 'hello ' + name + suffix
+end
+if (a.r > 2 and 1 < 3 or d >= 2 or (9 <= 4 and s = 2)) != 4:
+    a = 'hello' + 'world'
+    if true or false:
+        g = g.f + 0
+        continue
+    else
+        c = 2
+        continue
     end
-    a = 8.i
-    for g in h.p:
-        a = 9
-        f(a, 4)
-        break
-    end
-    c()
-    return a
+    return
+end
+a = 8.i
+for g in h.p:
+    a = 9
+    f(a, 4)
+    break
+end
+while a < 10:
+    a = a + 1
 end
 c(8,9)
