@@ -4,5 +4,7 @@ for a in b:
         if j > 0:
             c = 2
         end
+        break
     end
+    break
 end

@@ -39,16 +39,16 @@ def fun(a,b,c):
         else
             c = 2
         else
-            c = 2
+            break
             return
         end
-    return 0 + 1
+        return 0 + 1
     end
     a = 8.i
     for g in h.p:
         a = 9
         f(a, 4)
-        return 9
+        break
     end
     c()
     return a
