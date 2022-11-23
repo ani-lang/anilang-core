@@ -106,4 +106,17 @@ class AniParserCheckTest {
             "no errors for valid method call example"
         );
     }
+
+    @Test
+    void validWhileExample() throws IOException {
+        Assertions.assertEquals(
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.WHILE_VALID
+                ).inputStream()
+            ).errors().size(),
+            0,
+            "no errors for valid while example"
+        );
+    }
 }

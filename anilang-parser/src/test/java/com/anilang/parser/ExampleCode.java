@@ -53,7 +53,12 @@ public enum ExampleCode {
     /**
      * Valid method calls.
      */
-    METHOD_CALL_VALID("method_call_valid");
+    METHOD_CALL_VALID("method_call_valid"),
+
+    /**
+     * While statement.
+     */
+    WHILE_VALID("while_valid");
 
     /**
      * File name.

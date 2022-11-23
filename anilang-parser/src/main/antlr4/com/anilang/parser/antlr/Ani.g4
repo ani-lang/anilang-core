@@ -55,6 +55,7 @@ scriptBlock
 
 statement
     :   'if' expression elseScriptBlock
+    |   'while' expression scriptBlock
     |   'for' forControl scriptBlock
     |   'return' expression?
     |   'break'
