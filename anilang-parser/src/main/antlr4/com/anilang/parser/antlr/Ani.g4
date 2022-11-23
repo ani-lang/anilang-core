@@ -105,10 +105,16 @@ primary
 
 literal
     :   integerLiteral
+    |   booleanLiteral
     ;
 
 integerLiteral
     :   DecimalLiteral
+    ;
+
+booleanLiteral
+    :   'true'
+    |   'false'
     ;
 
 expressionList

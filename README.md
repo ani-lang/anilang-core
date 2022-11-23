@@ -34,7 +34,7 @@ v = v + 1 + ((2 - 3) * 4) / p.g(a)
 def fun(a,b,c):
     if (a.r > 2 and 1 < 3 or d >= 2 or (9 <= 4 and s = 2)) != 4:
         a = 0
-        if c:
+        if true or false:
             g = g.f + 0
             continue
         else
