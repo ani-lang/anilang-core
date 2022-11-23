@@ -8,12 +8,12 @@ if (a.r > 2 and 1 < 3 or d >= 2 or (9 <= 4 and s = 2)) != 4:
         g = g.f + 0
         continue
     else
-        c = 2
+        c = 2.3 + 54
         continue
     end
     return
 end
-a = 8.i
+a = i.u
 for g in h.p:
     a = 9
     f(a, 4)

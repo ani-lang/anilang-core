@@ -15,7 +15,10 @@ import org.junit.jupiter.api.Test;
 class AniParserCheckTest {
 
     // @checkstyle JavadocMethodCheck (500 lines)
-
+    /* @checkstyle MethodBodyCommentsCheck (5 lines)
+     * TODO actual and expected values are swapped
+     *  #46 let's fix the unit tests values.
+     */
     @Test
     void invalidCharacterAssignation() throws IOException {
         Assertions.assertEquals(
