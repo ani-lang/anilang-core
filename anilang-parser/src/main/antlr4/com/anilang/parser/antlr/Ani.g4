@@ -88,9 +88,25 @@ statement
     :   'if' expression elseScriptBlock
     |   'while' expression scriptBlock
     |   'for' forControl scriptBlock
+    |   'match' expression matchScriptBlock
     |   'return' expression?
     |   'break'
     |   'continue'
+    ;
+
+matchScriptBlock
+    :   ':' '\n' matchDeclaration* '\n' 'end'
+    ;
+
+matchDeclaration
+    :   matchLabel
+    |   '\n'
+    ;
+
+matchLabel
+    :   'case' expression scriptBlock
+    |   'case' Identifier scriptBlock
+    |   'default' scriptBlock
     ;
 
 elseScriptBlock

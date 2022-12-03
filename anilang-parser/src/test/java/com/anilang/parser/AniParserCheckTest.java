@@ -161,4 +161,17 @@ class AniParserCheckTest {
             "no errors for valid comment example"
         );
     }
+
+    @Test
+    void validMatchExample() throws IOException {
+        Assertions.assertEquals(
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.MATCH_VALID
+                ).inputStream()
+            ).errors().size(),
+            0,
+            "no errors for valid match example"
+        );
+    }
 }

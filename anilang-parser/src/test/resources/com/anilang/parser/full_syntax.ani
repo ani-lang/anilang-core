@@ -39,3 +39,16 @@ while a < 10:
     a = a + 1
 end
 c(8,9)
+match a:
+    case 1:
+        if a > 1:
+            return
+        end
+    end
+    case 2:
+        break
+    end
+    default:
+        return
+    end
+end

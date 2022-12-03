@@ -73,7 +73,12 @@ public enum ExampleCode {
     /**
      * Comment.
      */
-    COMMENT_VALID("comment_valid");
+    COMMENT_VALID("comment_valid"),
+
+    /**
+     * Match.
+     */
+    MATCH_VALID("match_valid");
 
     /**
      * File name.
