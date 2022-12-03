@@ -24,9 +24,13 @@ structBody
     :   ':' '\n' structBodyMember* '\n' 'end'
     ;
 
+type
+    :   Identifier ('[' ']')*
+    |   primitiveType ('[' ']')*
+    ;
+
 structBodyMember
-    :   Identifier
-    |   structDeclaration
+    :   type Identifier (IntegerLiteral (',' IntegerLiteral)*)?
     |   '\n'
     ;
 
@@ -127,6 +131,11 @@ variableDeclaratorId
 
 variableInitializer
     :   expression
+    |   arrayInitializer
+    ;
+
+arrayInitializer
+    :   '[' (variableInitializer (',' variableInitializer)* (',')? )? ']'
     ;
 
 expression
@@ -163,6 +172,12 @@ expressionList
     :   expression (',' expression)*
     ;
 
+primitiveType
+    :   'boolean'
+    |   'int'
+    |   'decimal'
+    |   'string'
+    ;
 
 Identifier
     :   [a-zA-Z_]+
