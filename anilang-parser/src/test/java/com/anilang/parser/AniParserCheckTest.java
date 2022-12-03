@@ -122,4 +122,17 @@ class AniParserCheckTest {
             "no errors for valid while example"
         );
     }
+
+    @Test
+    void validClassExample() throws IOException {
+        Assertions.assertEquals(
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.CLASS_VALID
+                ).inputStream()
+            ).errors().size(),
+            0,
+            "no errors for valid class example"
+        );
+    }
 }

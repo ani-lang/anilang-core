@@ -1,0 +1,8 @@
+class Hello:
+    a = 1
+    def foo(a,b,c):
+        if a:
+
+        end
+    end
+end

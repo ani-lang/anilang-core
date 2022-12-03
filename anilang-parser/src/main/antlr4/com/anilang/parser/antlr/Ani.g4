@@ -11,7 +11,22 @@ body
 bodyMember
     :   scriptLine
     |   funcDeclaration
+    |   classDeclaration
     |   '\n'+
+    ;
+
+classDeclaration
+    :   'class' Identifier classBody
+    ;
+
+classBody
+    :   ':' '\n' classBodyMember* '\n' 'end'
+    ;
+
+classBodyMember
+    :   variableDeclarator
+    |   funcDeclaration
+    |   '\n'
     ;
 
 scriptLine
