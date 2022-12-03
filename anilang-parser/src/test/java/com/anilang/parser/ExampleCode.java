@@ -68,7 +68,12 @@ public enum ExampleCode {
     /**
      * Struct.
      */
-    STRUCT_VALID("struct_valid");
+    STRUCT_VALID("struct_valid"),
+
+    /**
+     * Comment.
+     */
+    COMMENT_VALID("comment_valid");
 
     /**
      * File name.

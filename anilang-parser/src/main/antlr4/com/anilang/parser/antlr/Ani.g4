@@ -166,3 +166,11 @@ StringLiteral
 
 // toss out whitespace
 WS  :   [ \t]+ -> skip ;
+
+COMMENT
+    :   '/*' .*? '*/'    -> channel(HIDDEN)
+    ;
+
+LINE_COMMENT
+    :   '#' ~[\r\n]* '\r'? '\n' -> channel(HIDDEN)
+    ;

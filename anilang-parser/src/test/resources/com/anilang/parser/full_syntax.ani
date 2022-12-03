@@ -1,7 +1,11 @@
 v = v + 1 + ((2 - 3) * 4) / p.g(a)
+# a method
 def greeting(name, suffix):
     return 'hello ' + name + suffix
 end
+/*
+ * A Hello class
+ */
 class Hello:
     struct Person:
         age
