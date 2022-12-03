@@ -1,14 +1,9 @@
 struct Address:
-    name
-    number
+    string name 20
+    integer number 3
 end
-class A:
-    struct Person:
-        age
-        name
-        struct Address:
-            name
-            number
-        end
-    end
+struct Person:
+    string name 10
+    decimal height 1,2
+    Address address
 end

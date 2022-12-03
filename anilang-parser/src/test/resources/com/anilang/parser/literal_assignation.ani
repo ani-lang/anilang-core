@@ -3,3 +3,4 @@ a = true and false
 empty = ''
 greeting = 'hello' + 'world'
 decimals = 1.1 + 3.4 + 40 + a.r
+array = [1, 2, 3, 4, 5, 6]
