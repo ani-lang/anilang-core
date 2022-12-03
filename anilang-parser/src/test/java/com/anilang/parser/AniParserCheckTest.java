@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.1.0
  */
+@SuppressWarnings("PMD.TooManyMethods")
 class AniParserCheckTest {
 
     // @checkstyle JavadocMethodCheck (500 lines)
