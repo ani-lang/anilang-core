@@ -58,7 +58,12 @@ public enum ExampleCode {
     /**
      * While statement.
      */
-    WHILE_VALID("while_valid");
+    WHILE_VALID("while_valid"),
+
+    /**
+     * Class.
+     */
+    CLASS_VALID("class_valid");
 
     /**
      * File name.
