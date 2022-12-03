@@ -12,7 +12,22 @@ bodyMember
     :   scriptLine
     |   funcDeclaration
     |   classDeclaration
+    |   structDeclaration
     |   '\n'+
+    ;
+
+structDeclaration
+    :   'struct' Identifier structBody
+    ;
+
+structBody
+    :   ':' '\n' structBodyMember* '\n' 'end'
+    ;
+
+structBodyMember
+    :   Identifier
+    |   structDeclaration
+    |   '\n'
     ;
 
 classDeclaration
@@ -26,6 +41,7 @@ classBody
 classBodyMember
     :   variableDeclarator
     |   funcDeclaration
+    |   structDeclaration
     |   '\n'
     ;
 
