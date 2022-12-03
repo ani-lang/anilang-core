@@ -31,9 +31,13 @@ Step 2: Add the dependency
 This is an example of the supported syntax.
 ```
 v = v + 1 + ((2 - 3) * 4) / p.g(a)
+# a method
 def greeting(name, suffix):
     return 'hello ' + name + suffix
 end
+/*
+ * A Hello class
+ */
 class Hello:
     struct Person:
         age
