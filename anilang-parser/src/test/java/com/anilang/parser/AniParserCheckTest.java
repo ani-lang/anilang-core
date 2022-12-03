@@ -16,10 +16,6 @@ import org.junit.jupiter.api.Test;
 class AniParserCheckTest {
 
     // @checkstyle JavadocMethodCheck (500 lines)
-    /* @checkstyle MethodBodyCommentsCheck (5 lines)
-     * TODO actual and expected values are swapped
-     *  #46 let's fix the unit tests values.
-     */
     @Test
     void invalidCharacterAssignation() throws IOException {
         Assertions.assertEquals(
@@ -36,12 +32,12 @@ class AniParserCheckTest {
     @Test
     void validCharacterAssignation() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.LITERAL_ASSIGNATION
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid literal"
         );
     }
@@ -49,12 +45,12 @@ class AniParserCheckTest {
     @Test
     void validIfStatement() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.IF_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid if statement"
         );
     }
@@ -62,12 +58,12 @@ class AniParserCheckTest {
     @Test
     void validForStatement() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.FOR_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid for loop"
         );
     }
@@ -75,12 +71,12 @@ class AniParserCheckTest {
     @Test
     void validDefStatement() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.DEF_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid fun def"
         );
     }
@@ -88,12 +84,12 @@ class AniParserCheckTest {
     @Test
     void validFullExample() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.FULL_SYNTAX
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid full example"
         );
     }
@@ -101,12 +97,12 @@ class AniParserCheckTest {
     @Test
     void validMethodCallExample() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.METHOD_CALL_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid method call example"
         );
     }
@@ -114,12 +110,12 @@ class AniParserCheckTest {
     @Test
     void validWhileExample() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.WHILE_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid while example"
         );
     }
@@ -127,12 +123,12 @@ class AniParserCheckTest {
     @Test
     void validClassExample() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.CLASS_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid class example"
         );
     }
@@ -140,12 +136,12 @@ class AniParserCheckTest {
     @Test
     void validStructExample() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.STRUCT_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid struct example"
         );
     }
@@ -153,12 +149,12 @@ class AniParserCheckTest {
     @Test
     void validCommentExample() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.COMMENT_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid comment example"
         );
     }
@@ -166,12 +162,12 @@ class AniParserCheckTest {
     @Test
     void validMatchExample() throws IOException {
         Assertions.assertEquals(
+            0,
             new AniParserCheck(
                 new ExampleFile(
                     ExampleCode.MATCH_VALID
                 ).inputStream()
             ).errors().size(),
-            0,
             "no errors for valid match example"
         );
     }
