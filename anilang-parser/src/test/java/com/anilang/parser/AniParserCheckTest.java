@@ -135,4 +135,17 @@ class AniParserCheckTest {
             "no errors for valid class example"
         );
     }
+
+    @Test
+    void validStructExample() throws IOException {
+        Assertions.assertEquals(
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.STRUCT_VALID
+                ).inputStream()
+            ).errors().size(),
+            0,
+            "no errors for valid struct example"
+        );
+    }
 }

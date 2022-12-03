@@ -63,7 +63,12 @@ public enum ExampleCode {
     /**
      * Class.
      */
-    CLASS_VALID("class_valid");
+    CLASS_VALID("class_valid"),
+
+    /**
+     * Struct.
+     */
+    STRUCT_VALID("struct_valid");
 
     /**
      * File name.

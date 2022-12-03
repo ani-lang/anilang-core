@@ -34,16 +34,28 @@ v = v + 1 + ((2 - 3) * 4) / p.g(a)
 def greeting(name, suffix):
     return 'hello ' + name + suffix
 end
-if (a.r > 2 and 1 < 3 or d >= 2 or (9 <= 4 and s = 2)) != 4:
-    a = 'hello' + 'world'
-    if true or false:
-        g = g.f + 0
-        continue
-    else
-        c = 2.3 + 54
-        continue
+class Hello:
+    struct Person:
+        age
+        name
+        struct Address:
+            name
+            number
+        end
     end
-    return
+    def foo():
+        if (a.r > 2 and 1 < 3 or d >= 2 or (9 <= 4 and s = 2)) != 4:
+            a = 'hello' + 'world'
+            if true or false:
+                g = g.f + 0
+                continue
+            else
+                c = 2.3 + 54
+                continue
+            end
+            return
+        end
+    end
 end
 a = i.u
 for g in h.p:

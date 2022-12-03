@@ -1,0 +1,14 @@
+struct Address:
+    name
+    number
+end
+class A:
+    struct Person:
+        age
+        name
+        struct Address:
+            name
+            number
+        end
+    end
+end
