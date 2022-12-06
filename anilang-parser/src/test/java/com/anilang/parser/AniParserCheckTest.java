@@ -165,6 +165,19 @@ class AniParserCheckTest {
             0,
             new AniParserCheck(
                 new ExampleFile(
+                    ExampleCode.USE_CASE_ATM
+                ).inputStream()
+            ).errors().size(),
+            "no errors for atm example"
+        );
+    }
+
+    @Test
+    void useCaseAtmExample() throws IOException {
+        Assertions.assertEquals(
+            0,
+            new AniParserCheck(
+                new ExampleFile(
                     ExampleCode.MATCH_VALID
                 ).inputStream()
             ).errors().size(),
