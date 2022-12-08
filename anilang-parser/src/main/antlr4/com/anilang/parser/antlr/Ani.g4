@@ -52,6 +52,7 @@ classBodyMember
 scriptLine
     :   variableDeclarator
     |   statement
+    |   expression
     |   expression '(' expressionList? ')'
     |   '\n'+
     ;
