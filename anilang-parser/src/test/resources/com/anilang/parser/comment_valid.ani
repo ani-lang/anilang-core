@@ -2,3 +2,5 @@
 /*
 adsf
 */
+a = 1 # comment
+b = 3 /* comment */
