@@ -54,7 +54,6 @@ class Atm:
         for account in accounts:
             print('Account balance for ' + account.name + ':' + account.balance)
         end
-
     end
 end
 
@@ -71,13 +70,16 @@ user = atm.login(card, pin)
 if user = null:
     print('Authentication failed')
     # end the program
-    return
+    sys.exit()
 else
     print('Authentication succeed')
 end
-# withdraw $100
-atm.withdrawMoney(100)
-# print remaining balance
-atm.checkBalance()
+# withdraw money
+money = 0
+while money != null:
+    money = Scanner.read()
+    atm.withdrawMoney(money)
+    # print remaining balance
+    atm.checkBalance()
+end
 atm.logout()
-
