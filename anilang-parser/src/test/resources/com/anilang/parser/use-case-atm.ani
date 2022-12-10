@@ -1,5 +1,7 @@
 /**
  * ATM implementation.
+ * TODO use new sql statements in use case example
+ * #68
  */
 class Atm:
     userDb = UserDb()
@@ -29,7 +31,7 @@ class Atm:
      * Update the balance after a withdraw.
      */
     def withdrawMoney(amount):
-        if loggedUser = null:
+        if loggedUser == null:
             print('User not authenticated')
             return
         end
@@ -67,7 +69,7 @@ card = Scanner.read()
 pin = Scanner.read()
 # login
 user = atm.login(card, pin)
-if user = null:
+if user == null:
     print('Authentication failed')
     # end the program
     sys.exit()
