@@ -78,7 +78,12 @@ public enum ExampleCode {
     /**
      * Match.
      */
-    MATCH_VALID("match_valid");
+    MATCH_VALID("match_valid"),
+
+    /**
+     * ATM example.
+     */
+    USE_CASE_ATM("use-case-atm");
 
     /**
      * File name.

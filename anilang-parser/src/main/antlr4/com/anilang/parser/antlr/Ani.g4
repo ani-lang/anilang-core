@@ -52,6 +52,7 @@ classBodyMember
 scriptLine
     :   variableDeclarator
     |   statement
+    |   expression
     |   expression '(' expressionList? ')'
     |   '\n'+
     ;
@@ -180,7 +181,7 @@ primitiveType
     ;
 
 Identifier
-    :   [a-zA-Z_]+
+    :   [a-zA-Z_]+[a-zA-Z_0-9]*
     ;
 
 IntegerLiteral
@@ -199,9 +200,9 @@ StringLiteral
 WS  :   [ \t]+ -> skip ;
 
 COMMENT
-    :   '/*' .*? '*/'    -> channel(HIDDEN)
+    :   '/*' .*? '*/'    -> skip
     ;
 
 LINE_COMMENT
-    :   '#' ~[\r\n]* '\r'? '\n' -> channel(HIDDEN)
+    :   '#' ~[\r\n]* -> skip
     ;
