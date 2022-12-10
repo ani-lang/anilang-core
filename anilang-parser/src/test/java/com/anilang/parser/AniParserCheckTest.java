@@ -184,4 +184,17 @@ class AniParserCheckTest {
             "no errors for valid match example"
         );
     }
+
+    @Test
+    void sqlSelectExample() throws IOException {
+        Assertions.assertEquals(
+            0,
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.SELECT_SQL
+                ).inputStream()
+            ).errors().size(),
+            "no errors for valid sql select example"
+        );
+    }
 }

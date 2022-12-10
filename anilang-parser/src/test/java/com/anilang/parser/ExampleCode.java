@@ -83,7 +83,12 @@ public enum ExampleCode {
     /**
      * ATM example.
      */
-    USE_CASE_ATM("use-case-atm");
+    USE_CASE_ATM("use-case-atm"),
+
+    /**
+     * SELECT sql.
+     */
+    SELECT_SQL("select_sql");
 
     /**
      * File name.
