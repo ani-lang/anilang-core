@@ -144,7 +144,7 @@ expression
     |   expression '.' Identifier
     |   expression ('+'|'-') expression
     |   expression ('*'|'/') expression
-    |   expression ('=' | '!=') expression
+    |   expression ('==' | '!=') expression
     |   expression ('<' '=' | '>' '=' | '<' | '>') expression
     |   expression 'and' expression
     |   expression 'or' expression
