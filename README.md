@@ -39,6 +39,11 @@ end
  * A Hello class
  */
 class Hello:
+    select sqlStringVar:
+        column1, column2, column3
+        from table1, table2, table3
+        where table1.id = table2.table1_id and table3.state = 'active'
+    end
     struct Address:
         string name 20
         integer number 3
@@ -49,7 +54,7 @@ class Hello:
         Address address
     end
     def foo():
-        if (a.r > 2 and 1 < 3 or d >= 2 or (9 <= 4 and s = 2)) != 4:
+        if (a.r > 2 and 1 < 3 or d >= 2 or (9 <= 4 and s == 2)) != 4:
             a = 'hello' + 'world'
             if true or false:
                 g = g.f + 0

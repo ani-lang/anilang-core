@@ -46,6 +46,7 @@ classBodyMember
     :   variableDeclarator
     |   funcDeclaration
     |   structDeclaration
+    |   sqlDeclarator
     |   NEWLINE
     ;
 
@@ -54,7 +55,50 @@ scriptLine
     |   statement
     |   expression
     |   expression '(' expressionList? ')'
+    |   sqlDeclarator
     |   NEWLINE+
+    ;
+
+sqlDeclarator
+    :   inlineSqlClause Identifier sqlScriptBlock
+    ;
+
+inlineSqlClause
+    :   'select'
+    ;
+
+sqlScriptBlock
+    :   ':' NEWLINE sqlScriptBody NEWLINE 'end'
+    ;
+
+sqlScriptBody
+    :   sqlSelectStatement
+    ;
+
+sqlSelectStatement
+    :   sqlExpressionList NEWLINE
+        'from' Identifier (',' Identifier)* NEWLINE
+        sqlWhereClause
+    ;
+
+sqlWhereClause
+    :   'where' sqlExpression
+    ;
+
+sqlExpression
+    :   primary
+    |   sqlExpression '.' Identifier
+    |   sqlExpression ('+'|'-') sqlExpression
+    |   sqlExpression ('*'|'/') sqlExpression
+    |   sqlExpression ('=' | '!=') sqlExpression
+    |   sqlExpression ('<' '=' | '>' '=' | '<' | '>') sqlExpression
+    |   sqlExpression 'and' sqlExpression
+    |   sqlExpression 'or' sqlExpression
+    |   sqlExpression '(' sqlExpressionList? ')'
+    ;
+
+sqlExpressionList
+    :   sqlExpression (',' sqlExpression)*
     ;
 
 funcDeclaration
