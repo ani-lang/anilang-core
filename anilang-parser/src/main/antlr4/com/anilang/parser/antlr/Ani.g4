@@ -13,7 +13,7 @@ bodyMember
     |   funcDeclaration
     |   classDeclaration
     |   structDeclaration
-    |   '\n'+
+    |   NEWLINE+
     ;
 
 structDeclaration
@@ -21,7 +21,7 @@ structDeclaration
     ;
 
 structBody
-    :   ':' '\n' structBodyMember* '\n' 'end'
+    :   ':' NEWLINE structBodyMember* NEWLINE 'end'
     ;
 
 type
@@ -31,7 +31,7 @@ type
 
 structBodyMember
     :   type Identifier (IntegerLiteral (',' IntegerLiteral)*)?
-    |   '\n'
+    |   NEWLINE
     ;
 
 classDeclaration
@@ -39,14 +39,14 @@ classDeclaration
     ;
 
 classBody
-    :   ':' '\n' classBodyMember* '\n' 'end'
+    :   ':' NEWLINE classBodyMember* NEWLINE 'end'
     ;
 
 classBodyMember
     :   variableDeclarator
     |   funcDeclaration
     |   structDeclaration
-    |   '\n'
+    |   NEWLINE
     ;
 
 scriptLine
@@ -54,7 +54,7 @@ scriptLine
     |   statement
     |   expression
     |   expression '(' expressionList? ')'
-    |   '\n'+
+    |   NEWLINE+
     ;
 
 funcDeclaration
@@ -86,7 +86,7 @@ methodBody
     ;
 
 scriptBlock
-    :   ':' '\n' scriptLine* '\n' 'end'
+    :   ':' NEWLINE scriptLine* NEWLINE 'end'
     ;
 
 statement
@@ -100,12 +100,12 @@ statement
     ;
 
 matchScriptBlock
-    :   ':' '\n' matchDeclaration* '\n' 'end'
+    :   ':' NEWLINE matchDeclaration* NEWLINE 'end'
     ;
 
 matchDeclaration
     :   matchLabel
-    |   '\n'
+    |   NEWLINE
     ;
 
 matchLabel
@@ -115,7 +115,7 @@ matchLabel
     ;
 
 elseScriptBlock
-    :   ':' '\n' scriptLine* ('else' '\n' scriptLine*)* '\n' 'end'
+    :   ':' NEWLINE scriptLine* ('else' NEWLINE scriptLine*)* NEWLINE 'end'
     ;
 
 forControl
@@ -205,4 +205,8 @@ COMMENT
 
 LINE_COMMENT
     :   '#' ~[\r\n]* -> skip
+    ;
+
+NEWLINE
+    : '\r'? '\n'
     ;
