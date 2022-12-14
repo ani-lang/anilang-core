@@ -93,7 +93,12 @@ public enum ExampleCode {
     /**
      * UPDATE sql.
      */
-    UPDATE_SQL("update_sql");
+    UPDATE_SQL("update_sql"),
+
+    /**
+     * DELETE sql.
+     */
+    DELETE_SQL("delete-sql");
 
     /**
      * File name.

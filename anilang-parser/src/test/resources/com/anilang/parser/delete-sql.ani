@@ -1,0 +1,10 @@
+delete> a
+class b:
+    delete> c
+    def d():
+        delete> e
+        if f:
+        delete> g
+        end
+    end
+end

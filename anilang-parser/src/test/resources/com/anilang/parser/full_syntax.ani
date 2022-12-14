@@ -45,6 +45,7 @@ end
 while a < 10:
     a = a + 1
 end
+delete> a
 c(8,9)
 match a:
     case 1:

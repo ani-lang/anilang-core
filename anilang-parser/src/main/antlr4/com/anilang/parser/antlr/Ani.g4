@@ -66,6 +66,7 @@ sqlDeclarator
 inlineSqlClause
     :   'select>'
     |   'update>'
+    |   'delete>'
     ;
 
 sqlScriptBlock
