@@ -88,7 +88,12 @@ public enum ExampleCode {
     /**
      * SELECT sql.
      */
-    SELECT_SQL("select_sql");
+    SELECT_SQL("select_sql"),
+
+    /**
+     * UPDATE sql.
+     */
+    UPDATE_SQL("update_sql");
 
     /**
      * File name.

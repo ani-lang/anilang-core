@@ -39,7 +39,7 @@ end
  * A Hello class
  */
 class Hello:
-    select sqlStringVar:
+    select> sqlStringVar:
         column1, column2, column3
         from table1, table2, table3
         where table1.id = table2.table1_id and table3.state = 'active'
@@ -61,6 +61,7 @@ class Hello:
                 continue
             else
                 c = [2.3, 54]
+                update> c
                 continue
             end
             return

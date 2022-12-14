@@ -60,11 +60,12 @@ scriptLine
     ;
 
 sqlDeclarator
-    :   inlineSqlClause Identifier sqlScriptBlock
+    :   inlineSqlClause expression sqlScriptBlock?
     ;
 
 inlineSqlClause
-    :   'select'
+    :   'select>'
+    |   'update>'
     ;
 
 sqlScriptBlock

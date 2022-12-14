@@ -1,0 +1,10 @@
+update> a
+class b:
+    update> c
+    def d():
+        update> e
+        if f:
+        update> g
+        end
+    end
+end
