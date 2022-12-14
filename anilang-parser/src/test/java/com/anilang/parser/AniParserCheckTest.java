@@ -223,4 +223,17 @@ class AniParserCheckTest {
             "no errors for valid sql delete example"
         );
     }
+
+    @Test
+    void sqlInsertExample() throws IOException {
+        Assertions.assertEquals(
+            0,
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.INSERT_SQL
+                ).inputStream()
+            ).errors().size(),
+            "no errors for valid sql insert example"
+        );
+    }
 }

@@ -98,7 +98,12 @@ public enum ExampleCode {
     /**
      * DELETE sql.
      */
-    DELETE_SQL("delete-sql");
+    DELETE_SQL("delete-sql"),
+
+    /**
+     * INSERT sql.
+     */
+    INSERT_SQL("insert-sql");
 
     /**
      * File name.

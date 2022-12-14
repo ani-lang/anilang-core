@@ -26,6 +26,7 @@ class Hello:
             a = 'hello' + 'world'
             if true or false:
                 g = g.f + 0
+                insert> g
                 continue
             else
                 c = [2.3, 54]

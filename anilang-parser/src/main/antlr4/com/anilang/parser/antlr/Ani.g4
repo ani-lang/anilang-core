@@ -67,6 +67,7 @@ inlineSqlClause
     :   'select>'
     |   'update>'
     |   'delete>'
+    |   'insert>'
     ;
 
 sqlScriptBlock
