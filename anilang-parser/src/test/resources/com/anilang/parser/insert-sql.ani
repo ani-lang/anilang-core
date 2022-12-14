@@ -1,0 +1,10 @@
+insert> a
+class b:
+    insert> c
+    def d():
+        insert> e
+        if f:
+        insert> g
+        end
+    end
+end
