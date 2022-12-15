@@ -1,7 +1,5 @@
 /**
  * ATM implementation.
- * TODO use new sql statements in use case example
- * #68
  */
 class Atm:
     userDb = UserDb()
@@ -12,7 +10,11 @@ class Atm:
      * Try to login using the provided credentials
      */
     def login(card, pin):
-        userSql = 'select * from user where card_number=' + card + ' and pin=' + 'pin'
+        select> userSql:
+            *
+            from user
+            where card_number = card and pin = pin
+        end
         user = userDb.query(userSql).first()
         if user != null:
             loggedUser = user
@@ -35,15 +37,18 @@ class Atm:
             print('User not authenticated')
             return
         end
-        accountSql = 'select * from account where user_id =' + loggedUser.id
+        select> accountSql:
+            *
+            from account
+            where user_id = loggedUser.id
+        end
         account = accountDb.query(accountSql).first()
         if account.balance < amount:
             print('Not enough money for withdraw')
             return
         end
-        newBalance = account.balance - amount
-        updateBalance = 'update account set balance=' + newBalance + ' where id=' + account.id
-        accountDb.update(updateBalance)
+        account.balance = account.balance - amount
+        update> account
         print('Account balance updated')
     end
 
@@ -51,7 +56,11 @@ class Atm:
      * print the remaining balance of the logged user.
      */
     def checkBalance():
-        accountSql = 'select * from account where user_id =' + loggedUser.id
+        select> accountSql:
+            *
+            from account
+            where user_id = loggedUser.id
+        end
         accounts = accountDb.query(accountSql).list()
         for account in accounts:
             print('Account balance for ' + account.name + ':' + account.balance)

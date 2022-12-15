@@ -90,7 +90,8 @@ sqlWhereClause
 
 sqlExpression
     :   primary
-    |   sqlExpression '.' Identifier
+    |   '*'
+    |   sqlExpression '.' (Identifier | '*')
     |   sqlExpression ('+'|'-') sqlExpression
     |   sqlExpression ('*'|'/') sqlExpression
     |   sqlExpression ('=' | '!=') sqlExpression
@@ -196,6 +197,7 @@ expression
     |   expression 'and' expression
     |   expression 'or' expression
     |   expression '(' expressionList? ')'
+    |   expression '=' expression
     ;
 
 primary
