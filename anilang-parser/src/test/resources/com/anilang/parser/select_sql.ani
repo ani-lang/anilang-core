@@ -5,13 +5,13 @@ select> sqlStringVar:
 end
 class a:
     select> sqlStringVar:
-        column1, column2, column3
+        table1.*, column2, column3
         from table1, table2, table3
         where table1.id = table2.table1_id and table3.state = 'active'
     end
     def a():
         select> sqlStringVar:
-            column1, column2, column3
+            *
             from table1, table2, table3
             where table1.id = table2.table1_id and table3.state = 'active'
         end
