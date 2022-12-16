@@ -32,7 +32,7 @@ This is an example of the supported syntax.
 ```
 v = v + 1 + ((2 - 3) * 4) / p.g(a)
 # a method
-def greeting(name, suffix):
+def greeting(string name, string suffix):
     return 'hello ' + name + suffix
 end
 /*
@@ -58,6 +58,7 @@ class Hello:
             a = 'hello' + 'world'
             if true or false:
                 g = g.f + 0
+                insert> g
                 continue
             else
                 c = [2.3, 54]
@@ -77,6 +78,7 @@ end
 while a < 10:
     a = a + 1
 end
+delete> a
 c(8,9)
 match a:
     case 1:

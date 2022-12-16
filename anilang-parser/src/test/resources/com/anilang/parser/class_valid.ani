@@ -1,6 +1,6 @@
 class Hello:
     a = 1
-    def foo(a,b,c):
+    def foo(a a,b b,c c):
         if a:
 
         end
