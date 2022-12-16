@@ -9,7 +9,7 @@ class Atm:
     /**
      * Try to login using the provided credentials
      */
-    def login(card, pin):
+    def login(string card, number pin):
         select> userSql:
             *
             from user
@@ -32,7 +32,7 @@ class Atm:
     /**
      * Update the balance after a withdraw.
      */
-    def withdrawMoney(amount):
+    def withdrawMoney(number amount):
         if loggedUser == null:
             print('User not authenticated')
             return

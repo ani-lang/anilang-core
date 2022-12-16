@@ -1,6 +1,6 @@
 v = v + 1 + ((2 - 3) * 4) / p.g(a)
 # a method
-def greeting(name, suffix):
+def greeting(string name, string suffix):
     return 'hello ' + name + suffix
 end
 /*

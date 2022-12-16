@@ -118,7 +118,7 @@ formalParameters
     ;
 
 formalParameterDecls
-    :   formalParameterDeclsRest
+    :   type formalParameterDeclsRest
     ;
 
 formalParameterDeclsRest
