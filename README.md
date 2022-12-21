@@ -30,6 +30,8 @@ Step 2: Add the dependency
 ## Syntax example
 This is an example of the supported syntax.
 ```
+import 'tools'
+
 v = v + 1 + ((2 - 3) * 4) / p.g(a)
 # a method
 def greeting(string name, string suffix):
@@ -39,10 +41,10 @@ end
  * A Hello class
  */
 class Hello:
-    select> sqlStringVar:
+    sql.select sqlStringVar:
         column1, column2, column3
         from table1, table2, table3
-        where table1.id = table2.table1_id and table3.state = 'active'
+        where table1.id = table2.table1_id and table3.state = {'active'}
     end
     struct Address:
         string name 20
@@ -50,7 +52,7 @@ class Hello:
     end
     struct Person:
         string name 10
-        decimal height 1,2
+        float height 1,2
         Address address
     end
     def foo():
@@ -62,7 +64,7 @@ class Hello:
                 continue
             else
                 c = [2.3, 54]
-                update> c
+                sql.update c
                 continue
             end
             return
@@ -78,7 +80,7 @@ end
 while a < 10:
     a = a + 1
 end
-delete> a
+sql.delete a
 c(8,9)
 match a:
     case 1:

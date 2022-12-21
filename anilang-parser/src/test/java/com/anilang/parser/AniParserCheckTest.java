@@ -249,4 +249,17 @@ class AniParserCheckTest {
             "no errors for valid import declaration example"
         );
     }
+
+    @Test
+    void primitiveTypesExample() throws IOException {
+        Assertions.assertEquals(
+            0,
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.PRIMITIVE_TYPES
+                ).inputStream()
+            ).errors().size(),
+            "no errors for valid primitive types example"
+        );
+    }
 }

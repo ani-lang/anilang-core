@@ -239,8 +239,11 @@ expressionList
 primitiveType
     :   'boolean'
     |   'int'
-    |   'decimal'
+    |   'float'
     |   'string'
+    |   'list'
+    |   'dict'
+    |   'set'
     ;
 
 Identifier

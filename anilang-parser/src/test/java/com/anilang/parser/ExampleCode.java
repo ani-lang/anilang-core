@@ -108,7 +108,12 @@ public enum ExampleCode {
     /**
      * Import declaration.
      */
-    IMPORT_DECLARATION("import-declaration");
+    IMPORT_DECLARATION("import-declaration"),
+
+    /**
+     * Primitive types.
+     */
+    PRIMITIVE_TYPES("primitive-types");
 
     /**
      * File name.
