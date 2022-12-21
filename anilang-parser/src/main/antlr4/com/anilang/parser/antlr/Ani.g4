@@ -64,10 +64,10 @@ sqlDeclarator
     ;
 
 inlineSqlClause
-    :   'select>'
-    |   'update>'
-    |   'delete>'
-    |   'insert>'
+    :   'sql.select'
+    |   'sql.update'
+    |   'sql.delete'
+    |   'sql.insert'
     ;
 
 sqlScriptBlock

@@ -1,10 +1,10 @@
-insert> a
+sql.insert a
 class b:
-    insert> c
+    sql.insert c
     def d():
-        insert> e
+        sql.insert e
         if f:
-        insert> g
+        sql.insert g
         end
     end
 end

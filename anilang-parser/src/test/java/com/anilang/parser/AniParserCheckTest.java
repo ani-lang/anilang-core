@@ -165,7 +165,7 @@ class AniParserCheckTest {
             0,
             new AniParserCheck(
                 new ExampleFile(
-                    ExampleCode.USE_CASE_ATM
+                    ExampleCode.MATCH_VALID
                 ).inputStream()
             ).errors().size(),
             "no errors for atm example"
@@ -178,7 +178,7 @@ class AniParserCheckTest {
             0,
             new AniParserCheck(
                 new ExampleFile(
-                    ExampleCode.MATCH_VALID
+                    ExampleCode.USE_CASE_ATM
                 ).inputStream()
             ).errors().size(),
             "no errors for valid match example"
