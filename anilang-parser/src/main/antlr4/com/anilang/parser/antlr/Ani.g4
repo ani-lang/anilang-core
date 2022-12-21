@@ -99,6 +99,7 @@ sqlExpression
     |   sqlExpression 'and' sqlExpression
     |   sqlExpression 'or' sqlExpression
     |   sqlExpression '(' sqlExpressionList? ')'
+    |   '{' expression '}'
     ;
 
 sqlExpressionList
