@@ -5,7 +5,12 @@ file
     ;
 
 body
-    :   bodyMember*
+    :   (importDeclaration NEWLINE)*
+        bodyMember*
+    ;
+
+importDeclaration
+    :   'import' StringLiteral
     ;
 
 bodyMember

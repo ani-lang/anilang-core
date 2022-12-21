@@ -236,4 +236,17 @@ class AniParserCheckTest {
             "no errors for valid sql insert example"
         );
     }
+
+    @Test
+    void importDeclarationExample() throws IOException {
+        Assertions.assertEquals(
+            0,
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.IMPORT_DECLARATION
+                ).inputStream()
+            ).errors().size(),
+            "no errors for valid import declaration example"
+        );
+    }
 }

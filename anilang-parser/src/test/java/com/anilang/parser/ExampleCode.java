@@ -103,7 +103,12 @@ public enum ExampleCode {
     /**
      * INSERT sql.
      */
-    INSERT_SQL("insert-sql");
+    INSERT_SQL("insert-sql"),
+
+    /**
+     * Import declaration.
+     */
+    IMPORT_DECLARATION("import-declaration");
 
     /**
      * File name.
