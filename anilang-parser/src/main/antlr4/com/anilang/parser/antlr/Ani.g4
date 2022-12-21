@@ -80,12 +80,20 @@ sqlScriptBody
 
 sqlSelectStatement
     :   sqlExpressionList NEWLINE
-        'from' Identifier (',' Identifier)* NEWLINE
-        sqlWhereClause
+        sqlFromClause NEWLINE
+        sqlWhereClause (NEWLINE sqlOrderByClause)?
+    ;
+
+sqlFromClause
+    :   'from' Identifier (',' Identifier)*
     ;
 
 sqlWhereClause
     :   'where' sqlExpression
+    ;
+
+sqlOrderByClause
+    :   'order by' sqlExpressionList
     ;
 
 sqlExpression

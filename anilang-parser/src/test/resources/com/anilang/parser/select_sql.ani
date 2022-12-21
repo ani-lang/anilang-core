@@ -2,6 +2,7 @@ sql.select sqlStringVar:
     column1, column2, column3
     from table1, table2, table3
     where table1.id = table2.table1_id and table3.state = {'active'}
+    order by table1.id, table2.number
 end
 class a:
     sql.select sqlStringVar:
