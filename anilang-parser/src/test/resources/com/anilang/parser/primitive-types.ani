@@ -1,0 +1,17 @@
+def foo(boolean a, int a, float a, string a, list a, dict a, set a):
+
+end
+
+def array(boolean[] a, int[][] a, float[][][] a, string[] a, list[] a, dict[][][] a, set[] a):
+
+end
+
+struct a:
+    boolean a
+    int a
+    float a
+    string a
+    list a
+    dict a
+    set a
+end

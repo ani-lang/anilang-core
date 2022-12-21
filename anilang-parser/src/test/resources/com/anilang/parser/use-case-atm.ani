@@ -9,8 +9,8 @@ class Atm:
     /**
      * Try to login using the provided credentials
      */
-    def login(string card, number pin):
-        select> userSql:
+    def login(string card, int pin):
+        sql.select userSql:
             *
             from user
             where card_number = card and pin = pin
@@ -32,12 +32,12 @@ class Atm:
     /**
      * Update the balance after a withdraw.
      */
-    def withdrawMoney(number amount):
+    def withdrawMoney(int amount):
         if loggedUser == null:
             print('User not authenticated')
             return
         end
-        select> accountSql:
+        sql.select accountSql:
             *
             from account
             where user_id = loggedUser.id
@@ -48,7 +48,7 @@ class Atm:
             return
         end
         account.balance = account.balance - amount
-        update> account
+        sql.update account
         print('Account balance updated')
     end
 
@@ -56,12 +56,12 @@ class Atm:
      * print the remaining balance of the logged user.
      */
     def checkBalance():
-        select> accountSql:
+        sql.select accountSql:
             *
             from account
             where user_id = loggedUser.id
         end
-        accounts = accountDb.query(accountSql).list()
+        accounts = accountDb.query(accountSql).asList()
         for account in accounts:
             print('Account balance for ' + account.name + ':' + account.balance)
         end

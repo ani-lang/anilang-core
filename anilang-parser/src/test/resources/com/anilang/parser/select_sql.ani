@@ -1,22 +1,23 @@
-select> sqlStringVar:
+sql.select sqlStringVar:
     column1, column2, column3
     from table1, table2, table3
     where table1.id = table2.table1_id and table3.state = {'active'}
+    order by table1.id, table2.number
 end
 class a:
-    select> sqlStringVar:
+    sql.select sqlStringVar:
         table1.*, column2, column3
         from table1, table2, table3
         where table1.id = table2.table1_id and table3.state = {'active'}
     end
     def a():
-        select> sqlStringVar:
+        sql.select sqlStringVar:
             *
             from table1, table2, table3
             where table1.id = table2.table1_id and table3.state = {'active'}
         end
         if a:
-            select> sqlStringVar:
+            sql.select sqlStringVar:
                 column1, column2, column3
                 from table1, table2, table3
                 where table1.id = table2.table1_id and table3.state = {'active'}

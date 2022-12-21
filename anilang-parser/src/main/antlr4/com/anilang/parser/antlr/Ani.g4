@@ -5,7 +5,12 @@ file
     ;
 
 body
-    :   bodyMember*
+    :   (importDeclaration NEWLINE)*
+        bodyMember*
+    ;
+
+importDeclaration
+    :   'import' StringLiteral
     ;
 
 bodyMember
@@ -64,10 +69,10 @@ sqlDeclarator
     ;
 
 inlineSqlClause
-    :   'select>'
-    |   'update>'
-    |   'delete>'
-    |   'insert>'
+    :   'sql.select'
+    |   'sql.update'
+    |   'sql.delete'
+    |   'sql.insert'
     ;
 
 sqlScriptBlock
@@ -80,12 +85,20 @@ sqlScriptBody
 
 sqlSelectStatement
     :   sqlExpressionList NEWLINE
-        'from' Identifier (',' Identifier)* NEWLINE
-        sqlWhereClause
+        sqlFromClause NEWLINE
+        sqlWhereClause (NEWLINE sqlOrderByClause)?
+    ;
+
+sqlFromClause
+    :   'from' Identifier (',' Identifier)*
     ;
 
 sqlWhereClause
     :   'where' sqlExpression
+    ;
+
+sqlOrderByClause
+    :   'order by' sqlExpressionList
     ;
 
 sqlExpression
@@ -226,8 +239,11 @@ expressionList
 primitiveType
     :   'boolean'
     |   'int'
-    |   'decimal'
+    |   'float'
     |   'string'
+    |   'list'
+    |   'dict'
+    |   'set'
     ;
 
 Identifier

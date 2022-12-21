@@ -165,7 +165,7 @@ class AniParserCheckTest {
             0,
             new AniParserCheck(
                 new ExampleFile(
-                    ExampleCode.USE_CASE_ATM
+                    ExampleCode.MATCH_VALID
                 ).inputStream()
             ).errors().size(),
             "no errors for atm example"
@@ -178,7 +178,7 @@ class AniParserCheckTest {
             0,
             new AniParserCheck(
                 new ExampleFile(
-                    ExampleCode.MATCH_VALID
+                    ExampleCode.USE_CASE_ATM
                 ).inputStream()
             ).errors().size(),
             "no errors for valid match example"
@@ -234,6 +234,32 @@ class AniParserCheckTest {
                 ).inputStream()
             ).errors().size(),
             "no errors for valid sql insert example"
+        );
+    }
+
+    @Test
+    void importDeclarationExample() throws IOException {
+        Assertions.assertEquals(
+            0,
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.IMPORT_DECLARATION
+                ).inputStream()
+            ).errors().size(),
+            "no errors for valid import declaration example"
+        );
+    }
+
+    @Test
+    void primitiveTypesExample() throws IOException {
+        Assertions.assertEquals(
+            0,
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.PRIMITIVE_TYPES
+                ).inputStream()
+            ).errors().size(),
+            "no errors for valid primitive types example"
         );
     }
 }

@@ -1,10 +1,10 @@
-update> a
+sql.update a
 class b:
-    update> c
+    sql.update c
     def d():
-        update> e
+        sql.update e
         if f:
-        update> g
+        sql.update g
         end
     end
 end

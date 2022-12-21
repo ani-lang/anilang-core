@@ -1,10 +1,10 @@
-delete> a
+sql.delete a
 class b:
-    delete> c
+    sql.delete c
     def d():
-        delete> e
+        sql.delete e
         if f:
-        delete> g
+        sql.delete g
         end
     end
 end

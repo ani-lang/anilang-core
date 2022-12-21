@@ -4,6 +4,6 @@ struct Address:
 end
 struct Person:
     string name 10
-    decimal height 1,2
+    float height 1,2
     Address address
 end
