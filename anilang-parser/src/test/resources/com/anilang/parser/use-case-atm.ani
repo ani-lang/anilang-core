@@ -13,7 +13,7 @@ class Atm:
         sql.select userSql:
             *
             from user
-            where card_number = card and pin = pin
+            where card_number = { card } and { pin } = { pin }
         end
         user = userDb.query(userSql).first()
         if user != null:
@@ -40,7 +40,7 @@ class Atm:
         sql.select accountSql:
             *
             from account
-            where user_id = loggedUser.id
+            where user_id = { loggedUser.id }
         end
         account = accountDb.query(accountSql).first()
         if account.balance < amount:
@@ -59,7 +59,7 @@ class Atm:
         sql.select accountSql:
             *
             from account
-            where user_id = loggedUser.id
+            where user_id = { loggedUser.id }
         end
         accounts = accountDb.query(accountSql).asList()
         for account in accounts:
