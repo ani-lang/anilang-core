@@ -14,6 +14,7 @@
     <name>ani</name>
     <modules>
         <module>anilang-parser</module>
+        <module>anilang-context</module>
     </modules>
     <description>Ani Language parser and compiler</description>
     <url>https://github.com/anilang/core</url>

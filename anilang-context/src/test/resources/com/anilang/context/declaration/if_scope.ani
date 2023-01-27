@@ -1,0 +1,14 @@
+if true:
+    b = 1
+end
+
+if a:
+    c = true
+    if c:
+        d = 2
+    end
+
+    if d:
+        h = 0
+    end
+end

@@ -1,0 +1,13 @@
+class A:
+    struct S:
+
+    end
+
+    def foo(S a):
+
+    end
+end
+
+class B:
+    c = A()
+end

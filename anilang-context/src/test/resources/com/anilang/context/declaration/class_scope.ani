@@ -1,0 +1,10 @@
+class A:
+    a = 1
+    def foo(int b):
+
+    end
+end
+
+class B:
+    c = A()
+end

@@ -1,0 +1,17 @@
+match a:
+    case 1:
+        b = 1
+        break
+    end
+    case a + 2:
+        c = a
+        break
+    end
+    case FIVE:
+        d = 5
+        break
+    end
+    default:
+        e = 0
+    end
+end

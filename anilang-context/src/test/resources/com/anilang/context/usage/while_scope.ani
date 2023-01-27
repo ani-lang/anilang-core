@@ -1,0 +1,7 @@
+a = 1
+while a:
+    c = a
+    while c:
+        d = 2
+    end
+end
