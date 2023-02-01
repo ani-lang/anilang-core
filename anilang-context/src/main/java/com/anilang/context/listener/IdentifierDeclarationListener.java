@@ -36,13 +36,6 @@ public final class IdentifierDeclarationListener extends AniBaseListener {
     }
 
     @Override
-    public void enterSqlDeclarator(final AniParser.SqlDeclaratorContext ctx) {
-        context.addContext(
-            new BaseEntry(ctx, ctx.Identifier().getText())
-        );
-    }
-
-    @Override
     public void enterFuncDeclaration(final AniParser.FuncDeclarationContext ctx) {
         context.addContext(
             new BaseEntry(ctx, ctx.Identifier().getText())
@@ -51,9 +44,17 @@ public final class IdentifierDeclarationListener extends AniBaseListener {
 
     @Override
     public void enterVariableDeclaratorId(final AniParser.VariableDeclaratorIdContext ctx) {
-        context.addContext(
-            new BaseEntry(ctx, ctx.Identifier().getText())
-        );
+        /*
+         * If it's already declared then this is a reference not a declaration.
+         */
+        if (!context.hasDeclaration(ctx, ctx.Identifier().getText())) {
+            context.addContext(
+                new BaseEntry(
+                    ctx,
+                    ctx.Identifier().getText()
+                )
+            );
+        }
     }
 
     @Override

@@ -158,15 +158,45 @@ class IdentifierUsageListenerTest {
             "$file$a",
             context.get(context.get("3-3").getDeclarationKey()).getParents()
         );
-        Assertions.assertEquals("$file$if3-0$a", context.get("4-8").getParents());
+        Assertions.assertEquals("$file$if3-0$if-block4-4$a", context.get("4-8").getParents());
         Assertions.assertEquals(
             "$file$a",
             context.get(context.get("4-8").getDeclarationKey()).getParents()
         );
-        Assertions.assertEquals("$file$if3-0$if5-4$b", context.get("5-7").getParents());
+        Assertions.assertEquals("$file$if3-0$if-block4-4$if5-4$b", context.get("5-7").getParents());
         Assertions.assertEquals(
-            "$file$if3-0$b",
+            "$file$if3-0$if-block4-4$b",
             context.get(context.get("5-7").getDeclarationKey()).getParents()
+        );
+    }
+
+    @Test
+    void else_usage_declaration() throws IOException {
+        final AniParser parser = new AniFile(
+            new ExampleFile("usage/else_scope.ani").inputStream()
+        ).parse();
+        final AniContext context = new BaseAniContext();
+
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierDeclarationListener(context),
+            parser.file()
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierUsageListener(context),
+            parser.file()
+        );
+
+        Assertions.assertEquals(4, context.size());
+        Assertions.assertEquals("$file$if3-0$a", context.get("3-3").getParents());
+        Assertions.assertEquals(
+            "$file$a",
+            context.get(context.get("3-3").getDeclarationKey()).getParents()
+        );
+        Assertions.assertEquals("$file$if3-0$else-block5-0$a", context.get("6-8").getParents());
+        Assertions.assertEquals(
+            "$file$a",
+            context.get(context.get("6-8").getDeclarationKey()).getParents()
         );
     }
 
@@ -187,21 +217,31 @@ class IdentifierUsageListenerTest {
             parser.file()
         );
 
-        Assertions.assertEquals(6, context.size());
+        Assertions.assertEquals(8, context.size());
         Assertions.assertEquals("$file$while2-0$a", context.get("2-6").getParents());
         Assertions.assertEquals(
             "$file$a",
             context.get(context.get("2-6").getDeclarationKey()).getParents()
+        );
+        Assertions.assertEquals("$file$while2-0$a", context.get("3-4").getParents());
+        Assertions.assertEquals(
+            "$file$a",
+            context.get(context.get("3-4").getDeclarationKey()).getParents()
         );
         Assertions.assertEquals("$file$while2-0$a", context.get("3-8").getParents());
         Assertions.assertEquals(
             "$file$a",
             context.get(context.get("3-8").getDeclarationKey()).getParents()
         );
-        Assertions.assertEquals("$file$while2-0$while4-4$c", context.get("4-10").getParents());
+        Assertions.assertEquals("$file$while2-0$a", context.get("4-8").getParents());
+        Assertions.assertEquals(
+            "$file$a",
+            context.get(context.get("4-8").getDeclarationKey()).getParents()
+        );
+        Assertions.assertEquals("$file$while2-0$while5-4$c", context.get("5-10").getParents());
         Assertions.assertEquals(
             "$file$while2-0$c",
-            context.get(context.get("4-10").getDeclarationKey()).getParents()
+            context.get(context.get("5-10").getDeclarationKey()).getParents()
         );
     }
 

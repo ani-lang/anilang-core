@@ -16,9 +16,11 @@ public final class ContextToKeys {
     }
 
     public Map<String, String> asMap() {
+        // TODO: 31-01-23 test case: only declaration, no reference
         return aniContext.asMap()
             .entrySet()
             .stream()
+            .filter(item -> item.getValue().getIdentifierType() == IdentifierType.DECLARATION)
             .collect(
                 Collectors.toMap(
                     entry -> entry.getValue().getParents(),

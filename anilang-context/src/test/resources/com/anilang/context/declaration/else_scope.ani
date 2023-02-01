@@ -1,0 +1,5 @@
+if true:
+    b = 1
+else
+    d = 2
+end

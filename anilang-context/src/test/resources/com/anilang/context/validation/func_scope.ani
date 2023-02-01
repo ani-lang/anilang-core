@@ -1,0 +1,9 @@
+def foo(Person b):
+    a = 1
+    foo()
+    return b
+end
+
+struct Person:
+
+end

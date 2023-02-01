@@ -12,18 +12,21 @@ public class BaseEntry implements ContextEntry {
     protected final ParserRuleContext ctx;
     private final String identifier;
     private final String declarationKey;
+    private final IdentifierType identifierType;
 
     public BaseEntry(final ParserRuleContext ctx,
                      final String identifier) {
-        this(ctx, identifier, new PositionKey(ctx).toString());
+        this(ctx, identifier, new PositionKey(ctx).toString(), IdentifierType.DECLARATION);
     }
 
     public BaseEntry(final ParserRuleContext ctx,
                      final String identifier,
-                     final String declarationKey) {
+                     final String declarationKey,
+                     final IdentifierType identifierType) {
         this.ctx = ctx;
         this.identifier = identifier;
         this.declarationKey = declarationKey;
+        this.identifierType = identifierType;
     }
 
     @Override
@@ -38,7 +41,8 @@ public class BaseEntry implements ContextEntry {
                 new CtxPathList(ctx, identifier).asList()
             ).toString(),
             declarationKey,
-            ctx.getStart()
+            ctx.getStart(),
+            identifierType
         );
     }
 }

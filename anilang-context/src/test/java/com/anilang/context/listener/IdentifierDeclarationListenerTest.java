@@ -92,10 +92,27 @@ class IdentifierDeclarationListenerTest {
         );
 
         Assertions.assertEquals(4, context.size());
-        Assertions.assertEquals("$file$if1-0$b", context.get("2-4").getParents());
-        Assertions.assertEquals("$file$if5-0$c", context.get("6-4").getParents());
-        Assertions.assertEquals("$file$if5-0$if7-4$d", context.get("8-8").getParents());
-        Assertions.assertEquals("$file$if5-0$if11-4$h", context.get("12-8").getParents());
+        Assertions.assertEquals("$file$if1-0$if-block2-4$b", context.get("2-4").getParents());
+        Assertions.assertEquals("$file$if5-0$if-block6-4$c", context.get("6-4").getParents());
+        Assertions.assertEquals("$file$if5-0$if-block6-4$if7-4$if-block8-8$d", context.get("8-8").getParents());
+        Assertions.assertEquals("$file$if5-0$if-block6-4$if11-4$if-block12-8$h", context.get("12-8").getParents());
+    }
+
+    @Test
+    void else_scope_declaration() throws IOException {
+        final AniParser parser = new AniFile(
+            new ExampleFile("declaration/else_scope.ani").inputStream()
+        ).parse();
+        final AniContext context = new BaseAniContext();
+
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierDeclarationListener(context),
+            parser.file()
+        );
+
+        Assertions.assertEquals(2, context.size());
+        Assertions.assertEquals("$file$if1-0$if-block2-4$b", context.get("2-4").getParents());
+        Assertions.assertEquals("$file$if1-0$else-block3-0$d", context.get("4-4").getParents());
     }
 
     @Test

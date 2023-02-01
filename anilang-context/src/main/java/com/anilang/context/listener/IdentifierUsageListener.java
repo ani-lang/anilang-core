@@ -5,11 +5,9 @@
 package com.anilang.context.listener;
 
 import com.anilang.context.AniContext;
-import com.anilang.context.impl.ContextToKeys;
-import com.anilang.context.impl.LookupExistingContext;
+import com.anilang.context.impl.LookupParentContext;
 import com.anilang.parser.antlr.AniBaseListener;
 import com.anilang.parser.antlr.AniParser;
-import java.util.Map;
 
 /**
  * Listen to rules that use identifiers and link them to its declaration if exists.
@@ -18,19 +16,16 @@ import java.util.Map;
 public final class IdentifierUsageListener extends AniBaseListener {
 
     private final AniContext aniContext;
-    private final Map<String, String> contextToKeys;
 
     public IdentifierUsageListener(final AniContext aniContext) {
         this.aniContext = aniContext;
-        this.contextToKeys = new ContextToKeys(aniContext).asMap();
     }
 
     @Override
     public void enterType(final AniParser.TypeContext ctx) {
         if (ctx.Identifier() != null) {
             final String identifier = ctx.Identifier().getText();
-            new LookupExistingContext(
-                contextToKeys,
+            new LookupParentContext(
                 aniContext,
                 identifier,
                 ctx
@@ -42,12 +37,32 @@ public final class IdentifierUsageListener extends AniBaseListener {
     public void enterExpression(final AniParser.ExpressionContext ctx) {
         if (ctx.primary() != null && ctx.primary().Identifier() != null) {
             final String identifier = ctx.primary().Identifier().getText();
-            new LookupExistingContext(
-                contextToKeys,
+            new LookupParentContext(
                 aniContext,
                 identifier,
                 ctx
             ).addIfFound();
         }
+    }
+
+    @Override
+    public void enterSqlDeclarator(final AniParser.SqlDeclaratorContext ctx) {
+        if (ctx.Identifier() != null) {
+            final String identifier = ctx.Identifier().getText();
+            new LookupParentContext(
+                aniContext,
+                identifier,
+                ctx
+            ).addIfFound();
+        }
+    }
+
+    @Override
+    public void enterVariableDeclaratorId(final AniParser.VariableDeclaratorIdContext ctx) {
+        new LookupParentContext(
+            aniContext,
+            ctx.Identifier().getText(),
+            ctx
+        ).addIfFound();
     }
 }

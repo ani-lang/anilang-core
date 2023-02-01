@@ -150,7 +150,7 @@ scriptBlock
     ;
 
 statement
-    :   'if' expression elseScriptBlock #ifStatement
+    :   'if' expression ifScriptBlock #ifStatement
     |   'while' expression scriptBlock #whileStatement
     |   'for' forControl scriptBlock #forStatement
     |   'match' expression matchScriptBlock #matchStatement
@@ -174,8 +174,16 @@ matchLabel
     |   'default' scriptBlock #defaultLabelCase
     ;
 
+ifScriptBlock
+    :   ':' NEWLINE ifMainScriptBlock elseScriptBlock* NEWLINE 'end'
+    ;
+
+ifMainScriptBlock
+    :   scriptLine*
+    ;
+
 elseScriptBlock
-    :   ':' NEWLINE scriptLine* ('else' NEWLINE scriptLine*)* NEWLINE 'end'
+    :   'else' NEWLINE scriptLine*
     ;
 
 forControl
@@ -223,6 +231,7 @@ literal
     |   DecimalLiteral
     |   booleanLiteral
     |   StringLiteral
+    |   'null'
     ;
 
 booleanLiteral

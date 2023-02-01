@@ -46,6 +46,10 @@ public final class FormattedScopedParent {
             return ((AniParser.FuncDeclarationContext) ctx).Identifier().getText();
         } else if (ctx instanceof AniParser.IfStatementContext) {
             return "if" + new PositionKey(ctx);
+        } else if (ctx instanceof AniParser.IfMainScriptBlockContext) {
+            return "if-block" + new PositionKey(ctx);
+        } else if (ctx instanceof AniParser.ElseScriptBlockContext) {
+            return "else-block" + new PositionKey(ctx);
         } else if (ctx instanceof AniParser.WhileStatementContext) {
             return "while" + new PositionKey(ctx);
         } else if (ctx instanceof AniParser.ForStatementContext) {

@@ -4,6 +4,7 @@
 
 package com.anilang.context;
 
+import com.anilang.context.impl.IdentifierType;
 import org.antlr.v4.runtime.Token;
 
 public interface ContextMetadata {
@@ -24,4 +25,6 @@ public interface ContextMetadata {
     String getDeclarationKey();
 
     Token getStart();
+
+    IdentifierType getIdentifierType();
 }

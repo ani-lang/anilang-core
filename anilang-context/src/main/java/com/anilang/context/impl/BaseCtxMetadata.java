@@ -11,13 +11,16 @@ public final class BaseCtxMetadata implements ContextMetadata {
     private final String parents;
     private final String declarationKey;
     private final Token start;
+    private final IdentifierType identifierType;
 
     public BaseCtxMetadata(final String parents,
                            final String declarationKey,
-                           final Token start) {
+                           final Token start,
+                           final IdentifierType identifierType) {
         this.parents = parents;
         this.declarationKey = declarationKey;
         this.start = start;
+        this.identifierType = identifierType;
     }
 
     @Override
@@ -33,5 +36,10 @@ public final class BaseCtxMetadata implements ContextMetadata {
     @Override
     public Token getStart() {
         return start;
+    }
+
+    @Override
+    public IdentifierType getIdentifierType() {
+        return identifierType;
     }
 }
