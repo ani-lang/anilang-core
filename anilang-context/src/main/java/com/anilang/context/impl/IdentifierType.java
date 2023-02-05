@@ -5,5 +5,6 @@
 package com.anilang.context.impl;
 
 public enum IdentifierType {
-    REFERENCE, DECLARATION
+    REFERENCE,
+    DECLARATION
 }

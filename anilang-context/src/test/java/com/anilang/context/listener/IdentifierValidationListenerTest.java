@@ -275,11 +275,13 @@ class IdentifierValidationListenerTest {
     @Test
     void use_case_validation() throws IOException {
         // TODO: 31-01-23 null added to syntax. need tests?
+        // TODO: 02-02-23 esta es la fase 1
         final AniParser parser = new AniFile(
             new ExampleFile("validation/use-case-atm.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
 
+        // TODO: 02-02-23 explicar como fases
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -297,9 +299,10 @@ class IdentifierValidationListenerTest {
                 parser.file()
             )
         );
-
         // TODO: 31-01-23 sql.select es declarator
         // sql.update es una accion. Corregir esa ambiguedad con una mejor syntaxis
         // por ahora ambas seran acciones para ser consistentes.
+
+        // TODO: 02-02-23 typificar todo
     }
 }

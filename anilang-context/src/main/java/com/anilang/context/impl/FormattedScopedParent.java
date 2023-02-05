@@ -14,6 +14,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
  *     <li>{@link AniParser.ClassDeclarationContext}</li>
  *     <li>{@link AniParser.FuncDeclarationContext}</li>
  *     <li>{@link AniParser.IfStatementContext}</li>
+ *     <li>{@link AniParser.IfMainScriptBlockContext}</li>
+ *     <li>{@link AniParser.ElseScriptBlockContext}</li>
  *     <li>{@link AniParser.WhileStatementContext}</li>
  *     <li>{@link AniParser.ForStatementContext}</li>
  *     <li>{@link AniParser.MatchStatementContext}</li>
