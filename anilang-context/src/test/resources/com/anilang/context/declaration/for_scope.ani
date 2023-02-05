@@ -1,0 +1,14 @@
+for a in items:
+    b = a + 1
+end
+
+for b in items:
+    c = [2]
+    for d in c:
+        e = d + 1
+    end
+
+    for f in c:
+        h = 0
+    end
+end

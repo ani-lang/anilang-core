@@ -1,0 +1,16 @@
+struct P:
+
+end
+
+def foo():
+
+end
+
+class A:
+
+end
+
+a = P()
+b = foo()
+c = A()
+d = a + b

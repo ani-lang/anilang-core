@@ -65,7 +65,7 @@ scriptLine
     ;
 
 sqlDeclarator
-    :   inlineSqlClause expression sqlScriptBlock?
+    :   inlineSqlClause Identifier sqlScriptBlock?
     ;
 
 inlineSqlClause
@@ -102,17 +102,15 @@ sqlOrderByClause
     ;
 
 sqlExpression
-    :   primary
-    |   '*'
-    |   sqlExpression '.' (Identifier | '*')
-    |   sqlExpression ('+'|'-') sqlExpression
-    |   sqlExpression ('*'|'/') sqlExpression
-    |   sqlExpression ('=' | '!=') sqlExpression
-    |   sqlExpression ('<' '=' | '>' '=' | '<' | '>') sqlExpression
-    |   sqlExpression 'and' sqlExpression
-    |   sqlExpression 'or' sqlExpression
-    |   sqlExpression '(' sqlExpressionList? ')'
-    |   '{' expression '}'
+    :   primary #sqlPrimary
+    |   '*' #sqlWildcard
+    |   sqlExpression '.' (Identifier | '*') #sqlReference
+    |   sqlExpression ('+'|'-') sqlExpression #sqlAdditionOperator
+    |   sqlExpression ('*'|'/') sqlExpression #sqlMultiplyOperator
+    |   sqlExpression ('=' | '!=') sqlExpression #sqlComparison
+    |   sqlExpression ('<' '=' | '>' '=' | '<' | '>') sqlExpression #sqlOrderedComparison
+    |   sqlExpression ('and' | 'or') sqlExpression #sqlLogicOperator
+    |   '{' expression '}' #sqlContextInjection
     ;
 
 sqlExpressionList
@@ -152,13 +150,13 @@ scriptBlock
     ;
 
 statement
-    :   'if' expression elseScriptBlock
-    |   'while' expression scriptBlock
-    |   'for' forControl scriptBlock
-    |   'match' expression matchScriptBlock
-    |   'return' expression?
-    |   'break'
-    |   'continue'
+    :   'if' expression ifScriptBlock #ifStatement
+    |   'while' expression scriptBlock #whileStatement
+    |   'for' forControl scriptBlock #forStatement
+    |   'match' expression matchScriptBlock #matchStatement
+    |   'return' expression? #returnStatement
+    |   'break' #breakStatement
+    |   'continue' #continueStatement
     ;
 
 matchScriptBlock
@@ -171,13 +169,21 @@ matchDeclaration
     ;
 
 matchLabel
-    :   'case' expression scriptBlock
-    |   'case' Identifier scriptBlock
-    |   'default' scriptBlock
+    :   'case' expression scriptBlock #expressionLabelCase
+    |   'case' Identifier scriptBlock #identifierLabelCase
+    |   'default' scriptBlock #defaultLabelCase
+    ;
+
+ifScriptBlock
+    :   ':' NEWLINE ifMainScriptBlock elseScriptBlock* NEWLINE 'end'
+    ;
+
+ifMainScriptBlock
+    :   scriptLine*
     ;
 
 elseScriptBlock
-    :   ':' NEWLINE scriptLine* ('else' NEWLINE scriptLine*)* NEWLINE 'end'
+    :   'else' NEWLINE scriptLine*
     ;
 
 forControl
@@ -225,6 +231,7 @@ literal
     |   DecimalLiteral
     |   booleanLiteral
     |   StringLiteral
+    |   'null'
     ;
 
 booleanLiteral

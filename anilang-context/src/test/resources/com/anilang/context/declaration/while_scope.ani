@@ -1,0 +1,14 @@
+while true:
+    b = 1
+end
+
+while a:
+    c = true
+    while c:
+        d = 2
+    end
+
+    while d:
+        h = 0
+    end
+end

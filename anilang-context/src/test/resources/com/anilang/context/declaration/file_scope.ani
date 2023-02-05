@@ -1,0 +1,15 @@
+a = 1
+b = true
+c = a + b
+
+struct P:
+
+end
+
+def foo():
+
+end
+
+class A:
+
+end

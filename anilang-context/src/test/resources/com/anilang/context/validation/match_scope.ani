@@ -1,0 +1,13 @@
+match a:
+    case 1:
+        b = 1
+        break
+    end
+    case a + 2:
+        c = a
+        break
+    end
+    default:
+        e = a
+    end
+end

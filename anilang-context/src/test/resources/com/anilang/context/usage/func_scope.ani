@@ -1,0 +1,14 @@
+struct Person:
+
+end
+
+def foo(Person b):
+    a = 1
+    foo()
+    return b
+end
+
+def bar(string a):
+    b = a + 'world'
+    foo()
+end
