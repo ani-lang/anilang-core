@@ -302,7 +302,5 @@ class IdentifierValidationListenerTest {
         // TODO: 31-01-23 sql.select es declarator
         // sql.update es una accion. Corregir esa ambiguedad con una mejor syntaxis
         // por ahora ambas seran acciones para ser consistentes.
-
-        // TODO: 02-02-23 typificar todo
     }
 }
