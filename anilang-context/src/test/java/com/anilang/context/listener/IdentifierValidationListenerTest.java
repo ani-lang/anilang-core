@@ -298,8 +298,5 @@ class IdentifierValidationListenerTest {
                 parser.file()
             )
         );
-        // TODO: 31-01-23 sql.select es declarator
-        // sql.update es una accion. Corregir esa ambiguedad con una mejor syntaxis
-        // por ahora ambas seran acciones para ser consistentes.
     }
 }
