@@ -6,6 +6,7 @@ package com.anilang.context.impl;
 
 import com.anilang.context.ContextEntry;
 import com.anilang.context.ContextMetadata;
+import com.anilang.context.Type;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 public class BaseEntry implements ContextEntry {
@@ -42,7 +43,7 @@ public class BaseEntry implements ContextEntry {
             ).toString(),
             declarationKey,
             ctx.getStart(),
-            identifierType
-        );
+            identifierType,
+            Type.UNKNOWN);
     }
 }

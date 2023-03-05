@@ -24,7 +24,25 @@ public interface ContextMetadata {
      */
     String getDeclarationKey();
 
+    /**
+     * Represents the start token.
+     *
+     * @return token from start.
+     */
     Token getStart();
 
+    /**
+     * See types {@link IdentifierType}.
+     *
+     * @return identifier type.
+     */
     IdentifierType getIdentifierType();
+
+    Type getType();
+
+    /**
+     * Update the type.
+     * @param type
+     */
+    void asType(Type type);
 }

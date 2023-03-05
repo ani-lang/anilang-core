@@ -1,0 +1,3 @@
+struct A:
+    boolean B 1
+end
