@@ -15,14 +15,21 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests file.
+ *
+ * @since 0.7.0
+ */
+@SuppressWarnings("PMD.TooManyMethods")
 class IdentifierValidationListenerTest {
+
+    // @checkstyle JavadocMethodCheck (500 lines)
     @Test
-    void func_scope_validation() throws IOException {
+    void func() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("validation/func_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -33,28 +40,24 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
-        Exception exception = Assertions.assertThrows(
+        final Exception exception = Assertions.assertThrows(
             AniParseException.class,
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),
                 parser.file()
             )
         );
-
-        final String expectedMessage = "Var 'Person' at position [1:9] is not defined.";
-        final String actualMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        final String expected = "Var 'Person' at position [1:9] is not defined.";
+        final String actual = exception.getMessage();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void file_scope_validation() throws IOException {
+    void file() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("validation/file_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -65,28 +68,24 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
-        Exception exception = Assertions.assertThrows(
+        final Exception exception = Assertions.assertThrows(
             AniParseException.class,
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),
                 parser.file()
             )
         );
-
-        final String expectedMessage = "Var 'P' at position [1:5] is not defined.";
-        final String actualMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        final String expected = "Var 'P' at position [1:5] is not defined.";
+        final String actual = exception.getMessage();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void class_scope_validation() throws IOException {
+    void classValidation() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("validation/class_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -97,28 +96,24 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
-        Exception exception = Assertions.assertThrows(
+        final Exception exception = Assertions.assertThrows(
             AniParseException.class,
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),
                 parser.file()
             )
         );
-
-        final String expectedMessage = "Var 'A' at position [2:9] is not defined.";
-        final String actualMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        final String expected = "Var 'A' at position [2:9] is not defined.";
+        final String actual = exception.getMessage();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void if_scope_validation() throws IOException {
+    void ifValidation() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("validation/if_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -129,28 +124,24 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
-        Exception exception = Assertions.assertThrows(
+        final Exception exception = Assertions.assertThrows(
             AniParseException.class,
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),
                 parser.file()
             )
         );
-
-        final String expectedMessage = "Var 'a' at position [1:4] is not defined.";
-        final String actualMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        final String expected = "Var 'a' at position [1:4] is not defined.";
+        final String actual = exception.getMessage();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void else_scope_validation() throws IOException {
+    void elseValidation() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("validation/else_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -161,28 +152,24 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
-        Exception exception = Assertions.assertThrows(
+        final Exception exception = Assertions.assertThrows(
             AniParseException.class,
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),
                 parser.file()
             )
         );
-
-        final String expectedMessage = "Var 'b' at position [4:9] is not defined.";
-        final String actualMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        final String expected = "Var 'b' at position [4:9] is not defined.";
+        final String actual = exception.getMessage();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void while_scope_validation() throws IOException {
+    void whileValidation() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("validation/while_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -193,28 +180,24 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
-        Exception exception = Assertions.assertThrows(
+        final Exception exception = Assertions.assertThrows(
             AniParseException.class,
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),
                 parser.file()
             )
         );
-
-        final String expectedMessage = "Var 'a' at position [1:7] is not defined.";
-        final String actualMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        final String expected = "Var 'a' at position [1:7] is not defined.";
+        final String actual = exception.getMessage();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void for_scope_validation() throws IOException {
+    void forValidation() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("validation/for_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -225,28 +208,24 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
-        Exception exception = Assertions.assertThrows(
+        final Exception exception = Assertions.assertThrows(
             AniParseException.class,
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),
                 parser.file()
             )
         );
-
-        final String expectedMessage = "Var 'items' at position [1:10] is not defined.";
-        final String actualMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        final String expected = "Var 'items' at position [1:10] is not defined.";
+        final String actual = exception.getMessage();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void match_scope_validation() throws IOException {
+    void matchValidation() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("validation/match_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -257,29 +236,27 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
-        Exception exception = Assertions.assertThrows(
+        final Exception exception = Assertions.assertThrows(
             AniParseException.class,
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),
                 parser.file()
             )
         );
-
-        final String expectedMessage = "Var 'a' at position [1:7] is not defined.";
-        final String actualMessage = exception.getMessage();
-
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        final String expected = "Var 'a' at position [1:7] is not defined.";
+        final String actual = exception.getMessage();
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void use_case_validation() throws IOException {
-        // TODO: 31-01-23 null added to syntax. need tests?
+    void useCaseValidation() throws IOException {
+        /* @checkstyle MethodBodyCommentsCheck (10 lines)
+         * TODO 31-01-23 null added to syntax. need tests?
+         */
         final AniParser parser = new AniFile(
             new ExampleFile("validation/use-case-atm.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -290,7 +267,6 @@ class IdentifierValidationListenerTest {
             parser.file()
         );
         parser.reset();
-
         Assertions.assertDoesNotThrow(
             () -> ParseTreeWalker.DEFAULT.walk(
                 new IdentifierValidationListener(context),

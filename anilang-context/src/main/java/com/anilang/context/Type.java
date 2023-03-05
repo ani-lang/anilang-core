@@ -21,14 +21,32 @@ public enum Type {
      */
     INSTANCE,
     /**
-     * Primitive types.
+     * Primitive type.
      */
     BOOLEAN,
+    /**
+     * Primitive type.
+     */
     INT,
+    /**
+     * Primitive type.
+     */
     FLOAT,
+    /**
+     * Primitive type.
+     */
     STRING,
+    /**
+     * Primitive type.
+     */
     LIST,
+    /**
+     * Primitive type.
+     */
     DICT,
+    /**
+     * Primitive type.
+     */
     SET,
     /**
      * Type has not been resolved.

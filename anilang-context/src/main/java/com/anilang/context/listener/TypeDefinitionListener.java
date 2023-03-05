@@ -12,29 +12,48 @@ import com.anilang.parser.antlr.AniBaseListener;
 import com.anilang.parser.antlr.AniParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 
+/**
+ * This phase saved each type definition.
+ *
+ * @since 0.7.0
+ */
 public final class TypeDefinitionListener extends AniBaseListener {
 
-    private final AniContext aniContext;
+    /**
+     * Context.
+     */
+    private final AniContext context;
 
-    public TypeDefinitionListener(final AniContext aniContext) {
-        this.aniContext = aniContext;
+    /**
+     * Ctor.
+     *
+     * @param context Context.
+     */
+    public TypeDefinitionListener(final AniContext context) {
+        this.context = context;
     }
 
     @Override
-    public void enterClassDeclaration(final AniParser.ClassDeclarationContext ctx) {
-        asType(ctx, Type.CLASS);
+    public void enterClassDeclaration(final AniParser.ClassDeclarationContext rule) {
+        this.asType(rule, Type.CLASS);
     }
 
     @Override
-    public void enterStructDeclaration(final AniParser.StructDeclarationContext ctx) {
-        asType(ctx, Type.STRUCT);
+    public void enterStructDeclaration(final AniParser.StructDeclarationContext rule) {
+        this.asType(rule, Type.STRUCT);
     }
 
-    private void asType(final ParserRuleContext ctx, final Type type) {
-        final String key = new PositionKey(ctx).toString();
-        if (aniContext.contains(key)) {
-            final ContextMetadata contextMetadata = aniContext.get(key);
-            contextMetadata.asType(type);
+    /**
+     * Resolve a type.
+     *
+     * @param rule Rule.
+     * @param type Type.
+     */
+    private void asType(final ParserRuleContext rule, final Type type) {
+        final String key = new PositionKey(rule).toString();
+        if (this.context.contains(key)) {
+            final ContextMetadata metadata = this.context.get(key);
+            metadata.asType(type);
         }
     }
 }

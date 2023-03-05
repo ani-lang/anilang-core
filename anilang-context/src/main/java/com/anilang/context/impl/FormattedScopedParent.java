@@ -29,41 +29,54 @@ import org.antlr.v4.runtime.ParserRuleContext;
  * identifiers we can prevent this to happen by comparing its context paths.
  * <p>
  * For the rest of rules it returns an empty string.
+ *
+ * @since 0.7.0
  */
 public final class FormattedScopedParent {
 
+    /**
+     * Context.
+     */
     private final ParserRuleContext ctx;
 
+    /**
+     * Ctr.
+     *
+     * @param ctx Context.
+     */
     public FormattedScopedParent(final ParserRuleContext ctx) {
         this.ctx = ctx;
     }
 
+    // @checkstyle CyclomaticComplexityCheck (30 lines)
+    // @checkstyle ReturnCountCheck (30 lines)
     @Override
+    @SuppressWarnings("PMD.OnlyOneReturn")
     public String toString() {
-        if (ctx instanceof AniParser.FileContext) {
+        if (this.ctx instanceof AniParser.FileContext) {
             return "file";
-        } else if (ctx instanceof AniParser.ClassDeclarationContext) {
-            return ((AniParser.ClassDeclarationContext) ctx).Identifier().getText();
-        } else if (ctx instanceof AniParser.FuncDeclarationContext) {
-            return ((AniParser.FuncDeclarationContext) ctx).Identifier().getText();
-        } else if (ctx instanceof AniParser.IfStatementContext) {
-            return "if" + new PositionKey(ctx);
-        } else if (ctx instanceof AniParser.IfMainScriptBlockContext) {
-            return "if-block" + new PositionKey(ctx);
-        } else if (ctx instanceof AniParser.ElseScriptBlockContext) {
-            return "else-block" + new PositionKey(ctx);
-        } else if (ctx instanceof AniParser.WhileStatementContext) {
-            return "while" + new PositionKey(ctx);
-        } else if (ctx instanceof AniParser.ForStatementContext) {
-            return "for" + new PositionKey(ctx);
-        } else if (ctx instanceof AniParser.MatchStatementContext) {
-            return "match" + new PositionKey(ctx);
-        } else if (ctx instanceof AniParser.ExpressionLabelCaseContext) {
-            return "case-expr" + new PositionKey(ctx);
-        } else if (ctx instanceof AniParser.IdentifierLabelCaseContext) {
-            return "case-id" + new PositionKey(ctx);
-        } else if (ctx instanceof AniParser.DefaultLabelCaseContext) {
-            return "case-default" + new PositionKey(ctx);
+        } else if (this.ctx instanceof AniParser.ClassDeclarationContext) {
+            return ((AniParser.ClassDeclarationContext) this.ctx).Identifier().getText();
+        } else if (this.ctx instanceof AniParser.FuncDeclarationContext) {
+            return ((AniParser.FuncDeclarationContext) this.ctx).Identifier().getText();
+        } else if (this.ctx instanceof AniParser.IfStatementContext) {
+            return String.format("if%s", new PositionKey(this.ctx));
+        } else if (this.ctx instanceof AniParser.IfMainScriptBlockContext) {
+            return String.format("if-block%s", new PositionKey(this.ctx));
+        } else if (this.ctx instanceof AniParser.ElseScriptBlockContext) {
+            return String.format("else-block%s", new PositionKey(this.ctx));
+        } else if (this.ctx instanceof AniParser.WhileStatementContext) {
+            return String.format("while%s", new PositionKey(this.ctx));
+        } else if (this.ctx instanceof AniParser.ForStatementContext) {
+            return String.format("for%s", new PositionKey(this.ctx));
+        } else if (this.ctx instanceof AniParser.MatchStatementContext) {
+            return String.format("match%s", new PositionKey(this.ctx));
+        } else if (this.ctx instanceof AniParser.ExpressionLabelCaseContext) {
+            return String.format("case-expr%s", new PositionKey(this.ctx));
+        } else if (this.ctx instanceof AniParser.IdentifierLabelCaseContext) {
+            return String.format("case-id%s", new PositionKey(this.ctx));
+        } else if (this.ctx instanceof AniParser.DefaultLabelCaseContext) {
+            return String.format("case-default%s", new PositionKey(this.ctx));
         }
         return "";
     }

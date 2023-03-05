@@ -15,14 +15,21 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests file.
+ *
+ * @since 0.7.0
+ */
+@SuppressWarnings("PMD.TooManyMethods")
 class TypeDefinitionListenerTest {
+
+    // @checkstyle JavadocMethodCheck (500 lines)
     @Test
-    void class_definition() throws IOException {
+    void classTypeDefinition() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("type-definition/class_definition.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -44,7 +51,6 @@ class TypeDefinitionListenerTest {
             new TypeDefinitionListener(context),
             parser.file()
         );
-
         Assertions.assertEquals(
             context.get("1-0").getType(),
             Type.CLASS
@@ -52,12 +58,11 @@ class TypeDefinitionListenerTest {
     }
 
     @Test
-    void struct_definition() throws IOException {
+    void struct() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("type-definition/struct_definition.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
@@ -79,7 +84,6 @@ class TypeDefinitionListenerTest {
             new TypeDefinitionListener(context),
             parser.file()
         );
-
         Assertions.assertEquals(
             context.get("1-0").getType(),
             Type.STRUCT

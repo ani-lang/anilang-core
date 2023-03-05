@@ -12,37 +12,69 @@ import com.anilang.parser.antlr.AniParser;
 import java.util.function.BiConsumer;
 import org.antlr.v4.runtime.ParserRuleContext;
 
+/**
+ * In this phase the collected data for declaration is validated.
+ *
+ * @since 0.7.0
+ */
 public final class IdentifierValidationListener extends AniBaseListener {
-    private final AniContext aniContext;
+
+    /**
+     * Context.
+     */
+    private final AniContext context;
+
+    /**
+     * Consumer.
+     */
     private final BiConsumer<ParserRuleContext, String> consumer;
 
-    public IdentifierValidationListener(final AniContext aniContext) {
-        this(aniContext, new ExceptionBiConsumer());
+    /**
+     * Ctor.
+     *
+     * @param context Context.
+     */
+    public IdentifierValidationListener(final AniContext context) {
+        this(context, new ExceptionBiConsumer());
     }
 
-    public IdentifierValidationListener(final AniContext aniContext,
-                                        final BiConsumer<ParserRuleContext, String> consumer) {
-        this.aniContext = aniContext;
+    /**
+     * Ctor.
+     *
+     * @param context Context.
+     * @param consumer Consumer.
+     */
+    public IdentifierValidationListener(
+        final AniContext context,
+        final BiConsumer<ParserRuleContext, String> consumer
+    ) {
+        this.context = context;
         this.consumer = consumer;
     }
 
     @Override
     public void enterType(final AniParser.TypeContext ctx) {
         if (ctx.Identifier() != null) {
-            validate(ctx, ctx.Identifier().toString());
+            this.validate(ctx, ctx.Identifier().toString());
         }
     }
 
     @Override
     public void enterExpression(final AniParser.ExpressionContext ctx) {
         if (ctx.primary() != null && ctx.primary().Identifier() != null) {
-            validate(ctx, ctx.primary().Identifier().getText());
+            this.validate(ctx, ctx.primary().Identifier().getText());
         }
     }
 
-    private void validate(final ParserRuleContext ctx, final String identifier) {
-        if (!aniContext.contains(new PositionKey(ctx).toString())) {
-            consumer.accept(ctx, identifier);
+    /**
+     * Validate that the identifier is delcared under the rule's scope.
+     *
+     * @param rule Rule.
+     * @param identifier Identifier.
+     */
+    private void validate(final ParserRuleContext rule, final String identifier) {
+        if (!this.context.contains(new PositionKey(rule).toString())) {
+            this.consumer.accept(rule, identifier);
         }
     }
 }

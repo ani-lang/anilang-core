@@ -12,43 +12,52 @@ import com.anilang.parser.antlr.AniParser;
 /**
  * Listen to the rules that define identifiers for a context.
  * It's a down-top search because it's easier to find the parent context than the children context.
+ *
+ * @since 0.7.0
  */
 public final class IdentifierDeclarationListener extends AniBaseListener {
 
+    /**
+     * Context.
+     */
     private final AniContext context;
 
+    /**
+     * Ctor.
+     *
+     * @param context Context.
+     */
     public IdentifierDeclarationListener(final AniContext context) {
         this.context = context;
     }
 
     @Override
     public void enterStructDeclaration(final AniParser.StructDeclarationContext ctx) {
-        context.addContext(
+        this.context.addContext(
             new BaseEntry(ctx, ctx.Identifier().getText())
         );
     }
 
     @Override
     public void enterClassDeclaration(final AniParser.ClassDeclarationContext ctx) {
-        context.addContext(
+        this.context.addContext(
             new BaseEntry(ctx, ctx.Identifier().getText())
         );
     }
 
     @Override
     public void enterFuncDeclaration(final AniParser.FuncDeclarationContext ctx) {
-        context.addContext(
+        this.context.addContext(
             new BaseEntry(ctx, ctx.Identifier().getText())
         );
     }
 
     @Override
     public void enterVariableDeclaratorId(final AniParser.VariableDeclaratorIdContext ctx) {
-        /*
-         * If it's already declared then this is a reference not a declaration.
-         */
-        if (!context.hasDeclaration(ctx, ctx.Identifier().getText())) {
-            context.addContext(
+        // @checkstyle MethodBodyCommentsCheck (1 line)
+        // If it's already declared then this is a reference not a declaration.
+        if (!this.context.hasDeclaration(ctx, ctx.Identifier().getText())) {
+            this.context.addContext(
                 new BaseEntry(
                     ctx,
                     ctx.Identifier().getText()
@@ -59,7 +68,7 @@ public final class IdentifierDeclarationListener extends AniBaseListener {
 
     @Override
     public void enterItemForControl(final AniParser.ItemForControlContext ctx) {
-        context.addContext(
+        this.context.addContext(
             new BaseEntry(ctx, ctx.Identifier().getText())
         );
     }

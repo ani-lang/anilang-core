@@ -11,30 +11,40 @@ import java.util.List;
 
 /**
  * Sort the context path in reverse order.
+ *
+ * @since 0.7.0
  */
 public final class ReversedCtxPath implements CtxPath {
 
-    private final List<String> ctxPath;
+    /**
+     * Bottom-up context path.
+     */
+    private final List<String> ctx;
 
-    public ReversedCtxPath(final List<String> ctxPath) {
-        this.ctxPath = ctxPath;
+    /**
+     * Ctor.
+     *
+     * @param ctx Bottom-up context path.
+     */
+    public ReversedCtxPath(final List<String> ctx) {
+        this.ctx = ctx;
     }
 
     @Override
     public List<String> asList() {
-        List<String> sorted = new LinkedList<>();
-        Collections.copy(sorted, ctxPath);
+        final List<String> sorted = new LinkedList<>();
+        Collections.copy(sorted, this.ctx);
         Collections.reverse(sorted);
         return sorted;
     }
 
     @Override
     public String toString() {
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = ctxPath.size() - 1; i >= 0; i--) {
-            stringBuilder.append("$");
-            stringBuilder.append(ctxPath.get(i));
+        final StringBuilder builder = new StringBuilder();
+        // @checkstyle IllegalTokenCheck (1 line)
+        for (int index = this.ctx.size() - 1; index >= 0; index--) {
+            builder.append(String.format("$%s", this.ctx.get(index)));
         }
-        return stringBuilder.toString();
+        return builder.toString();
     }
 }

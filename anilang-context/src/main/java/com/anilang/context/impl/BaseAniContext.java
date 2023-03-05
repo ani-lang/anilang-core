@@ -11,69 +11,71 @@ import java.util.HashMap;
 import java.util.Map;
 import org.antlr.v4.runtime.ParserRuleContext;
 
+/**
+ * Basic context for an Ani program.
+ *
+ * @since 0.7.0
+ */
 public final class BaseAniContext implements AniContext {
 
-
-    // TODO: 22-01-23 string too slow, must be a way to use numbers
     /**
+     * TODO 22-01-23 string too slow, must be a way to use numbers
      * Token identifier (position) and its metadata including its context string.
      */
-    private final Map<String, ContextMetadata> map = new HashMap<>();
+    private final Map<String, ContextMetadata> metadata = new HashMap<>();
 
     /**
-     * Context declaration to its key in map.
+     * Context declaration to its key in metadata.
      */
-    private final Map<String, String> contextToKeysMap = new HashMap<>();
+    private final Map<String, String> keys = new HashMap<>();
 
     @Override
-    public void addContext(final ContextEntry contextEntry) {
-        // TODO: 25-01-23 what if it is already defined? should throw an error
-        if (map.containsKey(contextEntry.getKey())) {
-            System.err.println("duplicated entry " + contextEntry.getKey());
+    @SuppressWarnings("PMD.SystemPrintln")
+    public void addContext(final ContextEntry entry) {
+        // @checkstyle MethodBodyCommentsCheck (10 lines)
+        // TODO 25-01-23 what if it is already defined? should throw an error
+        if (this.metadata.containsKey(entry.getKey())) {
+            System.err.printf("duplicated entry %s%n", entry.getKey());
         } else {
-            if (contextEntry.getValue().getIdentifierType() == IdentifierType.DECLARATION) {
-                contextToKeysMap.put(contextEntry.getValue().getParents(), contextEntry.getKey());
+            if (entry.getValue().getIdentifierType() == IdentifierType.DECLARATION) {
+                this.keys.put(entry.getValue().getParents(), entry.getKey());
             }
-            map.put(contextEntry.getKey(), contextEntry.getValue());
+            this.metadata.put(entry.getKey(), entry.getValue());
         }
     }
 
     @Override
     public boolean contains(final String key) {
-        return map.containsKey(key);
+        return this.metadata.containsKey(key);
     }
 
     @Override
     public ContextMetadata get(final String key) {
-        return map.get(key);
+        return this.metadata.get(key);
     }
 
     @Override
     public int size() {
-        return map.size();
+        return this.metadata.size();
     }
 
     @Override
     public Map<String, ContextMetadata> asMap() {
-        return map;
+        return this.metadata;
     }
 
     @Override
-    public boolean hasDeclaration(final ParserRuleContext ctx, final String identifier) {
-        return new LookupParentContext(
-            this,
-            identifier,
-            ctx
-        ).getKey().isPresent();
+    public boolean hasDeclaration(final ParserRuleContext rule, final String identifier) {
+        return new LookupParentContext(this, identifier, rule).getKey().isPresent();
     }
 
     @Override
-    public boolean hasDeclaration(final String ctxKey) {
-        return contextToKeysMap.containsKey(ctxKey);
+    public boolean hasDeclaration(final String parent) {
+        return this.keys.containsKey(parent);
     }
 
     @Override
-    public String getDeclarationKey(final String ctxKey) {
-        return contextToKeysMap.get(ctxKey);
+    public String getDeclarationKey(final String parent) {
+        return this.keys.get(parent);
     }
 }

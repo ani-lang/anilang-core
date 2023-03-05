@@ -17,18 +17,31 @@ import java.util.Optional;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-// TODO: 28-02-23 resolve types used from class, struct and primitive types
+/**
+ * TODO 28-02-23 resolve types used from class, struct and primitive types.
+ * This phase resolve the types of identifiers using the defined types.
+ *
+ * @since 0.7.0
+ */
 public final class TypeResolveListener extends AniBaseListener {
 
-    private final AniContext aniContext;
+    /**
+     * Context.
+     */
+    private final AniContext context;
 
-    public TypeResolveListener(final AniContext aniContext) {
-        this.aniContext = aniContext;
+    /**
+     * Ctor.
+     *
+     * @param context Context.
+     */
+    public TypeResolveListener(final AniContext context) {
+        this.context = context;
     }
 
     @Override
     public void enterStructBodyMember(final AniParser.StructBodyMemberContext ctx) {
-        asType(
+        this.asType(
             ctx.type(),
             ctx.Identifier().getText(),
             new ReversedCtxPath(
@@ -42,24 +55,47 @@ public final class TypeResolveListener extends AniBaseListener {
         final String identifier = Optional.ofNullable(ctx.type().Identifier())
             .map(ParseTree::getText)
             .orElseGet(() -> ctx.type().primitiveType().getText());
-        asType(
+        this.asType(
             ctx.formalParameterDeclsRest().variableDeclaratorId(),
             identifier,
-            new LookupParentContext(aniContext, identifier, ctx).getKey().orElse("")
+            new LookupParentContext(this.context, identifier, ctx).getKey().orElse("")
         );
     }
 
-    // TODO: 01-03-23 this is duplicated?
-    private void asType(final ParserRuleContext ctx, final String identifier, final String identifierCtxKey) {
-        final String key = new PositionKey(ctx).toString();
-        if (aniContext.contains(key)) {
-            final ContextMetadata contextMetadata = aniContext.get(key);
-            contextMetadata.asType(getType(identifier, identifierCtxKey));
+    /**
+     * Resolve the type.
+     * TODO 01-03-23 this is duplicated
+     *
+     * @param rule Rule.
+     * @param identifier Identifier.
+     * @param reference Reference key.
+     */
+    private void asType(
+        final ParserRuleContext rule,
+        final String identifier,
+        final String reference
+    ) {
+        final String key = new PositionKey(rule).toString();
+        if (this.context.contains(key)) {
+            final ContextMetadata metadata = this.context.get(key);
+            metadata.asType(this.getType(identifier, reference));
         }
     }
 
-    private Type getType(String identifier, String identifierCtxKey) {
-        // TODO: 04-03-23 this must come from the lexer. update the lexer definition
+    /**
+     * Resolve the type.
+     *
+     * @param identifier Identifier.
+     * @param reference Key.
+     * @return Type.
+     * @checkstyle NPathComplexityCheck (35 lines)
+     * @checkstyle ReturnCountCheck (35 lines)
+     */
+    @SuppressWarnings({"PMD.OnlyOneReturn", "PMD.NPathComplexity"})
+    private Type getType(final String identifier, final String reference) {
+        /* @checkstyle MethodBodyCommentsCheck (10 lines)
+         * TODO this must come from the lexer. update the lexer definition
+         */
         if (identifier.equals("boolean")) {
             return Type.BOOLEAN;
         }
@@ -81,7 +117,7 @@ public final class TypeResolveListener extends AniBaseListener {
         if (identifier.equals("set")) {
             return Type.SET;
         }
-        if (aniContext.hasDeclaration(identifierCtxKey)) {
+        if (this.context.hasDeclaration(reference)) {
             return Type.INSTANCE;
         }
         return Type.UNKNOWN;

@@ -7,42 +7,53 @@ package com.anilang.context;
 import com.anilang.context.impl.IdentifierType;
 import org.antlr.v4.runtime.Token;
 
+/**
+ * Metadata for context.
+ *
+ * @since 0.7.0
+ */
 public interface ContextMetadata {
 
     /**
      * Context is a string, so we can compare and use substring to know if two members belong to
      * the same context.
      *
-     * @return formatted parents.
+     * @return Formatted parents.
      */
     String getParents();
 
     /**
      * Key to the declaration context.
      *
-     * @return context key.
+     * @return Context key.
      */
-    String getDeclarationKey();
+    String getDeclaration();
 
     /**
      * Represents the start token.
      *
-     * @return token from start.
+     * @return Token from start.
      */
     Token getStart();
 
     /**
      * See types {@link IdentifierType}.
      *
-     * @return identifier type.
+     * @return Identifier type.
      */
     IdentifierType getIdentifierType();
 
+    /**
+     * The resolved type.
+     *
+     * @return Type.
+     */
     Type getType();
 
     /**
      * Update the type.
-     * @param type
+     *
+     * @param type Type.
      */
     void asType(Type type);
 }
