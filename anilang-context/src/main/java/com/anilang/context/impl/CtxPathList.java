@@ -12,28 +12,44 @@ import org.antlr.v4.runtime.ParserRuleContext;
 
 /**
  * Save only non-empty parents.
+ *
+ * @since 0.7.0
  */
 public final class CtxPathList implements CtxPath {
-    private final ParserRuleContext ctx;
+
+    /**
+     * Rule.
+     */
+    private final ParserRuleContext rule;
+
+    /**
+     * Identifier.
+     */
     private final String identifier;
 
-    public CtxPathList(final ParserRuleContext ctx, final String identifier) {
-        this.ctx = ctx;
+    /**
+     * Ctor.
+     *
+     * @param rule Rule.
+     * @param identifier Identifier.
+     */
+    public CtxPathList(final ParserRuleContext rule, final String identifier) {
+        this.rule = rule;
         this.identifier = identifier;
     }
 
     @Override
     public List<String> asList() {
         final List<String> parents = new LinkedList<>();
-        parents.add(identifier);
-        ParserRuleContext parserRuleContext = ctx;
+        parents.add(this.identifier);
+        ParserRuleContext curent = this.rule;
         do {
-            parserRuleContext = parserRuleContext.getParent();
-            final String formattedParent = new FormattedScopedParent(parserRuleContext).toString();
-            if (!formattedParent.isEmpty()) {
-                parents.add(formattedParent);
+            curent = curent.getParent();
+            final String parent = new FormattedScopedParent(curent).toString();
+            if (!parent.isEmpty()) {
+                parents.add(parent);
             }
-        } while (!(parserRuleContext instanceof AniParser.FileContext));
+        } while (!(curent instanceof AniParser.FileContext));
         return parents;
     }
 }

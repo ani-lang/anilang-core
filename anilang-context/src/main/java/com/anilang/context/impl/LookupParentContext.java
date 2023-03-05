@@ -9,47 +9,90 @@ import java.util.Optional;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
+/**
+ * Within a context, it looks for an identifier.
+ *
+ * @since 0.7.0
+ */
 public final class LookupParentContext {
-    private final AniContext aniContext;
-    private final String identifier;
-    private final ParserRuleContext ctx;
 
-    public LookupParentContext(final AniContext aniContext,
-                               final String identifier,
-                               final ParserRuleContext ctx) {
-        this.aniContext = aniContext;
+    /**
+     * Full ani context.
+     */
+    private final AniContext context;
+
+    /**
+     * Identifier.
+     */
+    private final String identifier;
+
+    /**
+     * Rule.
+     */
+    private final ParserRuleContext rule;
+
+    /**
+     * Ctor.
+     *
+     * @param context Full ani context.
+     * @param identifier Identifier.
+     * @param rule Rule.
+     */
+    public LookupParentContext(
+        final AniContext context,
+        final String identifier,
+        final ParserRuleContext rule
+    ) {
+        this.context = context;
         this.identifier = identifier;
-        this.ctx = ctx;
+        this.rule = rule;
     }
 
+    /**
+     * Add the rule as {@link IdentifierType#REFERENCE} to the context if it has been declared.
+     *
+     * @since 0.7.0
+     */
     public void addIfFound() {
-        getKey().ifPresent(
-            ctxKey -> aniContext.addContext(
+        this.getKey().ifPresent(
+            ctxKey -> this.context.addContext(
                 new BaseEntry(
-                    ctx,
-                    identifier,
-                    aniContext.getDeclarationKey(ctxKey),
+                    this.rule,
+                    this.identifier,
+                    this.context.getDeclarationKey(ctxKey),
                     IdentifierType.REFERENCE
                 )
             )
         );
     }
 
+    /**
+     * Return the top-down parent string.
+     *
+     * @return Parents.
+     * @checkstyle ReturnCountCheck (25 lines)
+     */
+    @SuppressWarnings("PMD.OnlyOneReturn")
     public Optional<String> getKey() {
-        final String scopePath = new ReversedCtxPath(
-            new CtxPathList(ctx, identifier).asList()
+        final String scope = new ReversedCtxPath(
+            new CtxPathList(this.rule, this.identifier).asList()
         ).toString();
-        String[] parents = scopePath.split("\\$");
-        final String identifierPrefix = "$" + identifier;
+        final String[] parents = scope.split("\\$");
+        final String start = String.format("$%s", this.identifier);
         String prefix = "";
+        // @checkstyle MethodBodyCommentsCheck (2 lines)
         // start from 1 to avoid the first empty item in "$file$a$b..."
         // stops at (parents.length - 1) to avoid the last value which is the identifier
-        for (int i = 1; i < parents.length - 1; i++) {
-            final String parent = parents[i];
-            prefix = prefix + "$" + parent;
-            final String ctxKey = prefix + identifierPrefix;
-            if (aniContext.hasDeclaration(ctxKey) && isParentBefore(ctxKey, ctx.getStart())) {
-                return Optional.of(ctxKey);
+        // @checkstyle IllegalTokenCheck (1 line)
+        for (int index = 1; index < parents.length - 1; index++) {
+            final String parent = parents[index];
+            prefix = String.format("%s$%s", prefix, parent);
+            final String key = String.format("%s%s", prefix, start);
+            if (
+                this.context.hasDeclaration(key)
+                    && this.isParentBefore(key, this.rule.getStart())
+            ) {
+                return Optional.of(key);
             }
         }
         return Optional.empty();
@@ -58,11 +101,13 @@ public final class LookupParentContext {
     /**
      * Declarations must be before references.
      *
-     * @param ctxKey ctx declaration key.
-     * @param token reference.
-     * @return true if declaration is before reference.
+     * @param key Rule declaration key.
+     * @param token Reference.
+     * @return True if declaration is before reference.
      */
-    private boolean isParentBefore(final String ctxKey, final Token token) {
-        return aniContext.get(aniContext.getDeclarationKey(ctxKey)).getStart().getLine() < token.getLine();
+    private boolean isParentBefore(final String key, final Token token) {
+        return this.context.get(
+            this.context.getDeclarationKey(key)
+        ).getStart().getLine() < token.getLine();
     }
 }

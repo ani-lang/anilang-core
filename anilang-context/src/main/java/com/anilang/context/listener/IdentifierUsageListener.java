@@ -12,13 +12,23 @@ import com.anilang.parser.antlr.AniParser;
 /**
  * Listen to rules that use identifiers and link them to its declaration if exists.
  * It's a top-bottom lookup throughout the parent contexts.
+ *
+ * @since 0.7.0
  */
 public final class IdentifierUsageListener extends AniBaseListener {
 
-    private final AniContext aniContext;
+    /**
+     * The context.
+     */
+    private final AniContext context;
 
-    public IdentifierUsageListener(final AniContext aniContext) {
-        this.aniContext = aniContext;
+    /**
+     * Ctor.
+     *
+     * @param context Context.
+     */
+    public IdentifierUsageListener(final AniContext context) {
+        this.context = context;
     }
 
     @Override
@@ -26,7 +36,7 @@ public final class IdentifierUsageListener extends AniBaseListener {
         if (ctx.Identifier() != null) {
             final String identifier = ctx.Identifier().getText();
             new LookupParentContext(
-                aniContext,
+                this.context,
                 identifier,
                 ctx
             ).addIfFound();
@@ -38,7 +48,7 @@ public final class IdentifierUsageListener extends AniBaseListener {
         if (ctx.primary() != null && ctx.primary().Identifier() != null) {
             final String identifier = ctx.primary().Identifier().getText();
             new LookupParentContext(
-                aniContext,
+                this.context,
                 identifier,
                 ctx
             ).addIfFound();
@@ -50,7 +60,7 @@ public final class IdentifierUsageListener extends AniBaseListener {
         if (ctx.Identifier() != null) {
             final String identifier = ctx.Identifier().getText();
             new LookupParentContext(
-                aniContext,
+                this.context,
                 identifier,
                 ctx
             ).addIfFound();
@@ -60,7 +70,7 @@ public final class IdentifierUsageListener extends AniBaseListener {
     @Override
     public void enterVariableDeclaratorId(final AniParser.VariableDeclaratorIdContext ctx) {
         new LookupParentContext(
-            aniContext,
+            this.context,
             ctx.Identifier().getText(),
             ctx
         ).addIfFound();

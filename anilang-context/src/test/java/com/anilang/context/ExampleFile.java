@@ -12,7 +12,9 @@ import java.io.InputStream;
  */
 public final class ExampleFile {
 
-
+    /**
+     * File name.
+     */
     private final String file;
 
     /**
