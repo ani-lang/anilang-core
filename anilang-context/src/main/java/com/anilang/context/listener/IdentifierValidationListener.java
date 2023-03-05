@@ -12,7 +12,6 @@ import com.anilang.parser.antlr.AniParser;
 import java.util.function.BiConsumer;
 import org.antlr.v4.runtime.ParserRuleContext;
 
-// TODO: 27-01-23 should we move this to its own module?
 public final class IdentifierValidationListener extends AniBaseListener {
     private final AniContext aniContext;
     private final BiConsumer<ParserRuleContext, String> consumer;
