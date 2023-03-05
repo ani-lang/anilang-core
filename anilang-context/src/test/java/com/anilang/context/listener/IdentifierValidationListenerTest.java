@@ -280,7 +280,6 @@ class IdentifierValidationListenerTest {
         ).parse();
         final AniContext context = new BaseAniContext();
 
-        // TODO: 02-02-23 explicar como fases
         ParseTreeWalker.DEFAULT.walk(
             new IdentifierDeclarationListener(context),
             parser.file()
