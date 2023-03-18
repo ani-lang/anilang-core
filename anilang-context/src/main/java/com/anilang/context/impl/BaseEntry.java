@@ -85,7 +85,8 @@ public final class BaseEntry implements ContextEntry {
             this.declaration,
             this.ctx.getStart(),
             this.type,
-            Type.UNKNOWN
+            Type.UNKNOWN,
+            ""
         );
     }
 }

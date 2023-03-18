@@ -66,7 +66,7 @@ public final class BaseAniContext implements AniContext {
 
     @Override
     public boolean hasDeclaration(final ParserRuleContext rule, final String identifier) {
-        return new LookupParentContext(this, identifier, rule).getKey().isPresent();
+        return new LookupParentContext(this, identifier, rule).getParentKey().isPresent();
     }
 
     @Override

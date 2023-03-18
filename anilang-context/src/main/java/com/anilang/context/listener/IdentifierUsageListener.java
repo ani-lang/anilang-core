@@ -44,7 +44,7 @@ public final class IdentifierUsageListener extends AniBaseListener {
     }
 
     @Override
-    public void enterExpression(final AniParser.ExpressionContext ctx) {
+    public void enterValue(final AniParser.ValueContext ctx) {
         if (ctx.primary() != null && ctx.primary().Identifier() != null) {
             final String identifier = ctx.primary().Identifier().getText();
             new LookupParentContext(

@@ -54,7 +54,7 @@ public final class LookupParentContext {
      * @since 0.7.0
      */
     public void addIfFound() {
-        this.getKey().ifPresent(
+        this.getParentKey().ifPresent(
             ctxKey -> this.context.addContext(
                 new BaseEntry(
                     this.rule,
@@ -73,7 +73,7 @@ public final class LookupParentContext {
      * @checkstyle ReturnCountCheck (25 lines)
      */
     @SuppressWarnings("PMD.OnlyOneReturn")
-    public Optional<String> getKey() {
+    public Optional<String> getParentKey() {
         final String scope = new ReversedCtxPath(
             new CtxPathList(this.rule, this.identifier).asList()
         ).toString();

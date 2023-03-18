@@ -98,16 +98,54 @@ class TypeResolveListenerTest {
             parser.file()
         );
         Assertions.assertEquals(
-            context.get("1-14").getType(),
-            Type.BOOLEAN
+            Type.BOOLEAN,
+            context.get("1-14").getType()
+        );
+    }
+
+    @Test
+    void instantiation() throws IOException {
+        final AniParser parser = new AniFile(
+            new ExampleFile("type-resolve/instantiation.ani").inputStream()
+        ).parse();
+        final AniContext context = new BaseAniContext();
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierDeclarationListener(context),
+            parser.file()
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierUsageListener(context),
+            parser.file()
+        );
+        parser.reset();
+        Assertions.assertDoesNotThrow(
+            () -> ParseTreeWalker.DEFAULT.walk(
+                new IdentifierValidationListener(context),
+                parser.file()
+            )
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new TypeDefinitionListener(context),
+            parser.file()
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new TypeResolveListener(context),
+            parser.file()
         );
         Assertions.assertEquals(
-            context.get("1-24").getType(),
-            Type.STRING
+            Type.INSTANCE,
+            context.get("5-0").getType()
         );
         Assertions.assertEquals(
-            context.get("9-8").getType(),
-            Type.INSTANCE
+            Type.INSTANCE,
+            context.get("5-4").getType()
+        );
+        Assertions.assertEquals(
+            "1-0",
+            context.get("5-0").getTypeReferenceKey().orElse("")
         );
     }
 }

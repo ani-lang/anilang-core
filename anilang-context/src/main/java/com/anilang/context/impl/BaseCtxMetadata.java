@@ -6,6 +6,7 @@ package com.anilang.context.impl;
 
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
+import java.util.Optional;
 import org.antlr.v4.runtime.Token;
 
 /**
@@ -45,6 +46,11 @@ public final class BaseCtxMetadata implements ContextMetadata {
     private Type type;
 
     /**
+     * The key to get information about the type resolved.
+     */
+    private String referenceKey;
+
+    /**
      * Ctor.
      *
      * @param parents Parent scope.
@@ -60,13 +66,15 @@ public final class BaseCtxMetadata implements ContextMetadata {
         final String declaration,
         final Token start,
         final IdentifierType identifierType,
-        final Type type
+        final Type type,
+        final String referenceKey
     ) {
         this.parents = parents;
         this.declaration = declaration;
         this.start = start;
         this.identifierType = identifierType;
         this.type = type;
+        this.referenceKey = referenceKey;
     }
 
     @Override
@@ -97,5 +105,16 @@ public final class BaseCtxMetadata implements ContextMetadata {
     @Override
     public void asType(final Type value) {
         this.type = value;
+    }
+
+    @Override
+    public Optional<String> getTypeReferenceKey() {
+        return Optional.of(this.referenceKey)
+            .filter(item -> !item.isEmpty());
+    }
+
+    @Override
+    public void setTypeReferenceKey(final String key) {
+        this.referenceKey = key;
     }
 }

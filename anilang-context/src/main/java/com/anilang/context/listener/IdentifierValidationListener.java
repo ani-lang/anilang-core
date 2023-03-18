@@ -60,7 +60,7 @@ public final class IdentifierValidationListener extends AniBaseListener {
     }
 
     @Override
-    public void enterExpression(final AniParser.ExpressionContext ctx) {
+    public void enterValue(final AniParser.ValueContext ctx) {
         if (ctx.primary() != null && ctx.primary().Identifier() != null) {
             this.validate(ctx, ctx.primary().Identifier().getText());
         }

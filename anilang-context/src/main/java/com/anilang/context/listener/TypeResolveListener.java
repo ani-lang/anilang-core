@@ -58,17 +58,43 @@ public final class TypeResolveListener extends AniBaseListener {
         this.asType(
             ctx.formalParameterDeclsRest().variableDeclaratorId(),
             identifier,
-            new LookupParentContext(this.context, identifier, ctx).getKey().orElse("")
+            new LookupParentContext(this.context, identifier, ctx).getParentKey().orElse("")
         );
+    }
+
+    @Override
+    public void enterVariableDeclarator(final AniParser.VariableDeclaratorContext rule) {
+        final AniParser.VariableDeclaratorIdContext declaratorId = rule.variableDeclaratorId();
+        final AniParser.VariableInitializerContext initializer = rule.variableInitializer();
+        final AniParser.ExpressionContext expression = initializer.expression();
+        if (expression instanceof AniParser.MethodCallContext) {
+            final AniParser.MethodCallContext methodCall = (AniParser.MethodCallContext) expression;
+            final AniParser.ExpressionContext className = methodCall.expression();
+            final LookupParentContext lookup = new LookupParentContext(
+                this.context,
+                className.getText(),
+                rule
+            );
+            final String parent = lookup.getParentKey().orElse("");
+            asType(declaratorId, className.getText(), parent);
+        }
+    }
+
+    @Override
+    public void enterMethodCall(final AniParser.MethodCallContext rule) {
+        final String identifier = rule.expression().getText();
+        final LookupParentContext lookup = new LookupParentContext(context, identifier, rule);
+        final String parents = lookup.getParentKey().orElse("");
+        asType(rule.expression(), identifier, parents);
     }
 
     /**
      * Resolve the type.
      * TODO 01-03-23 this is duplicated
      *
-     * @param rule Rule.
-     * @param identifier Identifier.
-     * @param reference Reference key.
+     * @param rule Rule with the identifier to set the type.
+     * @param identifier Identifier of the type.
+     * @param reference Reference key of the identifier.
      */
     private void asType(
         final ParserRuleContext rule,
@@ -79,7 +105,22 @@ public final class TypeResolveListener extends AniBaseListener {
         if (this.context.contains(key)) {
             final ContextMetadata metadata = this.context.get(key);
             metadata.asType(this.getType(identifier, reference));
+            metadata.setTypeReferenceKey(getReferenceKey(rule, reference));
         }
+    }
+
+    /**
+     * Returns the reference key for an identifier.
+     *
+     * @param rule Rule.
+     * @param reference Parent key.
+     * @return The key of the referenced type. Empty if not found.
+     */
+    private String getReferenceKey(final ParserRuleContext rule, final String reference) {
+        if (this.context.hasDeclaration(reference)) {
+            return this.context.getDeclarationKey(reference);
+        }
+        return "";
     }
 
     /**
