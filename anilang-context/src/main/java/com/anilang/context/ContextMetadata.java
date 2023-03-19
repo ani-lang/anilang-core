@@ -64,7 +64,7 @@ public interface ContextMetadata {
     /**
      * Returns the key to get information about the type resolved.
      *
-     * @return Key or empty if type is {@link Type#UNKNOWN}.
+     * @return Key or empty if type is {@link Type#UNKNOWN} or a primitive type.
      */
     Optional<String> getTypeReferenceKey();
 
