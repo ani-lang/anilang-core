@@ -58,17 +58,106 @@ public final class TypeResolveListener extends AniBaseListener {
         this.asType(
             ctx.formalParameterDeclsRest().variableDeclaratorId(),
             identifier,
-            new LookupParentContext(this.context, identifier, ctx).getKey().orElse("")
+            new LookupParentContext(this.context, identifier, ctx).getParentKey().orElse("")
         );
+    }
+
+    @Override
+    public void enterVariableDeclarator(final AniParser.VariableDeclaratorContext rule) {
+        final AniParser.VariableDeclaratorIdContext declaratorId = rule.variableDeclaratorId();
+        final AniParser.VariableInitializerContext initializer = rule.variableInitializer();
+        final AniParser.ExpressionContext expression = initializer.expression();
+        if (expression instanceof AniParser.MethodCallContext) {
+            // TODO method call vs class instantiation
+            final AniParser.MethodCallContext methodCall = (AniParser.MethodCallContext) expression;
+            final AniParser.ExpressionContext className = methodCall.expression();
+            final LookupParentContext lookup = new LookupParentContext(
+                this.context,
+                className.getText(),
+                rule
+            );
+            final String parent = lookup.getParentKey().orElse("");
+            asType(declaratorId, className.getText(), parent);
+        }
+        if (expression instanceof AniParser.ValueContext) {
+            final AniParser.ValueContext value = (AniParser.ValueContext) expression;
+            final AniParser.LiteralContext literal = value.primary().literal();
+            final String key = new PositionKey(rule).toString();
+            if (this.context.contains(key)) {
+                final ContextMetadata metadata = this.context.get(key);
+                if (literal.IntegerLiteral() != null) {
+                    metadata.asType(Type.INT);
+                } else if (literal.DecimalLiteral() != null) {
+                    metadata.asType(Type.FLOAT);
+                } else if (literal.booleanLiteral() != null) {
+                    metadata.asType(Type.BOOLEAN);
+                } else if (literal.StringLiteral() != null) {
+                    metadata.asType(Type.STRING);
+                }
+            }
+        }
+        if (expression instanceof AniParser.InstancePropertyContext) {
+            final AniParser.InstancePropertyContext propertyRule =
+                (AniParser.InstancePropertyContext) expression;
+            final AniParser.ValueContext value = (AniParser.ValueContext) propertyRule.expression();
+            final String varId = value.primary().Identifier().getText();
+            final String propertyId = propertyRule.Identifier().getText();
+            final LookupParentContext varLookup = new LookupParentContext(
+                this.context,
+                varId,
+                rule
+            );
+            final String varDeclarationKey =
+                context.getDeclarationKey(varLookup.getParentKey().orElse(""));
+            final ContextMetadata varData = context.get(varDeclarationKey);
+            final ContextMetadata varType = context.get(varData.getTypeReferenceKey().orElse(""));
+            final String propertyScopeString = String.format(
+                "%s$%s",
+                varType.getParents(),
+                propertyId
+            );
+            if (context.hasDeclaration(propertyScopeString)) {
+                final String propertyKey = context.getDeclarationKey(propertyScopeString);
+                final ContextMetadata property = context.get(propertyKey);
+                final String key = new PositionKey(rule).toString();
+                if (this.context.contains(key)) {
+                    final ContextMetadata metadata = this.context.get(key);
+                    metadata.asType(property.getType());
+                    metadata.setTypeReferenceKey(property.getTypeReferenceKey().orElse(""));
+                }
+            }
+        }
+        if (expression instanceof AniParser.AdditionOperatorContext) {
+            final String key = new PositionKey(rule).toString();
+            if (this.context.contains(key)) {
+                final ContextMetadata metadata = this.context.get(key);
+                metadata.asType(Type.INT);
+            }
+        }
+        if (expression instanceof AniParser.MultiplyOperationContext) {
+            final String key = new PositionKey(rule).toString();
+            if (this.context.contains(key)) {
+                final ContextMetadata metadata = this.context.get(key);
+                metadata.asType(Type.INT);
+            }
+        }
+    }
+
+    @Override
+    public void enterMethodCall(final AniParser.MethodCallContext rule) {
+        final String identifier = rule.expression().getText();
+        final LookupParentContext lookup = new LookupParentContext(context, identifier, rule);
+        final String parents = lookup.getParentKey().orElse("");
+        asType(rule.expression(), identifier, parents);
     }
 
     /**
      * Resolve the type.
      * TODO 01-03-23 this is duplicated
      *
-     * @param rule Rule.
-     * @param identifier Identifier.
-     * @param reference Reference key.
+     * @param rule Rule with the identifier to set the type.
+     * @param identifier Identifier of the type.
+     * @param reference Reference key of the identifier.
      */
     private void asType(
         final ParserRuleContext rule,
@@ -79,7 +168,22 @@ public final class TypeResolveListener extends AniBaseListener {
         if (this.context.contains(key)) {
             final ContextMetadata metadata = this.context.get(key);
             metadata.asType(this.getType(identifier, reference));
+            metadata.setTypeReferenceKey(getReferenceKey(rule, reference));
         }
+    }
+
+    /**
+     * Returns the reference key for an identifier.
+     *
+     * @param rule Rule.
+     * @param reference Parent key.
+     * @return The key of the referenced type. Empty if not found.
+     */
+    private String getReferenceKey(final ParserRuleContext rule, final String reference) {
+        if (this.context.hasDeclaration(reference)) {
+            return this.context.getDeclarationKey(reference);
+        }
+        return "";
     }
 
     /**

@@ -1,0 +1,16 @@
+class B:
+
+end
+
+class A:
+    p1=1
+    p2='string'
+    p3=true
+    p4=B()
+end
+
+instance = A()
+aNumber = instance.p1
+aString = instance.p2
+aBoolean = instance.p3
+anInstance = instance.p4

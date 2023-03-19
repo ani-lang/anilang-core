@@ -45,6 +45,7 @@ public final class TypeDefinitionListener extends AniBaseListener {
 
     /**
      * Resolve a type.
+     * In the definition phase, the reference type key the rule's key since we are defining types.
      *
      * @param rule Rule.
      * @param type Type.
@@ -54,6 +55,7 @@ public final class TypeDefinitionListener extends AniBaseListener {
         if (this.context.contains(key)) {
             final ContextMetadata metadata = this.context.get(key);
             metadata.asType(type);
+            metadata.setTypeReferenceKey(key);
         }
     }
 }
