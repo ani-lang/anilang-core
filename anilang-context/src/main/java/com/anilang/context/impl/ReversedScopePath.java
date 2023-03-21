@@ -4,36 +4,36 @@
 
 package com.anilang.context.impl;
 
-import com.anilang.context.CtxPath;
+import com.anilang.context.ScopePath;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Sort the context path in reverse order.
+ * Sort the scope path in reverse order.
  *
  * @since 0.7.0
  */
-public final class ReversedCtxPath implements CtxPath {
+public final class ReversedScopePath implements ScopePath {
 
     /**
-     * Bottom-up context path.
+     * Bottom-up scope path.
      */
-    private final List<String> ctx;
+    private final List<String> scope;
 
     /**
      * Ctor.
      *
-     * @param ctx Bottom-up context path.
+     * @param scope Bottom-up scope path.
      */
-    public ReversedCtxPath(final List<String> ctx) {
-        this.ctx = ctx;
+    public ReversedScopePath(final List<String> scope) {
+        this.scope = scope;
     }
 
     @Override
     public List<String> asList() {
         final List<String> sorted = new LinkedList<>();
-        Collections.copy(sorted, this.ctx);
+        Collections.copy(sorted, this.scope);
         Collections.reverse(sorted);
         return sorted;
     }
@@ -42,8 +42,8 @@ public final class ReversedCtxPath implements CtxPath {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         // @checkstyle IllegalTokenCheck (1 line)
-        for (int index = this.ctx.size() - 1; index >= 0; index--) {
-            builder.append(String.format("$%s", this.ctx.get(index)));
+        for (int index = this.scope.size() - 1; index >= 0; index--) {
+            builder.append(String.format("$%s", this.scope.get(index)));
         }
         return builder.toString();
     }
