@@ -7,15 +7,14 @@ package com.anilang.context.listener;
 import com.anilang.context.AniContext;
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
-import com.anilang.context.impl.CtxPathList;
 import com.anilang.context.impl.LookupParentContext;
 import com.anilang.context.impl.PositionKey;
-import com.anilang.context.impl.ReversedCtxPath;
+import com.anilang.context.impl.ReversedScopePath;
+import com.anilang.context.impl.ScopePathList;
+import com.anilang.context.impl.TypeIdentifier;
 import com.anilang.parser.antlr.AniBaseListener;
 import com.anilang.parser.antlr.AniParser;
-import java.util.Optional;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
  * TODO 28-02-23 resolve types used from class, struct and primitive types.
@@ -40,25 +39,24 @@ public final class TypeResolveListener extends AniBaseListener {
     }
 
     @Override
-    public void enterStructBodyMember(final AniParser.StructBodyMemberContext ctx) {
+    public void enterStructBodyMember(final AniParser.StructBodyMemberContext rule) {
+        final String typeIdentifier = new TypeIdentifier(rule.type()).toString();
         this.asType(
-            ctx.type(),
-            ctx.Identifier().getText(),
-            new ReversedCtxPath(
-                new CtxPathList(ctx, ctx.Identifier().getText()).asList()
+            rule.type(),
+            typeIdentifier,
+            new ReversedScopePath(
+                new ScopePathList(rule, typeIdentifier).asList()
             ).toString()
         );
     }
 
     @Override
-    public void enterFormalParameterDecls(final AniParser.FormalParameterDeclsContext ctx) {
-        final String identifier = Optional.ofNullable(ctx.type().Identifier())
-            .map(ParseTree::getText)
-            .orElseGet(() -> ctx.type().primitiveType().getText());
+    public void enterFormalParameterDecls(final AniParser.FormalParameterDeclsContext rule) {
+        final String typeIdentifier = new TypeIdentifier(rule.type()).toString();
         this.asType(
-            ctx.formalParameterDeclsRest().variableDeclaratorId(),
-            identifier,
-            new LookupParentContext(this.context, identifier, ctx).getParentKey().orElse("")
+            rule.formalParameterDeclsRest().variableDeclaratorId(),
+            typeIdentifier,
+            new LookupParentContext(this.context, typeIdentifier, rule).getScopeString().orElse("")
         );
     }
 
@@ -76,8 +74,8 @@ public final class TypeResolveListener extends AniBaseListener {
                 className.getText(),
                 rule
             );
-            final String parent = lookup.getParentKey().orElse("");
-            asType(declaratorId, className.getText(), parent);
+            final String scope = lookup.getScopeString().orElse("");
+            asType(declaratorId, className.getText(), scope);
         }
         if (expression instanceof AniParser.ValueContext) {
             final AniParser.ValueContext value = (AniParser.ValueContext) expression;
@@ -108,7 +106,7 @@ public final class TypeResolveListener extends AniBaseListener {
                 rule
             );
             final String varDeclarationKey =
-                context.getDeclarationKey(varLookup.getParentKey().orElse(""));
+                context.getDeclarationKey(varLookup.getScopeString().orElse(""));
             final ContextMetadata varData = context.get(varDeclarationKey);
             final ContextMetadata varType = context.get(varData.getTypeReferenceKey().orElse(""));
             final String propertyScopeString = String.format(
@@ -147,27 +145,27 @@ public final class TypeResolveListener extends AniBaseListener {
     public void enterMethodCall(final AniParser.MethodCallContext rule) {
         final String identifier = rule.expression().getText();
         final LookupParentContext lookup = new LookupParentContext(context, identifier, rule);
-        final String parents = lookup.getParentKey().orElse("");
-        asType(rule.expression(), identifier, parents);
+        final String scope = lookup.getScopeString().orElse("");
+        asType(rule.expression(), identifier, scope);
     }
 
     /**
      * Resolve the type.
      * TODO 01-03-23 this is duplicated
      *
-     * @param rule Rule with the identifier to set the type.
-     * @param identifier Identifier of the type.
-     * @param reference Reference key of the identifier.
+     * @param rule Rule with the typeIdentifier to set the type.
+     * @param typeIdentifier Identifier of the type.
+     * @param reference Reference key of the typeIdentifier.
      */
     private void asType(
         final ParserRuleContext rule,
-        final String identifier,
+        final String typeIdentifier,
         final String reference
     ) {
         final String key = new PositionKey(rule).toString();
         if (this.context.contains(key)) {
             final ContextMetadata metadata = this.context.get(key);
-            metadata.asType(this.getType(identifier, reference));
+            metadata.asType(this.getType(typeIdentifier, reference));
             metadata.setTypeReferenceKey(getReferenceKey(rule, reference));
         }
     }

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @since 0.7.0
  */
-public interface CtxPath {
+public interface ScopePath {
 
     /**
      * Bottom-top sorted list of parents.

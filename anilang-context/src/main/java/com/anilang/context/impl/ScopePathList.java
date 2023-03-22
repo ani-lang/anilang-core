@@ -4,7 +4,7 @@
 
 package com.anilang.context.impl;
 
-import com.anilang.context.CtxPath;
+import com.anilang.context.ScopePath;
 import com.anilang.parser.antlr.AniParser;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
  *
  * @since 0.7.0
  */
-public final class CtxPathList implements CtxPath {
+public final class ScopePathList implements ScopePath {
 
     /**
      * Rule.
@@ -33,7 +33,7 @@ public final class CtxPathList implements CtxPath {
      * @param rule Rule.
      * @param identifier Identifier.
      */
-    public CtxPathList(final ParserRuleContext rule, final String identifier) {
+    public ScopePathList(final ParserRuleContext rule, final String identifier) {
         this.rule = rule;
         this.identifier = identifier;
     }

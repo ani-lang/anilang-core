@@ -79,8 +79,8 @@ public final class BaseEntry implements ContextEntry {
     @Override
     public ContextMetadata getValue() {
         return new BaseCtxMetadata(
-            new ReversedCtxPath(
-                new CtxPathList(this.ctx, this.identifier).asList()
+            new ReversedScopePath(
+                new ScopePathList(this.ctx, this.identifier).asList()
             ).toString(),
             this.declaration,
             this.ctx.getStart(),
