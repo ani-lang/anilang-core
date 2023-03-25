@@ -208,16 +208,17 @@ arrayInitializer
     ;
 
 expression
-    :   primary #value
-    |   expression '.' Identifier #instanceProperty
-    |   expression ('+'|'-') expression #additionOperator
-    |   expression ('*'|'/') expression #multiplyOperation
-    |   expression ('==' | '!=') expression #euqalComparison
-    |   expression ('<' '=' | '>' '=' | '<' | '>') expression #orderComparison
-    |   expression 'and' expression #logicAnd
-    |   expression 'or' expression #logicOr
-    |   expression '(' expressionList? ')' #methodCall
-    |   expression '=' expression #assignation
+    :   primary #expressionValue
+    |   expression '.' Identifier #expressionInstanceProperty
+    |   expression ('+'|'-') expression #expressionAdditionOperator
+    |   expression ('*'|'/') expression #expressionMultiplyOperation
+    |   expression ('==' | '!=') expression #expressionEqualComparison
+    |   expression ('<' '=' | '>' '=' | '<' | '>') expression #expressionOrderComparison
+    |   expression 'and' expression #expressionLogicAnd
+    |   expression 'or' expression #expressionLogicOr
+    |   expression '(' expressionList? ')' #expressionMethodCall
+    |   expression '=' expression #expressionAssignation
+    |   'new' Identifier '(' expressionList? ')' #expressionInstantiation
     ;
 
 primary

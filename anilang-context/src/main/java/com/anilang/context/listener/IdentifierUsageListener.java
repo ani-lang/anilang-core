@@ -32,47 +32,56 @@ public final class IdentifierUsageListener extends AniBaseListener {
     }
 
     @Override
-    public void enterType(final AniParser.TypeContext ctx) {
-        if (ctx.Identifier() != null) {
-            final String identifier = ctx.Identifier().getText();
+    public void enterType(final AniParser.TypeContext rule) {
+        if (rule.Identifier() != null) {
+            final String identifier = rule.Identifier().getText();
             new LookupParentContext(
                 this.context,
                 identifier,
-                ctx
+                rule
             ).addIfFound();
         }
     }
 
     @Override
-    public void enterValue(final AniParser.ValueContext ctx) {
-        if (ctx.primary() != null && ctx.primary().Identifier() != null) {
-            final String identifier = ctx.primary().Identifier().getText();
+    public void enterExpressionValue(final AniParser.ExpressionValueContext rule) {
+        if (rule.primary() != null && rule.primary().Identifier() != null) {
+            final String identifier = rule.primary().Identifier().getText();
             new LookupParentContext(
                 this.context,
                 identifier,
-                ctx
+                rule
             ).addIfFound();
         }
     }
 
     @Override
-    public void enterSqlDeclarator(final AniParser.SqlDeclaratorContext ctx) {
-        if (ctx.Identifier() != null) {
-            final String identifier = ctx.Identifier().getText();
+    public void enterSqlDeclarator(final AniParser.SqlDeclaratorContext rule) {
+        if (rule.Identifier() != null) {
+            final String identifier = rule.Identifier().getText();
             new LookupParentContext(
                 this.context,
                 identifier,
-                ctx
+                rule
             ).addIfFound();
         }
     }
 
     @Override
-    public void enterVariableDeclaratorId(final AniParser.VariableDeclaratorIdContext ctx) {
+    public void enterVariableDeclaratorId(final AniParser.VariableDeclaratorIdContext rule) {
         new LookupParentContext(
             this.context,
-            ctx.Identifier().getText(),
-            ctx
+            rule.Identifier().getText(),
+            rule
+        ).addIfFound();
+    }
+
+    @Override
+    public void enterExpressionInstantiation(final AniParser.ExpressionInstantiationContext rule) {
+        new LookupParentContext(
+            this.context,
+            rule.Identifier().getText(),
+            rule
         ).addIfFound();
     }
 }

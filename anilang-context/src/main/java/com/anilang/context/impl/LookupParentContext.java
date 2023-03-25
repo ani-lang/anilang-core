@@ -55,11 +55,11 @@ public final class LookupParentContext {
      */
     public void addIfFound() {
         this.getScopeString().ifPresent(
-            ctxKey -> this.context.addContext(
+            scopeString -> this.context.addContext(
                 new BaseEntry(
                     this.rule,
                     this.identifier,
-                    this.context.getDeclarationKey(ctxKey),
+                    this.context.getDeclarationKey(scopeString),
                     IdentifierType.REFERENCE
                 )
             )

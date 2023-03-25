@@ -1,4 +1,4 @@
-a = P()
+a = new P()
 b = foo()
-c = A()
+c = new A()
 d = a + b

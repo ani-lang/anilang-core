@@ -6,5 +6,5 @@ class A:
 end
 
 class B:
-    c = A()
+    c = new A()
 end

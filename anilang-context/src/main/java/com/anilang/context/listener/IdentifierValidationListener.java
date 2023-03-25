@@ -53,17 +53,22 @@ public final class IdentifierValidationListener extends AniBaseListener {
     }
 
     @Override
-    public void enterType(final AniParser.TypeContext ctx) {
-        if (ctx.Identifier() != null) {
-            this.validate(ctx, ctx.Identifier().toString());
+    public void enterType(final AniParser.TypeContext rule) {
+        if (rule.Identifier() != null) {
+            this.validate(rule, rule.Identifier().toString());
         }
     }
 
     @Override
-    public void enterValue(final AniParser.ValueContext ctx) {
-        if (ctx.primary() != null && ctx.primary().Identifier() != null) {
-            this.validate(ctx, ctx.primary().Identifier().getText());
+    public void enterExpressionValue(final AniParser.ExpressionValueContext rule) {
+        if (rule.primary() != null && rule.primary().Identifier() != null) {
+            this.validate(rule, rule.primary().Identifier().getText());
         }
+    }
+
+    @Override
+    public void enterExpressionInstantiation(final AniParser.ExpressionInstantiationContext rule) {
+        this.validate(rule, rule.Identifier().getText());
     }
 
     /**
