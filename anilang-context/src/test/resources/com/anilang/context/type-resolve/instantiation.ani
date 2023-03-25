@@ -2,4 +2,4 @@ class A:
 
 end
 
-b = A()
+b = new A()

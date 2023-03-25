@@ -15,6 +15,7 @@ import com.anilang.context.impl.TypeIdentifier;
 import com.anilang.parser.antlr.AniBaseListener;
 import com.anilang.parser.antlr.AniParser;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
  * TODO 28-02-23 resolve types used from class, struct and primitive types.
@@ -65,10 +66,11 @@ public final class TypeResolveListener extends AniBaseListener {
         final AniParser.VariableDeclaratorIdContext declaratorId = rule.variableDeclaratorId();
         final AniParser.VariableInitializerContext initializer = rule.variableInitializer();
         final AniParser.ExpressionContext expression = initializer.expression();
-        if (expression instanceof AniParser.MethodCallContext) {
+        if (expression instanceof AniParser.ExpressionInstantiationContext) {
             // TODO method call vs class instantiation
-            final AniParser.MethodCallContext methodCall = (AniParser.MethodCallContext) expression;
-            final AniParser.ExpressionContext className = methodCall.expression();
+            final AniParser.ExpressionInstantiationContext instantiation =
+                (AniParser.ExpressionInstantiationContext) expression;
+            final TerminalNode className = instantiation.Identifier();
             final LookupParentContext lookup = new LookupParentContext(
                 this.context,
                 className.getText(),
@@ -77,8 +79,8 @@ public final class TypeResolveListener extends AniBaseListener {
             final String scope = lookup.getScopeString().orElse("");
             asType(declaratorId, className.getText(), scope);
         }
-        if (expression instanceof AniParser.ValueContext) {
-            final AniParser.ValueContext value = (AniParser.ValueContext) expression;
+        if (expression instanceof AniParser.ExpressionValueContext) {
+            final AniParser.ExpressionValueContext value = (AniParser.ExpressionValueContext) expression;
             final AniParser.LiteralContext literal = value.primary().literal();
             final String key = new PositionKey(rule).toString();
             if (this.context.contains(key)) {
@@ -94,10 +96,10 @@ public final class TypeResolveListener extends AniBaseListener {
                 }
             }
         }
-        if (expression instanceof AniParser.InstancePropertyContext) {
-            final AniParser.InstancePropertyContext propertyRule =
-                (AniParser.InstancePropertyContext) expression;
-            final AniParser.ValueContext value = (AniParser.ValueContext) propertyRule.expression();
+        if (expression instanceof AniParser.ExpressionInstancePropertyContext) {
+            final AniParser.ExpressionInstancePropertyContext propertyRule =
+                (AniParser.ExpressionInstancePropertyContext) expression;
+            final AniParser.ExpressionValueContext value = (AniParser.ExpressionValueContext) propertyRule.expression();
             final String varId = value.primary().Identifier().getText();
             final String propertyId = propertyRule.Identifier().getText();
             final LookupParentContext varLookup = new LookupParentContext(
@@ -125,14 +127,14 @@ public final class TypeResolveListener extends AniBaseListener {
                 }
             }
         }
-        if (expression instanceof AniParser.AdditionOperatorContext) {
+        if (expression instanceof AniParser.ExpressionAdditionOperatorContext) {
             final String key = new PositionKey(rule).toString();
             if (this.context.contains(key)) {
                 final ContextMetadata metadata = this.context.get(key);
                 metadata.asType(Type.INT);
             }
         }
-        if (expression instanceof AniParser.MultiplyOperationContext) {
+        if (expression instanceof AniParser.ExpressionMultiplyOperationContext) {
             final String key = new PositionKey(rule).toString();
             if (this.context.contains(key)) {
                 final ContextMetadata metadata = this.context.get(key);
@@ -142,11 +144,11 @@ public final class TypeResolveListener extends AniBaseListener {
     }
 
     @Override
-    public void enterMethodCall(final AniParser.MethodCallContext rule) {
-        final String identifier = rule.expression().getText();
+    public void enterExpressionInstantiation(final AniParser.ExpressionInstantiationContext rule) {
+        final String identifier = rule.Identifier().getText();
         final LookupParentContext lookup = new LookupParentContext(context, identifier, rule);
         final String scope = lookup.getScopeString().orElse("");
-        asType(rule.expression(), identifier, scope);
+        asType(rule, identifier, scope);
     }
 
     /**

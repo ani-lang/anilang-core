@@ -6,10 +6,10 @@ class A:
     p1=1
     p2='string'
     p3=true
-    p4=B()
+    p4=new B()
 end
 
-instance = A()
+instance = new A()
 aNumber = instance.p1
 aString = instance.p2
 aBoolean = instance.p3

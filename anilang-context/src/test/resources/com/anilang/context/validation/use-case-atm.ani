@@ -26,8 +26,8 @@ end
  * ATM implementation.
  */
 class Atm:
-    userDb = UserDb()
-    accountDb = AccountDb()
+    userDb = new UserDb()
+    accountDb = new AccountDb()
     loggedUser = null
 
     /**
@@ -98,7 +98,7 @@ end
 /**
  * Now we use the ATM we build
  */
-atm = ATM()
+atm = new ATM()
 # read user card
 card = Scanner.read()
 # read pin
