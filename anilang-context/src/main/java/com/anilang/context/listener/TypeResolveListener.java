@@ -67,7 +67,6 @@ public final class TypeResolveListener extends AniBaseListener {
         final AniParser.VariableInitializerContext initializer = rule.variableInitializer();
         final AniParser.ExpressionContext expression = initializer.expression();
         if (expression instanceof AniParser.ExpressionInstantiationContext) {
-            // TODO method call vs class instantiation
             final AniParser.ExpressionInstantiationContext instantiation =
                 (AniParser.ExpressionInstantiationContext) expression;
             final TerminalNode className = instantiation.Identifier();
