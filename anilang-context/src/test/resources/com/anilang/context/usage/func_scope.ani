@@ -2,13 +2,13 @@ struct Person:
 
 end
 
-def foo(Person b):
+def foo(Person b) -> Person:
     a = 1
     foo()
     return b
 end
 
-def bar(string a):
+def bar(string a) -> string:
     b = a + 'world'
     foo()
 end

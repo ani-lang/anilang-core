@@ -1,4 +1,4 @@
-def foo(Person b):
+def foo(Person b) -> Person:
     a = 1
     foo()
     return b

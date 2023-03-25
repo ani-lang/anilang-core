@@ -2,7 +2,7 @@ import 'tools'
 
 v = v + 1 + ((2 - 3) * 4) / p.g(a)
 # a method
-def greeting(string name, string suffix):
+def greeting(string name, string suffix) -> string:
     return 'hello ' + name + suffix
 end
 /*

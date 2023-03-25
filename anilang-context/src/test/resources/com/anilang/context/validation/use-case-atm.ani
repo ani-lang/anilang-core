@@ -33,7 +33,7 @@ class Atm:
     /**
      * Try to login using the provided credentials
      */
-    def login(string card, int pin):
+    def login(string card, int pin) -> UserDb:
         userSql = ''
         sql.select userSql:
             *
