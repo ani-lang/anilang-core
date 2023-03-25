@@ -18,7 +18,6 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * TODO 28-02-23 resolve types used from class, struct and primitive types.
  * This phase resolve the types of identifiers using the defined types.
  *
  * @since 0.7.0
