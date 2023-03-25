@@ -96,6 +96,7 @@ public final class TypeResolveListener extends AniBaseListener {
                 }
             }
         }
+        // TODO #119 implement method resolve type with specified return type
         if (expression instanceof AniParser.ExpressionInstancePropertyContext) {
             final AniParser.ExpressionInstancePropertyContext propertyRule =
                 (AniParser.ExpressionInstancePropertyContext) expression;
