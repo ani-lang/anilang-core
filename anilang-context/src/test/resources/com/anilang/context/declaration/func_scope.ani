@@ -1,10 +1,10 @@
-def foo():
+def foo() -> int:
     a = 1
     b = a + 1
     return b
 end
 
-def bar(string a):
+def bar(string a) -> string:
     b = a + 'world'
     return b
 end

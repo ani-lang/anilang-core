@@ -19,7 +19,6 @@ import org.antlr.v4.runtime.ParserRuleContext;
 public final class BaseAniContext implements AniContext {
 
     /**
-     * TODO 22-01-23 string too slow, must be a way to use numbers
      * Token identifier (position) and its metadata including its context string.
      */
     private final Map<String, ContextMetadata> metadata = new HashMap<>();

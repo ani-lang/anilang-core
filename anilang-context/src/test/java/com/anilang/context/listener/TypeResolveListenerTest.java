@@ -218,4 +218,92 @@ class TypeResolveListenerTest {
             context.get("16-0").getType()
         );
     }
+
+    @Test
+    void functionDefinition() throws IOException {
+        final AniParser parser = new AniFile(
+            new ExampleFile("type-resolve/func_definition.ani").inputStream()
+        ).parse();
+        final AniContext context = new BaseAniContext();
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierDeclarationListener(context),
+            parser.file()
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierUsageListener(context),
+            parser.file()
+        );
+        parser.reset();
+        Assertions.assertDoesNotThrow(
+            () -> ParseTreeWalker.DEFAULT.walk(
+                new IdentifierValidationListener(context),
+                parser.file()
+            )
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new TypeDefinitionListener(context),
+            parser.file()
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new TypeResolveListener(context),
+            parser.file()
+        );
+        Assertions.assertEquals(
+            Type.INT,
+            context.get("1-0").getType()
+        );
+        Assertions.assertEquals(
+            Type.INT,
+            context.get("2-11").getType()
+        );
+    }
+
+    @Test
+    void functionInExpression() throws IOException {
+        final AniParser parser = new AniFile(
+            new ExampleFile("type-resolve/func_in_expression.ani").inputStream()
+        ).parse();
+        final AniContext context = new BaseAniContext();
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierDeclarationListener(context),
+            parser.file()
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new IdentifierUsageListener(context),
+            parser.file()
+        );
+        parser.reset();
+        Assertions.assertDoesNotThrow(
+            () -> ParseTreeWalker.DEFAULT.walk(
+                new IdentifierValidationListener(context),
+                parser.file()
+            )
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new TypeDefinitionListener(context),
+            parser.file()
+        );
+        parser.reset();
+        ParseTreeWalker.DEFAULT.walk(
+            new TypeResolveListener(context),
+            parser.file()
+        );
+        Assertions.assertEquals(
+            Type.UNKNOWN,
+            context.get("18-0").getType()
+        );
+        Assertions.assertEquals(
+            Type.STRING,
+            context.get("19-0").getType()
+        );
+        Assertions.assertEquals(
+            Type.INSTANCE,
+            context.get("20-0").getType()
+        );
+    }
 }

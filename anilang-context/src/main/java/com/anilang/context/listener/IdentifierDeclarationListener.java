@@ -72,4 +72,6 @@ public final class IdentifierDeclarationListener extends AniBaseListener {
             new BaseEntry(ctx, ctx.Identifier().getText())
         );
     }
+
+
 }

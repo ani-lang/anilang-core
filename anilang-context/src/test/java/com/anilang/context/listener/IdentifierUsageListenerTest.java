@@ -38,7 +38,7 @@ class IdentifierUsageListenerTest {
             new IdentifierUsageListener(context),
             parser.file()
         );
-        Assertions.assertEquals(12, context.size());
+        Assertions.assertEquals(13, context.size());
         Assertions.assertEquals("$file$foo$Person", context.get("5-8").getParents());
         Assertions.assertEquals(
             "$file$Person",

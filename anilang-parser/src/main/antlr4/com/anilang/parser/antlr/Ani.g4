@@ -118,7 +118,11 @@ sqlExpressionList
     ;
 
 funcDeclaration
-    :   'def' Identifier formalParameters methodDeclarationRest
+    :   'def' Identifier formalParameters funcReturnTypeDeclaration? methodDeclarationRest
+    ;
+
+funcReturnTypeDeclaration
+    :   '->' type
     ;
 
 variableDeclarator
