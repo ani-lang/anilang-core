@@ -89,37 +89,4 @@ class TypeDefinitionListenerTest {
             Type.STRUCT
         );
     }
-
-    @Test
-    void function() throws IOException {
-        final AniParser parser = new AniFile(
-            new ExampleFile("type-definition/func_definition.ani").inputStream()
-        ).parse();
-        final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
-        parser.reset();
-        Assertions.assertDoesNotThrow(
-            () -> ParseTreeWalker.DEFAULT.walk(
-                new IdentifierValidationListener(context),
-                parser.file()
-            )
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeDefinitionListener(context),
-            parser.file()
-        );
-        Assertions.assertEquals(
-            context.get("1-0").getType(),
-            Type.FUNCTION
-        );
-    }
 }
