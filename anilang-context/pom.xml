@@ -10,13 +10,13 @@
     <parent>
         <groupId>com.anilang</groupId>
         <artifactId>anilang-core</artifactId>
-        <version>0.7.0</version>
+        <version>0.7.1</version>
     </parent>
     <artifactId>anilang-context</artifactId>
     <packaging>jar</packaging>
     <name>anilang-context</name>
     <description>Ani context generator</description>
-    <version>0.7.0</version>
+    <version>0.7.1</version>
     <dependencies>
         <dependency>
             <groupId>com.anilang</groupId>
