@@ -43,6 +43,11 @@ public final class TypeDefinitionListener extends AniBaseListener {
         this.asType(rule, Type.STRUCT);
     }
 
+    @Override
+    public void enterFuncDeclaration(final AniParser.FuncDeclarationContext rule) {
+        this.asType(rule, Type.FUNCTION);
+    }
+
     /**
      * Resolve a type.
      * In the definition phase, the reference type key the rule's key since we are defining types.

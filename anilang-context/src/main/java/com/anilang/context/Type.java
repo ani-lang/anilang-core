@@ -17,6 +17,10 @@ public enum Type {
      */
     STRUCT,
     /**
+     * Can be called.
+     */
+    FUNCTION,
+    /**
      * Has been instantiated from an <code>STRUCT</code> or <code>CLASS</code>.
      */
     INSTANCE,
