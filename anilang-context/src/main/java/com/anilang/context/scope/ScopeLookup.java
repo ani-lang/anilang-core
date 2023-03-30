@@ -2,7 +2,11 @@
  * Property of Opencore
  */
 
-package com.anilang.context.impl;
+/*
+ * Property of Opencore
+ */
+
+package com.anilang.context.scope;
 
 import com.anilang.context.AniContext;
 import java.util.Optional;
@@ -10,11 +14,9 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
 /**
- * Within a context, it looks for an identifier.
- *
- * @since 0.7.0
+ * Looks up for the identifier's scope within the context.
  */
-public final class LookupParentContext {
+public final class ScopeLookup {
 
     /**
      * Full ani context.
@@ -38,7 +40,7 @@ public final class LookupParentContext {
      * @param identifier Identifier.
      * @param rule Rule.
      */
-    public LookupParentContext(
+    public ScopeLookup(
         final AniContext context,
         final String identifier,
         final ParserRuleContext rule
@@ -49,35 +51,18 @@ public final class LookupParentContext {
     }
 
     /**
-     * Add the rule as {@link IdentifierType#REFERENCE} to the context if it has been declared.
+     * Looks for the scope and return it if found.
      *
-     * @since 0.7.0
+     * @return Scope if found.
      */
-    public void addIfFound() {
-        this.getScopeString().ifPresent(
-            scopeString -> this.context.addContext(
-                new BaseEntry(
-                    this.rule,
-                    this.identifier,
-                    this.context.getDeclarationKey(scopeString),
-                    IdentifierType.REFERENCE
-                )
-            )
-        );
-    }
-
-    /**
-     * Return the top-down parent string.
-     *
-     * @return Parents.
-     * @checkstyle ReturnCountCheck (25 lines)
-     */
-    @SuppressWarnings("PMD.OnlyOneReturn")
-    public Optional<String> getScopeString() {
-        final String scope = new ReversedScopePath(
-            new ScopePathList(this.rule, this.identifier).asList()
-        ).toString();
-        final String[] parents = scope.split("\\$");
+    public Optional<Scope> scope() {
+        final String formatted = new FormattedScope(
+            new ListParents(
+                this.rule,
+                this.identifier
+            ).asList()
+        ).formatted();
+        final String[] parents = formatted.split("\\$");
         final String start = String.format("$%s", this.identifier);
         String prefix = "";
         // @checkstyle MethodBodyCommentsCheck (2 lines)
@@ -87,10 +72,12 @@ public final class LookupParentContext {
         for (int index = 1; index < parents.length - 1; index++) {
             final String parent = parents[index];
             prefix = String.format("%s$%s", prefix, parent);
-            final String key = String.format("%s%s", prefix, start);
+            final Scope key = new FormattedScope(
+                String.format("%s%s", prefix, start)
+            );
             if (
-                this.context.hasDeclaration(key)
-                    && this.isParentBefore(key, this.rule.getStart())
+                this.context.hasDeclaration(key.formatted())
+                    && this.isParentBefore(key.formatted(), this.rule.getStart())
             ) {
                 return Optional.of(key);
             }

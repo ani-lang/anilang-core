@@ -7,6 +7,7 @@ package com.anilang.context.impl;
 import com.anilang.context.AniContext;
 import com.anilang.context.ContextEntry;
 import com.anilang.context.ContextMetadata;
+import com.anilang.context.scope.ScopeLookup;
 import java.util.HashMap;
 import java.util.Map;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -65,7 +66,7 @@ public final class BaseAniContext implements AniContext {
 
     @Override
     public boolean hasDeclaration(final ParserRuleContext rule, final String identifier) {
-        return new LookupParentContext(this, identifier, rule).getScopeString().isPresent();
+        return new ScopeLookup(this, identifier, rule).scope().isPresent();
     }
 
     @Override

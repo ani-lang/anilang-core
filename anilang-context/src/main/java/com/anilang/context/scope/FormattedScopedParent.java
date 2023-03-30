@@ -2,8 +2,9 @@
  * Property of Opencore
  */
 
-package com.anilang.context.impl;
+package com.anilang.context.scope;
 
+import com.anilang.context.impl.PositionKey;
 import com.anilang.parser.antlr.AniParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 
