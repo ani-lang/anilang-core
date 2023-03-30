@@ -43,7 +43,7 @@ public final class ResolveExpressionType {
                 context,
                 className.getText(),
                 rule
-            ).scope().map(Scope::formatted).orElse("");
+            ).scope().formatted();
             asType(rule, className.getText(), scope, context);
         }
         if (this.expression instanceof AniParser.ExpressionValueContext) {
@@ -68,7 +68,7 @@ public final class ResolveExpressionType {
                     context,
                     value.primary().Identifier().getText(),
                     rule
-                ).scope().map(Scope::formatted).orElse("");
+                ).scope().formatted();
 
                 final String declarationKey = context.getDeclarationKey(parentScope);
                 final ContextMetadata declarationMetadata = context.get(declarationKey);
@@ -91,7 +91,7 @@ public final class ResolveExpressionType {
                 context,
                 varId,
                 rule
-            ).scope().map(Scope::formatted).orElse("");
+            ).scope().formatted();
             final String varDeclarationKey = context.getDeclarationKey(varScope);
             final ContextMetadata varData = context.get(varDeclarationKey);
             final ContextMetadata varType = context.get(varData.getTypeReferenceKey().orElse(""));
@@ -132,7 +132,7 @@ public final class ResolveExpressionType {
                 context,
                 methodCall.expression().getText(),
                 rule
-            ).scope().map(Scope::formatted).orElse("");
+            ).scope().formatted();
 
             final String declarationKey = context.getDeclarationKey(parentScope);
             final ContextMetadata declarationMetadata = context.get(declarationKey);

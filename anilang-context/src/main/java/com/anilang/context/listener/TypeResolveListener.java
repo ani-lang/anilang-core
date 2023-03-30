@@ -12,7 +12,6 @@ import com.anilang.context.impl.ResolveExpressionType;
 import com.anilang.context.impl.TypeIdentifier;
 import com.anilang.context.scope.FormattedScope;
 import com.anilang.context.scope.ListParents;
-import com.anilang.context.scope.Scope;
 import com.anilang.context.scope.ScopeLookup;
 import com.anilang.parser.antlr.AniBaseListener;
 import com.anilang.parser.antlr.AniParser;
@@ -62,7 +61,7 @@ public final class TypeResolveListener extends AniBaseListener {
             typeIdentifier,
             new ScopeLookup(
                 this.context, typeIdentifier, rule
-            ).scope().map(Scope::formatted).orElse("")
+            ).scope().formatted()
         );
     }
 
@@ -82,7 +81,7 @@ public final class TypeResolveListener extends AniBaseListener {
         final String identifier = rule.Identifier().getText();
         final String scope = new ScopeLookup(
             this.context, identifier, rule
-        ).scope().map(Scope::formatted).orElse("");
+        ).scope().formatted();
         asType(rule, identifier, scope);
     }
 
@@ -97,7 +96,7 @@ public final class TypeResolveListener extends AniBaseListener {
                 typeIdentifier,
                 new ScopeLookup(
                     this.context, typeIdentifier, rule
-                ).scope().map(Scope::formatted).orElse("")
+                ).scope().formatted()
             );
         }
     }

@@ -5,7 +5,9 @@
 package com.anilang.context.impl;
 
 import com.anilang.context.AniContext;
+import com.anilang.context.scope.Scope;
 import com.anilang.context.scope.ScopeLookup;
+import com.anilang.context.utils.IsDefaultScope;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 /**
@@ -53,19 +55,20 @@ public final class AddReference {
      * @since 0.7.1
      */
     public void ifFound() {
-        new ScopeLookup(
+        final Scope scope = new ScopeLookup(
             this.context,
             this.identifier,
             this.rule
-        ).scope().ifPresent(
-            scopeString -> this.context.addContext(
+        ).scope();
+        if (new IsDefaultScope(scope).not()) {
+            this.context.addContext(
                 new BaseEntry(
                     this.rule,
                     this.identifier,
-                    this.context.getDeclarationKey(scopeString.formatted()),
+                    this.context.getDeclarationKey(scope.formatted()),
                     IdentifierType.REFERENCE
                 )
-            )
-        );
+            );
+        }
     }
 }

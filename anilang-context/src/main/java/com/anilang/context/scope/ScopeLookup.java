@@ -55,7 +55,7 @@ public final class ScopeLookup {
      *
      * @return Scope if found.
      */
-    public Optional<Scope> scope() {
+    public Scope scope() {
         final String formatted = new FormattedScope(
             new ListParents(
                 this.rule,
@@ -72,17 +72,17 @@ public final class ScopeLookup {
         for (int index = 1; index < parents.length - 1; index++) {
             final String parent = parents[index];
             prefix = String.format("%s$%s", prefix, parent);
-            final Scope key = new FormattedScope(
+            final Scope candidate = new FormattedScope(
                 String.format("%s%s", prefix, start)
             );
             if (
-                this.context.hasDeclaration(key.formatted())
-                    && this.isParentBefore(key.formatted(), this.rule.getStart())
+                this.context.hasDeclaration(candidate.formatted())
+                    && this.isParentBefore(candidate.formatted(), this.rule.getStart())
             ) {
-                return Optional.of(key);
+                return candidate;
             }
         }
-        return Optional.empty();
+        return new DefaultScope();
     }
 
     /**

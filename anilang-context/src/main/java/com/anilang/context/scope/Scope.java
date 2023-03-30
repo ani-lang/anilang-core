@@ -12,6 +12,11 @@ package com.anilang.context.scope;
 public interface Scope {
 
     /**
+     * Default invalid formatted scope.
+     */
+    String DEFAULT_SCOPE = "";
+
+    /**
      * Formats the scope by separating each layer using the symbol '$'.
      *
      * @return Formatted scope.
