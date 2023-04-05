@@ -2,8 +2,8 @@
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
-        "version": "17",
-        "jdkDistro": "oracle",
+        "version": "17.0.6",
+        "jdkDistro": "ms",
         "installMaven": true
     }
   }
