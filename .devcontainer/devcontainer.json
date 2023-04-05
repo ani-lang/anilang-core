@@ -2,7 +2,7 @@
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
-        "version": "17.0.6",
+        "version": "17.0.6-ms",
         "jdkDistro": "ms",
         "installMaven": true
     }
