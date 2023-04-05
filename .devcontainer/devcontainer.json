@@ -9,5 +9,16 @@
     "ghcr.io/devcontainers/features/sshd:1": {
         "version": "latest"
     }
-  }
+},
+"customizations": {
+	"vscode": {
+		"extensions": [
+			"mike-lischke.vscode-antlr4",
+			"vscjava.vscode-java-debug",
+			"vscjava.vscode-java-pack",
+			"VisualStudioExptTeam.vscodeintellicode",
+			"redhat.java"
+		]
+	}
+}
 }
