@@ -3,7 +3,7 @@
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
         "version": "17",
-        "jdkDistro": "open",
+        "jdkDistro": "ms",
         "installMaven": true
     }
   }
