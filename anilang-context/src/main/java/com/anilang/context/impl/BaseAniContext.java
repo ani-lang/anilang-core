@@ -33,8 +33,6 @@ public final class BaseAniContext implements AniContext {
     @Override
     @SuppressWarnings("PMD.SystemPrintln")
     public void addContext(final ContextEntry entry) {
-        // @checkstyle MethodBodyCommentsCheck (10 lines)
-        // TODO 25-01-23 what if it is already defined? should throw an error
         if (this.metadata.containsKey(entry.getKey())) {
             System.err.printf("duplicated entry %s%n", entry.getKey());
         } else {
