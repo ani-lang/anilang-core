@@ -7,8 +7,10 @@ package com.anilang.context.impl;
 import com.anilang.context.AniContext;
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
-import com.anilang.context.scope.Scope;
 import com.anilang.context.scope.ScopeLookup;
+import com.anilang.context.type.RawType;
+import com.anilang.context.utils.MetadataFrom;
+import com.anilang.context.utils.ScopeKey;
 import com.anilang.parser.antlr.AniParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -44,7 +46,15 @@ public final class ResolveExpressionType {
                 className.getText(),
                 rule
             ).scope().formatted();
-            asType(rule, className.getText(), scope, context);
+            new MetadataFrom(
+                context,
+                rule
+            ).ifPresent(
+                metadata -> {
+                    metadata.asType(new RawType(className.getText()).type(scope.formatted(), context));
+                    metadata.setTypeReferenceKey(new ScopeKey(scope.formatted(), context).value());
+                }
+            );
         }
         if (this.expression instanceof AniParser.ExpressionValueContext) {
             final AniParser.ExpressionValueContext value = (AniParser.ExpressionValueContext) expression;
@@ -145,83 +155,5 @@ public final class ResolveExpressionType {
                 );
             }
         }
-    }
-
-    /**
-     * Resolve the type.
-     * TODO 01-03-23 this is duplicated
-     *  @param rule Rule with the typeIdentifier to set the type.
-     *
-     * @param typeIdentifier Identifier of the type.
-     * @param reference Reference key of the typeIdentifier.
-     * @param context
-     */
-    private void asType(
-        final ParserRuleContext rule,
-        final String typeIdentifier,
-        final String reference,
-        final AniContext context) {
-        final String key = new PositionKey(rule).toString();
-        if (context.contains(key)) {
-            final ContextMetadata metadata = context.get(key);
-            metadata.asType(this.getType(typeIdentifier, reference, context));
-            metadata.setTypeReferenceKey(this.getReferenceKey(reference, context));
-        }
-    }
-
-    /**
-     * Returns the reference key for an identifier.
-     *
-     * @param reference Parent key.
-     * @param context
-     * @return The key of the referenced type. Empty if not found.
-     */
-    private String getReferenceKey(final String reference, final AniContext context) {
-        if (context.hasDeclaration(reference)) {
-            return context.getDeclarationKey(reference);
-        }
-        return "";
-    }
-
-    /**
-     * Resolve the type.
-     *
-     * @param identifier Identifier.
-     * @param reference Key.
-     * @param context
-     * @return Type.
-     * @checkstyle NPathComplexityCheck (35 lines)
-     * @checkstyle ReturnCountCheck (35 lines)
-     */
-    @SuppressWarnings({"PMD.OnlyOneReturn", "PMD.NPathComplexity"})
-    private Type getType(final String identifier, final String reference, final AniContext context) {
-        /* @checkstyle MethodBodyCommentsCheck (10 lines)
-         * TODO this must come from the lexer. update the lexer definition
-         */
-        if (identifier.equals("boolean")) {
-            return Type.BOOLEAN;
-        }
-        if (identifier.equals("int")) {
-            return Type.INT;
-        }
-        if (identifier.equals("float")) {
-            return Type.FLOAT;
-        }
-        if (identifier.equals("string")) {
-            return Type.STRING;
-        }
-        if (identifier.equals("list")) {
-            return Type.LIST;
-        }
-        if (identifier.equals("dict")) {
-            return Type.DICT;
-        }
-        if (identifier.equals("set")) {
-            return Type.SET;
-        }
-        if (context.hasDeclaration(reference)) {
-            return Type.INSTANCE;
-        }
-        return Type.UNKNOWN;
     }
 }

@@ -13,7 +13,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
  *
  * @since 0.7.0
  */
-public final class TypeIdentifier {
+public final class RuleType {
 
     /**
      * Type rule.
@@ -25,12 +25,16 @@ public final class TypeIdentifier {
      *
      * @param type Rule.
      */
-    public TypeIdentifier(final AniParser.TypeContext type) {
+    public RuleType(final AniParser.TypeContext type) {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
+    /**
+     * Return a String of the type.
+     *
+     * @return String.
+     */
+    public String raw() {
         return Optional.ofNullable(this.type.Identifier())
             .map(ParseTree::getText)
             .orElseGet(() -> this.type.primitiveType().getText());

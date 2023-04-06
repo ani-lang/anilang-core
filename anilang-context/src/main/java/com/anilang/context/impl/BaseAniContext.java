@@ -26,7 +26,7 @@ public final class BaseAniContext implements AniContext {
     private final Map<String, ContextMetadata> metadata = new HashMap<>();
 
     /**
-     * Context declaration to its key in metadata.
+     * Scope declaration to its key in metadata.
      */
     private final Map<String, String> keys = new HashMap<>();
 
