@@ -32,44 +32,44 @@ public final class IdentifierDeclarationListener extends AniBaseListener {
     }
 
     @Override
-    public void enterStructDeclaration(final AniParser.StructDeclarationContext ctx) {
+    public void enterStructDeclaration(final AniParser.StructDeclarationContext rule) {
         this.context.addContext(
-            new BaseEntry(ctx, ctx.Identifier().getText())
+            new BaseEntry(rule, rule.Identifier().getText())
         );
     }
 
     @Override
-    public void enterClassDeclaration(final AniParser.ClassDeclarationContext ctx) {
+    public void enterClassDeclaration(final AniParser.ClassDeclarationContext rule) {
         this.context.addContext(
-            new BaseEntry(ctx, ctx.Identifier().getText())
+            new BaseEntry(rule, rule.Identifier().getText())
         );
     }
 
     @Override
-    public void enterFuncDeclaration(final AniParser.FuncDeclarationContext ctx) {
+    public void enterFuncDeclaration(final AniParser.FuncDeclarationContext rule) {
         this.context.addContext(
-            new BaseEntry(ctx, ctx.Identifier().getText())
+            new BaseEntry(rule, rule.Identifier().getText())
         );
     }
 
     @Override
-    public void enterVariableDeclaratorId(final AniParser.VariableDeclaratorIdContext ctx) {
+    public void enterVariableDeclaratorId(final AniParser.VariableDeclaratorIdContext rule) {
         // @checkstyle MethodBodyCommentsCheck (1 line)
         // If it's already declared then this is a reference not a declaration.
-        if (!this.context.hasDeclaration(ctx, ctx.Identifier().getText())) {
+        if (!this.context.hasDeclaration(rule, rule.Identifier().getText())) {
             this.context.addContext(
                 new BaseEntry(
-                    ctx,
-                    ctx.Identifier().getText()
+                    rule,
+                    rule.Identifier().getText()
                 )
             );
         }
     }
 
     @Override
-    public void enterItemForControl(final AniParser.ItemForControlContext ctx) {
+    public void enterItemForControl(final AniParser.ItemForControlContext rule) {
         this.context.addContext(
-            new BaseEntry(ctx, ctx.Identifier().getText())
+            new BaseEntry(rule, rule.Identifier().getText())
         );
     }
 

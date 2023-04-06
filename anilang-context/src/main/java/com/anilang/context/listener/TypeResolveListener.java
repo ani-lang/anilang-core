@@ -42,17 +42,17 @@ public final class TypeResolveListener extends AniBaseListener {
         final String rawType = new RuleType(rule.type()).raw();
         final String scope = new FormattedScope(
             new ListParents(
-                rule,
-                rawType
+                rule.variableDeclaratorId(),
+                rule.variableDeclaratorId().Identifier().getText()
             ).asList()
         ).formatted();
         new MetadataFrom(
             context,
-            rule.type()
+            rule.variableDeclaratorId()
         ).ifPresent(
             metadata -> {
                 metadata.asType(
-                    new com.anilang.context.type.RawType(
+                    new RawType(
                         rawType
                     ).type(
                         scope,
@@ -75,7 +75,7 @@ public final class TypeResolveListener extends AniBaseListener {
             rule.formalParameterDeclsRest().variableDeclaratorId()
         ).ifPresent(
             metadata -> {
-                metadata.asType(new com.anilang.context.type.RawType(rawType).type(scope, this.context));
+                metadata.asType(new RawType(rawType).type(scope, this.context));
                 metadata.setTypeReferenceKey(new ScopeKey(scope, this.context).value());
             }
         );
@@ -103,7 +103,7 @@ public final class TypeResolveListener extends AniBaseListener {
             rule
         ).ifPresent(
             metadata -> {
-                metadata.asType(new com.anilang.context.type.RawType(rawType).type(scope, this.context));
+                metadata.asType(new RawType(rawType).type(scope, this.context));
                 metadata.setTypeReferenceKey(new ScopeKey(scope, this.context).value());
             }
         );

@@ -21,7 +21,7 @@ public final class BaseEntry implements ContextEntry {
     /**
      * The rule context.
      */
-    private final ParserRuleContext ctx;
+    private final ParserRuleContext rule;
 
     /**
      * Identifier name.
@@ -41,33 +41,33 @@ public final class BaseEntry implements ContextEntry {
     /**
      * Ctor.
      *
-     * @param ctx Context.
+     * @param rule Rule.
      * @param identifier Identifier.
      */
     public BaseEntry(
-        final ParserRuleContext ctx,
+        final ParserRuleContext rule,
         final String identifier
     ) {
-        this(ctx, identifier, new PositionKey(ctx).toString(), IdentifierType.DECLARATION);
+        this(rule, identifier, new PositionKey(rule).toString(), IdentifierType.DECLARATION);
     }
 
     /**
      * Ctor.
      * TODO  More than 3 parameters (found 4)
      *
-     * @param ctx Context.
+     * @param rule Rule.
      * @param identifier Identifier.
      * @param declaration Key to find the referenced declaration.
      * @param type Identifier type.
      * @checkstyle ParameterNumberCheck (20 lines)
      */
     public BaseEntry(
-        final ParserRuleContext ctx,
+        final ParserRuleContext rule,
         final String identifier,
         final String declaration,
         final IdentifierType type
     ) {
-        this.ctx = ctx;
+        this.rule = rule;
         this.identifier = identifier;
         this.declaration = declaration;
         this.type = type;
@@ -75,7 +75,7 @@ public final class BaseEntry implements ContextEntry {
 
     @Override
     public String getKey() {
-        return new PositionKey(this.ctx).toString();
+        return new PositionKey(this.rule).toString();
     }
 
     @Override
@@ -83,12 +83,12 @@ public final class BaseEntry implements ContextEntry {
         return new BaseCtxMetadata(
             new FormattedScope(
                 new ListParents(
-                    this.ctx,
+                    this.rule,
                     this.identifier
                 ).asList()
             ).formatted(),
             this.declaration,
-            this.ctx.getStart(),
+            this.rule.getStart(),
             this.type,
             Type.UNKNOWN,
             ""
