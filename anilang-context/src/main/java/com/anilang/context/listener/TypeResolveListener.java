@@ -7,12 +7,12 @@ package com.anilang.context.listener;
 import com.anilang.context.AniContext;
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
-import com.anilang.context.impl.LookupParentContext;
 import com.anilang.context.impl.PositionKey;
 import com.anilang.context.impl.ResolveExpressionType;
-import com.anilang.context.impl.ReversedScopePath;
-import com.anilang.context.impl.ScopePathList;
 import com.anilang.context.impl.TypeIdentifier;
+import com.anilang.context.scope.FormattedScope;
+import com.anilang.context.scope.ListParents;
+import com.anilang.context.scope.ScopeLookup;
 import com.anilang.parser.antlr.AniBaseListener;
 import com.anilang.parser.antlr.AniParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -44,9 +44,12 @@ public final class TypeResolveListener extends AniBaseListener {
         this.asType(
             rule.type(),
             typeIdentifier,
-            new ReversedScopePath(
-                new ScopePathList(rule, typeIdentifier).asList()
-            ).toString()
+            new FormattedScope(
+                new ListParents(
+                    rule,
+                    typeIdentifier
+                ).asList()
+            ).formatted()
         );
     }
 
@@ -56,7 +59,9 @@ public final class TypeResolveListener extends AniBaseListener {
         this.asType(
             rule.formalParameterDeclsRest().variableDeclaratorId(),
             typeIdentifier,
-            new LookupParentContext(this.context, typeIdentifier, rule).getScopeString().orElse("")
+            new ScopeLookup(
+                this.context, typeIdentifier, rule
+            ).scope().formatted()
         );
     }
 
@@ -74,8 +79,9 @@ public final class TypeResolveListener extends AniBaseListener {
     @Override
     public void enterExpressionInstantiation(final AniParser.ExpressionInstantiationContext rule) {
         final String identifier = rule.Identifier().getText();
-        final LookupParentContext lookup = new LookupParentContext(context, identifier, rule);
-        final String scope = lookup.getScopeString().orElse("");
+        final String scope = new ScopeLookup(
+            this.context, identifier, rule
+        ).scope().formatted();
         asType(rule, identifier, scope);
     }
 
@@ -88,11 +94,9 @@ public final class TypeResolveListener extends AniBaseListener {
             asType(
                 rule,
                 typeIdentifier,
-                new LookupParentContext(
-                    context,
-                    typeIdentifier,
-                    rule
-                ).getScopeString().orElse("")
+                new ScopeLookup(
+                    this.context, typeIdentifier, rule
+                ).scope().formatted()
             );
         }
     }

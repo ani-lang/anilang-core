@@ -7,6 +7,8 @@ package com.anilang.context.impl;
 import com.anilang.context.ContextEntry;
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
+import com.anilang.context.scope.FormattedScope;
+import com.anilang.context.scope.ListParents;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 /**
@@ -79,9 +81,12 @@ public final class BaseEntry implements ContextEntry {
     @Override
     public ContextMetadata getValue() {
         return new BaseCtxMetadata(
-            new ReversedScopePath(
-                new ScopePathList(this.ctx, this.identifier).asList()
-            ).toString(),
+            new FormattedScope(
+                new ListParents(
+                    this.ctx,
+                    this.identifier
+                ).asList()
+            ).formatted(),
             this.declaration,
             this.ctx.getStart(),
             this.type,

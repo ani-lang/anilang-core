@@ -7,6 +7,8 @@ package com.anilang.context.impl;
 import com.anilang.context.AniContext;
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
+import com.anilang.context.scope.Scope;
+import com.anilang.context.scope.ScopeLookup;
 import com.anilang.parser.antlr.AniParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -37,12 +39,11 @@ public final class ResolveExpressionType {
             final AniParser.ExpressionInstantiationContext instantiation =
                 (AniParser.ExpressionInstantiationContext) this.expression;
             final TerminalNode className = instantiation.Identifier();
-            final LookupParentContext lookup = new LookupParentContext(
+            final String scope = new ScopeLookup(
                 context,
                 className.getText(),
                 rule
-            );
-            final String scope = lookup.getScopeString().orElse("");
+            ).scope().formatted();
             asType(rule, className.getText(), scope, context);
         }
         if (this.expression instanceof AniParser.ExpressionValueContext) {
@@ -63,11 +64,12 @@ public final class ResolveExpressionType {
                     }
                 }
             } else if (value.primary().Identifier() != null) {
-                final String parentScope = new LookupParentContext(
+                final String parentScope = new ScopeLookup(
                     context,
                     value.primary().Identifier().getText(),
                     rule
-                ).getScopeString().orElse("");
+                ).scope().formatted();
+
                 final String declarationKey = context.getDeclarationKey(parentScope);
                 final ContextMetadata declarationMetadata = context.get(declarationKey);
                 if (context.contains(key)) {
@@ -85,13 +87,12 @@ public final class ResolveExpressionType {
             final AniParser.ExpressionValueContext value = (AniParser.ExpressionValueContext) propertyRule.expression();
             final String varId = value.primary().Identifier().getText();
             final String propertyId = propertyRule.Identifier().getText();
-            final LookupParentContext varLookup = new LookupParentContext(
+            final String varScope = new ScopeLookup(
                 context,
                 varId,
                 rule
-            );
-            final String varDeclarationKey =
-                context.getDeclarationKey(varLookup.getScopeString().orElse(""));
+            ).scope().formatted();
+            final String varDeclarationKey = context.getDeclarationKey(varScope);
             final ContextMetadata varData = context.get(varDeclarationKey);
             final ContextMetadata varType = context.get(varData.getTypeReferenceKey().orElse(""));
             final String propertyScopeString = String.format(
@@ -127,11 +128,12 @@ public final class ResolveExpressionType {
         if (this.expression instanceof AniParser.ExpressionMethodCallContext) {
             final AniParser.ExpressionMethodCallContext methodCall =
                 (AniParser.ExpressionMethodCallContext) this.expression;
-            final String parentScope = new LookupParentContext(
+            final String parentScope = new ScopeLookup(
                 context,
                 methodCall.expression().getText(),
                 rule
-            ).getScopeString().orElse("");
+            ).scope().formatted();
+
             final String declarationKey = context.getDeclarationKey(parentScope);
             final ContextMetadata declarationMetadata = context.get(declarationKey);
             final String key = new PositionKey(rule).toString();

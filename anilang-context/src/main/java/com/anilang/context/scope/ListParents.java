@@ -2,10 +2,14 @@
  * Property of Opencore
  */
 
-package com.anilang.context.impl;
+/*
+ * Property of Opencore
+ */
 
-import com.anilang.context.ScopePath;
+package com.anilang.context.scope;
+
 import com.anilang.parser.antlr.AniParser;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -13,9 +17,9 @@ import org.antlr.v4.runtime.ParserRuleContext;
 /**
  * Save only non-empty parents.
  *
- * @since 0.7.0
+ * @since 0.7.1
  */
-public final class ScopePathList implements ScopePath {
+public final class ListParents {
 
     /**
      * Rule.
@@ -33,14 +37,18 @@ public final class ScopePathList implements ScopePath {
      * @param rule Rule.
      * @param identifier Identifier.
      */
-    public ScopePathList(final ParserRuleContext rule, final String identifier) {
+    public ListParents(final ParserRuleContext rule, final String identifier) {
         this.rule = rule;
         this.identifier = identifier;
     }
 
-    @Override
+    /**
+     * List of parents sorted from left to right.
+     *
+     * @return Parents.
+     */
     public List<String> asList() {
-        final List<String> parents = new LinkedList<>();
+        final LinkedList<String> parents = new LinkedList<>();
         parents.add(this.identifier);
         ParserRuleContext curent = this.rule;
         do {
@@ -50,6 +58,7 @@ public final class ScopePathList implements ScopePath {
                 parents.add(parent);
             }
         } while (!(curent instanceof AniParser.FileContext));
+        Collections.reverse(parents);
         return parents;
     }
 }
