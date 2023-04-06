@@ -13,7 +13,6 @@ import com.anilang.parser.antlr.AniParser;
 import java.io.IOException;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -24,10 +23,8 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("PMD.TooManyMethods")
 class TypeResolveListenerTest {
 
-    // TODO 04-03-23 struct member is missed in definition listener
     // @checkstyle JavadocMethodCheck (500 lines)
     @Test
-    @Disabled
     void structMember() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("type-resolve/struct_member.ani").inputStream()

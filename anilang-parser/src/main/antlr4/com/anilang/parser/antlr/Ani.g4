@@ -35,7 +35,7 @@ type
     ;
 
 structBodyMember
-    :   type Identifier (IntegerLiteral (',' IntegerLiteral)*)?
+    :   type variableDeclaratorId (IntegerLiteral (',' IntegerLiteral)*)?
     |   NEWLINE
     ;
 
