@@ -24,7 +24,7 @@ class TypeValidationTest {
 
     // @checkstyle JavadocMethodCheck (500 lines)
     @Test
-    void test() throws IOException {
+    void notDefinedClassProperty() throws IOException {
         final AniParser parser = new AniFile(
             new ExampleFile("type-validation/not_defined_class_property.ani").inputStream()
         ).parse();
