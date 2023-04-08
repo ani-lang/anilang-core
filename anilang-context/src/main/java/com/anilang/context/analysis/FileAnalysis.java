@@ -10,7 +10,7 @@ package com.anilang.context.analysis;
  *
  * @since 0.7.1
  */
-interface FileAnalysis {
+public interface FileAnalysis {
 
     /**
      * Run the analysis.
