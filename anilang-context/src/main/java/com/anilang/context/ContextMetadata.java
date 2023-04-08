@@ -1,5 +1,5 @@
 /*
- * Property of Opencore
+ * Property of ani-lang project.
  */
 
 package com.anilang.context;
@@ -74,4 +74,11 @@ public interface ContextMetadata {
      * @param referenceKey Key.
      */
     void setTypeReferenceKey(String referenceKey);
+
+    /**
+     * Identifier name.
+     *
+     * @return Name.
+     */
+    String name();
 }

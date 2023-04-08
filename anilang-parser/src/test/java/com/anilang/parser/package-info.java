@@ -1,5 +1,5 @@
 /*
- * Property of Opencore
+ * Property of ani-lang project.
  */
 
 /**

@@ -1,8 +1,8 @@
 /*
- * Property of Opencore
+ * Property of ani-lang project.
  */
 
-package com.anilang.context.listener;
+package com.anilang.context.analysis;
 
 import com.anilang.context.AniContext;
 import com.anilang.context.ExampleFile;
@@ -10,7 +10,6 @@ import com.anilang.context.impl.BaseAniContext;
 import com.anilang.parser.AniFile;
 import com.anilang.parser.antlr.AniParser;
 import java.io.IOException;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,10 +28,10 @@ class IdentifierDeclarationListenerTest {
             new ExampleFile("declaration/func_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .build()
+            .run();
         Assertions.assertEquals(6, context.size());
         Assertions.assertEquals("$file$foo", context.get("1-0").getParents());
         Assertions.assertEquals("$file$foo$a", context.get("2-4").getParents());
@@ -48,10 +47,10 @@ class IdentifierDeclarationListenerTest {
             new ExampleFile("declaration/file_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .build()
+            .run();
         Assertions.assertEquals(6, context.size());
         Assertions.assertEquals("$file$a", context.get("1-0").getParents());
         Assertions.assertEquals("$file$b", context.get("2-0").getParents());
@@ -67,10 +66,10 @@ class IdentifierDeclarationListenerTest {
             new ExampleFile("declaration/class_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .build()
+            .run();
         Assertions.assertEquals(6, context.size());
         Assertions.assertEquals("$file$A", context.get("1-0").getParents());
         Assertions.assertEquals("$file$A$a", context.get("2-4").getParents());
@@ -86,10 +85,10 @@ class IdentifierDeclarationListenerTest {
             new ExampleFile("declaration/if_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .build()
+            .run();
         Assertions.assertEquals(4, context.size());
         Assertions.assertEquals("$file$if1-0$if-block2-4$b", context.get("2-4").getParents());
         Assertions.assertEquals("$file$if5-0$if-block6-4$c", context.get("6-4").getParents());
@@ -109,10 +108,10 @@ class IdentifierDeclarationListenerTest {
             new ExampleFile("declaration/else_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .build()
+            .run();
         Assertions.assertEquals(2, context.size());
         Assertions.assertEquals("$file$if1-0$if-block2-4$b", context.get("2-4").getParents());
         Assertions.assertEquals("$file$if1-0$else-block3-0$d", context.get("4-4").getParents());
@@ -124,10 +123,10 @@ class IdentifierDeclarationListenerTest {
             new ExampleFile("declaration/while_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .build()
+            .run();
         Assertions.assertEquals(4, context.size());
         Assertions.assertEquals("$file$while1-0$b", context.get("2-4").getParents());
         Assertions.assertEquals("$file$while5-0$c", context.get("6-4").getParents());
@@ -141,10 +140,10 @@ class IdentifierDeclarationListenerTest {
             new ExampleFile("declaration/for_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .build()
+            .run();
         Assertions.assertEquals(8, context.size());
         Assertions.assertEquals("$file$for1-0$a", context.get("1-4").getParents());
         Assertions.assertEquals("$file$for1-0$b", context.get("2-4").getParents());
@@ -162,10 +161,10 @@ class IdentifierDeclarationListenerTest {
             new ExampleFile("declaration/match_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .build()
+            .run();
         Assertions.assertEquals(4, context.size());
         Assertions.assertEquals("$file$match1-0$case-expr2-4$b", context.get("3-8").getParents());
         Assertions.assertEquals("$file$match1-0$case-expr6-4$c", context.get("7-8").getParents());

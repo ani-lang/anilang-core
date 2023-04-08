@@ -1,5 +1,5 @@
 /*
- * Property of Opencore
+ * Property of ani-lang project.
  */
 
 package com.anilang.context.impl;
@@ -91,7 +91,8 @@ public final class BaseEntry implements ContextEntry {
             this.rule.getStart(),
             this.type,
             Type.UNKNOWN,
-            ""
+            "",
+            this.identifier
         );
     }
 }

@@ -1,8 +1,8 @@
 /*
- * Property of Opencore
+ * Property of ani-lang project.
  */
 
-package com.anilang.context.listener;
+package com.anilang.context.analysis;
 
 import com.anilang.context.AniContext;
 import com.anilang.context.ExampleFile;
@@ -10,7 +10,6 @@ import com.anilang.context.impl.BaseAniContext;
 import com.anilang.parser.AniFile;
 import com.anilang.parser.antlr.AniParser;
 import java.io.IOException;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,15 +28,11 @@ class IdentifierUsageListenerTest {
             new ExampleFile("usage/func_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .build()
+            .run();
         Assertions.assertEquals(13, context.size());
         Assertions.assertEquals("$file$foo$Person", context.get("5-8").getParents());
         Assertions.assertEquals(
@@ -72,15 +67,11 @@ class IdentifierUsageListenerTest {
             new ExampleFile("usage/file_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .build()
+            .run();
         Assertions.assertEquals(12, context.size());
         Assertions.assertEquals("$file$P", context.get("13-4").getParents());
         Assertions.assertEquals(
@@ -115,15 +106,11 @@ class IdentifierUsageListenerTest {
             new ExampleFile("usage/class_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .build()
+            .run();
         Assertions.assertEquals(8, context.size());
         Assertions.assertEquals("$file$A$foo$S", context.get("6-12").getParents());
         Assertions.assertEquals(
@@ -143,15 +130,11 @@ class IdentifierUsageListenerTest {
             new ExampleFile("usage/if_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .build()
+            .run();
         Assertions.assertEquals(5, context.size());
         Assertions.assertEquals("$file$if3-0$a", context.get("3-3").getParents());
         Assertions.assertEquals(
@@ -176,15 +159,11 @@ class IdentifierUsageListenerTest {
             new ExampleFile("usage/else_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .build()
+            .run();
         Assertions.assertEquals(4, context.size());
         Assertions.assertEquals("$file$if3-0$a", context.get("3-3").getParents());
         Assertions.assertEquals(
@@ -204,15 +183,11 @@ class IdentifierUsageListenerTest {
             new ExampleFile("usage/while_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .build()
+            .run();
         Assertions.assertEquals(8, context.size());
         Assertions.assertEquals("$file$while2-0$a", context.get("2-6").getParents());
         Assertions.assertEquals(
@@ -247,15 +222,11 @@ class IdentifierUsageListenerTest {
             new ExampleFile("usage/for_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .build()
+            .run();
         Assertions.assertEquals(9, context.size());
         Assertions.assertEquals("$file$for2-0$items", context.get("2-9").getParents());
         Assertions.assertEquals(
@@ -285,15 +256,11 @@ class IdentifierUsageListenerTest {
             new ExampleFile("usage/match_scope.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .build()
+            .run();
         Assertions.assertEquals(8, context.size());
         Assertions.assertEquals("$file$match2-0$a", context.get("2-6").getParents());
         Assertions.assertEquals(
