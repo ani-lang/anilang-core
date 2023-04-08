@@ -51,6 +51,11 @@ public final class BaseCtxMetadata implements ContextMetadata {
     private String typeReferenceKey;
 
     /**
+     * Identifier name.
+     */
+    private String name;
+
+    /**
      * Ctor.
      *
      * @param parents Parent scope.
@@ -59,6 +64,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
      * @param identifierType Identifier type.
      * @param type Resolved type.
      * @param typeReferenceKey key to the type definition.
+     * @param name Identifier name.
      * @checkstyle ParameterNumberCheck (20 lines)
      * @checkstyle ParameterNameCheck (20 lines)
      */
@@ -68,7 +74,8 @@ public final class BaseCtxMetadata implements ContextMetadata {
         final Token start,
         final IdentifierType identifierType,
         final Type type,
-        final String typeReferenceKey
+        final String typeReferenceKey,
+        final String name
     ) {
         this.parents = parents;
         this.declaration = declaration;
@@ -76,6 +83,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
         this.identifierType = identifierType;
         this.type = type;
         this.typeReferenceKey = typeReferenceKey;
+        this.name = name;
     }
 
     @Override
@@ -117,5 +125,10 @@ public final class BaseCtxMetadata implements ContextMetadata {
     @Override
     public void setTypeReferenceKey(final String key) {
         this.typeReferenceKey = key;
+    }
+
+    @Override
+    public String name() {
+        return this.name;
     }
 }

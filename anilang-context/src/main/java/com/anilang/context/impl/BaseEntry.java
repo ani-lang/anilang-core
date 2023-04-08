@@ -91,7 +91,8 @@ public final class BaseEntry implements ContextEntry {
             this.rule.getStart(),
             this.type,
             Type.UNKNOWN,
-            ""
+            "",
+            this.identifier
         );
     }
 }
