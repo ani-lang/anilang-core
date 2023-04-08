@@ -2,7 +2,7 @@
  * Property of Opencore
  */
 
-package com.anilang.context.listener;
+package com.anilang.context.analysis;
 
 import com.anilang.context.AniContext;
 import com.anilang.context.ContextMetadata;
@@ -17,7 +17,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
  *
  * @since 0.7.0
  */
-public final class TypeDefinitionListener extends AniBaseListener {
+final class TypeDefinitionListener extends AniBaseListener {
 
     /**
      * Context.

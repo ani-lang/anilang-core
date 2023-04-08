@@ -2,7 +2,7 @@
  * Property of Opencore
  */
 
-package com.anilang.context.listener;
+package com.anilang.context.analysis;
 
 import com.anilang.context.AniContext;
 import com.anilang.context.impl.ResolveExpressionType;
@@ -21,7 +21,7 @@ import com.anilang.parser.antlr.AniParser;
  *
  * @since 0.7.0
  */
-public final class TypeResolveListener extends AniBaseListener {
+final class TypeResolveListener extends AniBaseListener {
 
     /**
      * Context.

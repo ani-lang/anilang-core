@@ -2,7 +2,7 @@
  * Property of Opencore
  */
 
-package com.anilang.context.listener;
+package com.anilang.context.analysis;
 
 import com.anilang.context.AniContext;
 import com.anilang.context.impl.AddReference;
@@ -15,7 +15,7 @@ import com.anilang.parser.antlr.AniParser;
  *
  * @since 0.7.0
  */
-public final class IdentifierUsageListener extends AniBaseListener {
+final class IdentifierUsageListener extends AniBaseListener {
 
     /**
      * The context.
