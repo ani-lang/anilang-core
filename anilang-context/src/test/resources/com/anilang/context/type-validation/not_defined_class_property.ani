@@ -1,0 +1,9 @@
+class A:
+    p1=1
+    p2=2
+end
+
+ins = new A()
+p1=ins.p1
+p2=ins.p2
+p3=ins.p3

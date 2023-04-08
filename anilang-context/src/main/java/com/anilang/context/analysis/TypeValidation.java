@@ -37,8 +37,8 @@ final class TypeValidation {
         return this.context.asMap()
             .keySet()
             .stream()
-            .limit(1)
             .filter(key -> this.context.get(key).getType() == Type.UNKNOWN)
+            .limit(1)
             .findFirst()
             .map(
                 key -> {
