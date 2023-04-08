@@ -8,10 +8,10 @@ import com.anilang.context.AniContext;
 import com.anilang.context.ExampleFile;
 import com.anilang.context.Type;
 import com.anilang.context.impl.BaseAniContext;
+import com.anilang.context.impl.ExceptionBiConsumer;
 import com.anilang.parser.AniFile;
 import com.anilang.parser.antlr.AniParser;
 import java.io.IOException;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -30,32 +30,14 @@ class TypeResolveListenerTest {
             new ExampleFile("type-resolve/struct_member.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
-        parser.reset();
-        Assertions.assertDoesNotThrow(
-            () -> ParseTreeWalker.DEFAULT.walk(
-                new IdentifierValidationListener(context),
-                parser.file()
-            )
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeDefinitionListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeResolveListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .analyzeIdentifierValidation(new ExceptionBiConsumer())
+            .analyzeTypeDefinition()
+            .analyzeTypeResolve()
+            .build()
+            .run();
         Assertions.assertEquals(
             context.get("2-12").getType(),
             Type.BOOLEAN
@@ -68,32 +50,14 @@ class TypeResolveListenerTest {
             new ExampleFile("type-resolve/func_params.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
-        parser.reset();
-        Assertions.assertDoesNotThrow(
-            () -> ParseTreeWalker.DEFAULT.walk(
-                new IdentifierValidationListener(context),
-                parser.file()
-            )
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeDefinitionListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeResolveListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .analyzeIdentifierValidation(new ExceptionBiConsumer())
+            .analyzeTypeDefinition()
+            .analyzeTypeResolve()
+            .build()
+            .run();
         Assertions.assertEquals(
             Type.BOOLEAN,
             context.get("1-14").getType()
@@ -106,32 +70,14 @@ class TypeResolveListenerTest {
             new ExampleFile("type-resolve/instantiation.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
-        parser.reset();
-        Assertions.assertDoesNotThrow(
-            () -> ParseTreeWalker.DEFAULT.walk(
-                new IdentifierValidationListener(context),
-                parser.file()
-            )
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeDefinitionListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeResolveListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .analyzeIdentifierValidation(new ExceptionBiConsumer())
+            .analyzeTypeDefinition()
+            .analyzeTypeResolve()
+            .build()
+            .run();
         Assertions.assertEquals(
             Type.INSTANCE,
             context.get("5-0").getType()
@@ -152,32 +98,14 @@ class TypeResolveListenerTest {
             new ExampleFile("type-resolve/property_from_class.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
-        parser.reset();
-        Assertions.assertDoesNotThrow(
-            () -> ParseTreeWalker.DEFAULT.walk(
-                new IdentifierValidationListener(context),
-                parser.file()
-            )
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeDefinitionListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeResolveListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .analyzeIdentifierValidation(new ExceptionBiConsumer())
+            .analyzeTypeDefinition()
+            .analyzeTypeResolve()
+            .build()
+            .run();
         Assertions.assertEquals(
             Type.INT,
             context.get("6-4").getType()
@@ -222,32 +150,14 @@ class TypeResolveListenerTest {
             new ExampleFile("type-resolve/func_definition.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
-        parser.reset();
-        Assertions.assertDoesNotThrow(
-            () -> ParseTreeWalker.DEFAULT.walk(
-                new IdentifierValidationListener(context),
-                parser.file()
-            )
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeDefinitionListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeResolveListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .analyzeIdentifierValidation(new ExceptionBiConsumer())
+            .analyzeTypeDefinition()
+            .analyzeTypeResolve()
+            .build()
+            .run();
         Assertions.assertEquals(
             Type.INT,
             context.get("1-0").getType()
@@ -264,32 +174,14 @@ class TypeResolveListenerTest {
             new ExampleFile("type-resolve/func_in_expression.ani").inputStream()
         ).parse();
         final AniContext context = new BaseAniContext();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierDeclarationListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new IdentifierUsageListener(context),
-            parser.file()
-        );
-        parser.reset();
-        Assertions.assertDoesNotThrow(
-            () -> ParseTreeWalker.DEFAULT.walk(
-                new IdentifierValidationListener(context),
-                parser.file()
-            )
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeDefinitionListener(context),
-            parser.file()
-        );
-        parser.reset();
-        ParseTreeWalker.DEFAULT.walk(
-            new TypeResolveListener(context),
-            parser.file()
-        );
+        new FileAnalysisBuilder(context, parser)
+            .analyzeDeclaration()
+            .analyzeUsageBuilder()
+            .analyzeIdentifierValidation(new ExceptionBiConsumer())
+            .analyzeTypeDefinition()
+            .analyzeTypeResolve()
+            .build()
+            .run();
         Assertions.assertEquals(
             Type.UNKNOWN,
             context.get("18-0").getType()
