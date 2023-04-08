@@ -32,7 +32,7 @@ final class SourceValidation {
      * @return Error if any.
      */
     Optional<String> error() {
-        if (!this.path.endsWith(".ani")) {
+        if (!this.path.toString().endsWith(".ani")) {
             return Optional.of(
                 String.format(
                     "File extension not recognized: %s",
