@@ -1,13 +1,5 @@
 /*
- * Property of Opencore
- */
-
-/*
- * Property of Opencore
- */
-
-/*
- * Property of Opencore
+ * Property of ani-lang project.
  */
 package com.anilang.parser;
 
