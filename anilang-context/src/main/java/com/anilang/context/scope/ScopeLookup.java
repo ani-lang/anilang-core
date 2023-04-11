@@ -5,12 +5,13 @@
 package com.anilang.context.scope;
 
 import com.anilang.context.AniContext;
-import java.util.Optional;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
 /**
  * Looks up for the identifier's scope within the context.
+ *
+ * @since 0.7.0
  */
 public final class ScopeLookup {
 

@@ -30,21 +30,40 @@ class TypeValidationTest {
         ).parse();
         final AniContext context = new BaseAniContext();
         final Exception exception = Assertions.assertThrows(
-            RuntimeException.class,
+            CustomException.class,
             () -> new FileAnalysisBuilder(context, parser)
                 .analyzeDeclaration()
                 .analyzeUsageBuilder()
                 .analyzeIdentifierValidation(new ExceptionBiConsumer())
                 .analyzeTypeDefinition()
                 .analyzeTypeResolve()
-                .analyzeTypesValidation(error -> {
-                    throw new RuntimeException(error);
-                })
+                .analyzeTypesValidation(
+                    error -> {
+                        throw new CustomException(error);
+                    }
+                )
                 .build()
                 .run()
         );
         final String expected = "Cannot resolve type of var 'p3' at [9,1]";
         final String actual = exception.getMessage();
         Assertions.assertEquals(expected, actual);
+    }
+
+    /**
+     * Testing purposes.
+     *
+     * @since 0.7.1
+     */
+    private class CustomException extends RuntimeException {
+
+        /**
+         * Ctor.
+         *
+         * @param message Message.
+         */
+        CustomException(final String message) {
+            super(message);
+        }
     }
 }

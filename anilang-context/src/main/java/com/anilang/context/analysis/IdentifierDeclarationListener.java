@@ -27,7 +27,7 @@ final class IdentifierDeclarationListener extends AniBaseListener {
      *
      * @param context Context.
      */
-    public IdentifierDeclarationListener(final AniContext context) {
+    IdentifierDeclarationListener(final AniContext context) {
         this.context = context;
     }
 
@@ -72,6 +72,4 @@ final class IdentifierDeclarationListener extends AniBaseListener {
             new BaseEntry(rule, rule.Identifier().getText())
         );
     }
-
-
 }

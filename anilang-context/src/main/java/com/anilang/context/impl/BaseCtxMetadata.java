@@ -48,12 +48,12 @@ public final class BaseCtxMetadata implements ContextMetadata {
     /**
      * The key to get information about the type resolved.
      */
-    private String typeReferenceKey;
+    private String reference;
 
     /**
      * Identifier name.
      */
-    private String name;
+    private final String name;
 
     /**
      * Ctor.
@@ -63,7 +63,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
      * @param start Represent the start of the identifier.
      * @param identifierType Identifier type.
      * @param type Resolved type.
-     * @param typeReferenceKey key to the type definition.
+     * @param reference Key to the type definition.
      * @param name Identifier name.
      * @checkstyle ParameterNumberCheck (20 lines)
      * @checkstyle ParameterNameCheck (20 lines)
@@ -74,7 +74,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
         final Token start,
         final IdentifierType identifierType,
         final Type type,
-        final String typeReferenceKey,
+        final String reference,
         final String name
     ) {
         this.parents = parents;
@@ -82,7 +82,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
         this.start = start;
         this.identifierType = identifierType;
         this.type = type;
-        this.typeReferenceKey = typeReferenceKey;
+        this.reference = reference;
         this.name = name;
     }
 
@@ -117,14 +117,14 @@ public final class BaseCtxMetadata implements ContextMetadata {
     }
 
     @Override
-    public Optional<String> getTypeReferenceKey() {
-        return Optional.of(this.typeReferenceKey)
+    public Optional<String> getReference() {
+        return Optional.of(this.reference)
             .filter(item -> !item.isEmpty());
     }
 
     @Override
-    public void setTypeReferenceKey(final String key) {
-        this.typeReferenceKey = key;
+    public void setReference(final String key) {
+        this.reference = key;
     }
 
     @Override

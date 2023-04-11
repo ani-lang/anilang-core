@@ -8,6 +8,8 @@ import com.anilang.context.scope.Scope;
 
 /**
  * Compares the given scope to the default scope.
+ *
+ * @since 0.7.1
  */
 public final class IsDefaultScope {
 
@@ -26,6 +28,8 @@ public final class IsDefaultScope {
     }
 
     /**
+     * True or false.
+     *
      * @return Is default scope.
      */
     public boolean value() {
@@ -33,6 +37,8 @@ public final class IsDefaultScope {
     }
 
     /**
+     * Negation of value.
+     *
      * @return Is not default scope.
      */
     public boolean not() {

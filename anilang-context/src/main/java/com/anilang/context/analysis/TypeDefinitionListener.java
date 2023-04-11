@@ -29,7 +29,7 @@ final class TypeDefinitionListener extends AniBaseListener {
      *
      * @param context Context.
      */
-    public TypeDefinitionListener(final AniContext context) {
+    TypeDefinitionListener(final AniContext context) {
         this.context = context;
     }
 
@@ -55,7 +55,7 @@ final class TypeDefinitionListener extends AniBaseListener {
         if (this.context.contains(key)) {
             final ContextMetadata metadata = this.context.get(key);
             metadata.asType(type);
-            metadata.setTypeReferenceKey(key);
+            metadata.setReference(key);
         }
     }
 }

@@ -27,7 +27,7 @@ final class IdentifierUsageListener extends AniBaseListener {
      *
      * @param context Context.
      */
-    public IdentifierUsageListener(final AniContext context) {
+    IdentifierUsageListener(final AniContext context) {
         this.context = context;
     }
 

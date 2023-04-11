@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
- * Resolve the type identifier from the type rule {@link AniParser.TypeContext}
+ * Resolve the type identifier from the type rule {@link AniParser.TypeContext}.
  *
  * @since 0.7.0
  */

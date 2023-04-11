@@ -5,7 +5,6 @@
 package com.anilang.context.analysis;
 
 import com.anilang.context.AniContext;
-import com.anilang.context.impl.ExceptionBiConsumer;
 import com.anilang.context.impl.PositionKey;
 import com.anilang.parser.antlr.AniBaseListener;
 import com.anilang.parser.antlr.AniParser;
@@ -33,18 +32,9 @@ final class IdentifierValidationListener extends AniBaseListener {
      * Ctor.
      *
      * @param context Context.
-     */
-    public IdentifierValidationListener(final AniContext context) {
-        this(context, new ExceptionBiConsumer());
-    }
-
-    /**
-     * Ctor.
-     *
-     * @param context Context.
      * @param consumer Consumer.
      */
-    public IdentifierValidationListener(
+    IdentifierValidationListener(
         final AniContext context,
         final BiConsumer<ParserRuleContext, String> consumer
     ) {

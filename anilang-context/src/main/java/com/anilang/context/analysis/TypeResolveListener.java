@@ -33,13 +33,13 @@ final class TypeResolveListener extends AniBaseListener {
      *
      * @param context Context.
      */
-    public TypeResolveListener(final AniContext context) {
+    TypeResolveListener(final AniContext context) {
         this.context = context;
     }
 
     @Override
     public void enterStructBodyMember(final AniParser.StructBodyMemberContext rule) {
-        final String rawType = new RuleType(rule.type()).raw();
+        final String raw = new RuleType(rule.type()).raw();
         final String scope = new FormattedScope(
             new ListParents(
                 rule.variableDeclaratorId(),
@@ -47,84 +47,83 @@ final class TypeResolveListener extends AniBaseListener {
             ).asList()
         ).formatted();
         new MetadataFrom(
-            context,
+            this.context,
             rule.variableDeclaratorId()
         ).ifPresent(
             metadata -> {
                 metadata.asType(
                     new RawType(
-                        rawType
+                        raw
                     ).type(
                         scope,
                         this.context
                     )
                 );
-                metadata.setTypeReferenceKey(new ScopeKey(scope, this.context).value());
+                metadata.setReference(new ScopeKey(scope, this.context).value());
             }
         );
     }
 
     @Override
     public void enterFormalParameterDecls(final AniParser.FormalParameterDeclsContext rule) {
-        final String rawType = new RuleType(rule.type()).raw();
+        final String raw = new RuleType(rule.type()).raw();
         final String scope = new ScopeLookup(
-            this.context, rawType, rule
+            this.context, raw, rule
         ).scope().formatted();
         new MetadataFrom(
             this.context,
             rule.formalParameterDeclsRest().variableDeclaratorId()
         ).ifPresent(
             metadata -> {
-                metadata.asType(new RawType(rawType).type(scope, this.context));
-                metadata.setTypeReferenceKey(new ScopeKey(scope, this.context).value());
+                metadata.asType(new RawType(raw).type(scope, this.context));
+                metadata.setReference(new ScopeKey(scope, this.context).value());
             }
         );
     }
 
     @Override
     public void enterVariableDeclarator(final AniParser.VariableDeclaratorContext rule) {
-        final AniParser.VariableDeclaratorIdContext declaratorId = rule.variableDeclaratorId();
+        final AniParser.VariableDeclaratorIdContext declarator = rule.variableDeclaratorId();
         final AniParser.VariableInitializerContext initializer = rule.variableInitializer();
         final AniParser.ExpressionContext expression = initializer.expression();
         new ResolveExpressionType(
             expression
-        ).setType(context, declaratorId);
-
+        ).setType(this.context, declarator);
     }
 
     @Override
     public void enterExpressionInstantiation(final AniParser.ExpressionInstantiationContext rule) {
-        final String rawType = rule.Identifier().getText();
+        final String raw = rule.Identifier().getText();
         final String scope = new ScopeLookup(
-            this.context, rawType, rule
+            this.context, raw, rule
         ).scope().formatted();
         new MetadataFrom(
             this.context,
             rule
         ).ifPresent(
             metadata -> {
-                metadata.asType(new RawType(rawType).type(scope, this.context));
-                metadata.setTypeReferenceKey(new ScopeKey(scope, this.context).value());
+                metadata.asType(new RawType(raw).type(scope, this.context));
+                metadata.setReference(new ScopeKey(scope, this.context).value());
             }
         );
     }
 
     @Override
     public void enterFuncDeclaration(final AniParser.FuncDeclarationContext rule) {
-        final AniParser.FuncReturnTypeDeclarationContext returnType =
+        final AniParser.FuncReturnTypeDeclarationContext type =
             rule.funcReturnTypeDeclaration();
-        if (returnType != null) {
-            final String rawType = new RuleType(returnType.type()).raw();
+        if (type != null) {
+            final String raw = new RuleType(type.type()).raw();
             final String scope = new ScopeLookup(
-                this.context, rawType, rule
+                this.context, raw, rule
             ).scope().formatted();
             new MetadataFrom(
                 this.context,
                 rule
             ).ifPresent(
                 metadata -> {
-                    metadata.asType(new RawType(rawType).type(scope, this.context));
-                    metadata.setTypeReferenceKey(new ScopeKey(scope, this.context).value());
+                    metadata.asType(new RawType(raw).type(scope, this.context));
+                    metadata.setReference(new ScopeKey(scope, this.context).value());
                 }
             );
         }

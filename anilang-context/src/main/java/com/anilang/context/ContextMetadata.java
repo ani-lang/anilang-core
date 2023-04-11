@@ -66,14 +66,14 @@ public interface ContextMetadata {
      *
      * @return Key or empty if type is {@link Type#UNKNOWN} or a primitive type.
      */
-    Optional<String> getTypeReferenceKey();
+    Optional<String> getReference();
 
     /**
      * Update the reference key.
      *
-     * @param referenceKey Key.
+     * @param reference Key.
      */
-    void setTypeReferenceKey(String referenceKey);
+    void setReference(String reference);
 
     /**
      * Identifier name.
