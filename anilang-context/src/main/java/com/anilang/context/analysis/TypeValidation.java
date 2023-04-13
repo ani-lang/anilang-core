@@ -31,6 +31,8 @@ final class TypeValidation {
     }
 
     /**
+     * Error.
+     *
      * @return Error if any.
      */
     Optional<String> error() {

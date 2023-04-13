@@ -23,7 +23,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public final class ResolveExpressionType {
 
     /**
-     * Expression
+     * Expression.
      */
     private final AniParser.ExpressionContext expression;
 
@@ -36,14 +36,20 @@ public final class ResolveExpressionType {
         this.expression = expression;
     }
 
+    /**
+     * Add the type of the rule to the context once is resolved.
+     *
+     * @param context Context.
+     * @param rule Rule.
+     */
     public void setType(final AniContext context, final ParserRuleContext rule) {
         if (this.expression instanceof AniParser.ExpressionInstantiationContext) {
-            final AniParser.ExpressionInstantiationContext instantiation =
+            final AniParser.ExpressionInstantiationContext instance =
                 (AniParser.ExpressionInstantiationContext) this.expression;
-            final TerminalNode className = instantiation.Identifier();
+            final TerminalNode name = instance.Identifier();
             final String scope = new ScopeLookup(
                 context,
-                className.getText(),
+                name.getText(),
                 rule
             ).scope().formatted();
             new MetadataFrom(
@@ -51,8 +57,8 @@ public final class ResolveExpressionType {
                 rule
             ).ifPresent(
                 metadata -> {
-                    metadata.asType(new RawType(className.getText()).type(scope.formatted(), context));
-                    metadata.setTypeReferenceKey(new ScopeKey(scope.formatted(), context).value());
+                    metadata.asType(new RawType(name.getText()).type(scope.formatted(), context));
+                    metadata.setReference(new ScopeKey(scope.formatted(), context).value());
                 }
             );
         }
@@ -81,12 +87,12 @@ public final class ResolveExpressionType {
                 ).scope().formatted();
 
                 final String declarationKey = context.getDeclarationKey(parentScope);
-                final ContextMetadata declarationMetadata = context.get(declarationKey);
+                final ContextMetadata declaration = context.get(declarationKey);
                 if (context.contains(key)) {
                     final ContextMetadata metadata = context.get(key);
-                    metadata.asType(declarationMetadata.getType());
-                    metadata.setTypeReferenceKey(
-                        declarationMetadata.getTypeReferenceKey().orElse("")
+                    metadata.asType(declaration.getType());
+                    metadata.setReference(
+                        declaration.getReference().orElse("")
                     );
                 }
             }
@@ -103,21 +109,21 @@ public final class ResolveExpressionType {
                 rule
             ).scope().formatted();
             final String varDeclarationKey = context.getDeclarationKey(varScope);
-            final ContextMetadata varData = context.get(varDeclarationKey);
-            final ContextMetadata varType = context.get(varData.getTypeReferenceKey().orElse(""));
-            final String propertyScopeString = String.format(
+            final ContextMetadata data = context.get(varDeclarationKey);
+            final ContextMetadata type = context.get(data.getReference().orElse(""));
+            final String scope = String.format(
                 "%s$%s",
-                varType.getParents(),
+                type.getScope().formatted(),
                 propertyId
             );
-            if (context.hasDeclaration(propertyScopeString)) {
-                final String propertyKey = context.getDeclarationKey(propertyScopeString);
+            if (context.hasDeclaration(scope)) {
+                final String propertyKey = context.getDeclarationKey(scope);
                 final ContextMetadata property = context.get(propertyKey);
                 final String key = new PositionKey(rule).toString();
                 if (context.contains(key)) {
                     final ContextMetadata metadata = context.get(key);
                     metadata.asType(property.getType());
-                    metadata.setTypeReferenceKey(property.getTypeReferenceKey().orElse(""));
+                    metadata.setReference(property.getReference().orElse(""));
                 }
             }
         }
@@ -136,22 +142,21 @@ public final class ResolveExpressionType {
             }
         }
         if (this.expression instanceof AniParser.ExpressionMethodCallContext) {
-            final AniParser.ExpressionMethodCallContext methodCall =
+            final AniParser.ExpressionMethodCallContext method =
                 (AniParser.ExpressionMethodCallContext) this.expression;
-            final String parentScope = new ScopeLookup(
+            final String scope = new ScopeLookup(
                 context,
-                methodCall.expression().getText(),
+                method.expression().getText(),
                 rule
             ).scope().formatted();
-
-            final String declarationKey = context.getDeclarationKey(parentScope);
-            final ContextMetadata declarationMetadata = context.get(declarationKey);
+            final String declarationKey = context.getDeclarationKey(scope);
+            final ContextMetadata declaration = context.get(declarationKey);
             final String key = new PositionKey(rule).toString();
             if (context.contains(key)) {
                 final ContextMetadata metadata = context.get(key);
-                metadata.asType(declarationMetadata.getType());
-                metadata.setTypeReferenceKey(
-                    declarationMetadata.getTypeReferenceKey().orElse("")
+                metadata.asType(declaration.getType());
+                metadata.setReference(
+                    declaration.getReference().orElse("")
                 );
             }
         }

@@ -88,7 +88,7 @@ class TypeResolveListenerTest {
         );
         Assertions.assertEquals(
             "1-0",
-            context.get("5-0").getTypeReferenceKey().orElse("")
+            context.get("5-0").getReference().orElse("")
         );
     }
 

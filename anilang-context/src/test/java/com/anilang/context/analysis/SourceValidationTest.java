@@ -29,14 +29,14 @@ class SourceValidationTest {
         ).parse();
         final AniContext context = new BaseAniContext();
         final Exception exception = Assertions.assertThrows(
-            RuntimeException.class,
+            CustomException.class,
             () -> new FileAnalysisBuilder(context, parser)
                 .analyzeSourceValidation(
                     Paths.get(
                         "/com/anilang/context/source-validation/no_extension"
                     ),
                     error -> {
-                        throw new RuntimeException(error);
+                        throw new CustomException(error);
                     }
                 )
                 .build()
@@ -54,14 +54,14 @@ class SourceValidationTest {
         ).parse();
         final AniContext context = new BaseAniContext();
         final Exception exception = Assertions.assertThrows(
-            RuntimeException.class,
+            CustomException.class,
             () -> new FileAnalysisBuilder(context, parser)
                 .analyzeSourceValidation(
                     Paths.get(
                         "/com/anilang/context/source-validation/wrong_extension.wrong"
                     ),
                     error -> {
-                        throw new RuntimeException(error);
+                        throw new CustomException(error);
                     }
                 )
                 .build()
@@ -85,11 +85,28 @@ class SourceValidationTest {
                         "/com/anilang/context/source-validation/valid.ani"
                     ),
                     error -> {
-                        throw new RuntimeException(error);
+                        throw new CustomException(error);
                     }
                 )
                 .build()
                 .run()
         );
+    }
+
+    /**
+     * Testing purposes.
+     *
+     * @since 0.7.1
+     */
+    private class CustomException extends RuntimeException {
+
+        /**
+         * Ctor.
+         *
+         * @param message Message.
+         */
+        CustomException(final String message) {
+            super(message);
+        }
     }
 }

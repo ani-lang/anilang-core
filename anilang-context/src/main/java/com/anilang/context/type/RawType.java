@@ -17,15 +17,15 @@ public final class RawType {
     /**
      * The String type.
      */
-    private final String rawType;
+    private final String type;
 
     /**
      * Ctor.
      *
-     * @param rawType Type as String.
+     * @param type Type as String.
      */
-    public RawType(final String rawType) {
-        this.rawType = rawType;
+    public RawType(final String type) {
+        this.type = type;
     }
 
     /**
@@ -42,25 +42,25 @@ public final class RawType {
         /* @checkstyle MethodBodyCommentsCheck (10 lines)
          * TODO this must come from the lexer. update the lexer definition
          */
-        if (this.rawType.equals("boolean")) {
+        if (this.type.equals("boolean")) {
             return Type.BOOLEAN;
         }
-        if (this.rawType.equals("int")) {
+        if (this.type.equals("int")) {
             return Type.INT;
         }
-        if (this.rawType.equals("float")) {
+        if (this.type.equals("float")) {
             return Type.FLOAT;
         }
-        if (this.rawType.equals("string")) {
+        if (this.type.equals("string")) {
             return Type.STRING;
         }
-        if (this.rawType.equals("list")) {
+        if (this.type.equals("list")) {
             return Type.LIST;
         }
-        if (this.rawType.equals("dict")) {
+        if (this.type.equals("dict")) {
             return Type.DICT;
         }
-        if (this.rawType.equals("set")) {
+        if (this.type.equals("set")) {
             return Type.SET;
         }
         if (context.hasDeclaration(scope)) {

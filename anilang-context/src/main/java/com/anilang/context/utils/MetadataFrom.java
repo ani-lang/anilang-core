@@ -50,6 +50,8 @@ public final class MetadataFrom {
 
     /**
      * Metadata if found in the context.
+     *
+     * @param consumer Accept the metadata if found.
      */
     public void ifPresent(final Consumer<ContextMetadata> consumer) {
         if (this.context.contains(this.key)) {

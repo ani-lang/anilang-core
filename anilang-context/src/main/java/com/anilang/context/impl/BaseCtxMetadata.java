@@ -6,6 +6,7 @@ package com.anilang.context.impl;
 
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
+import com.anilang.context.scope.Scope;
 import java.util.Optional;
 import org.antlr.v4.runtime.Token;
 
@@ -17,9 +18,9 @@ import org.antlr.v4.runtime.Token;
 public final class BaseCtxMetadata implements ContextMetadata {
 
     /**
-     * Parent scope.
+     * Scope.
      */
-    private final String parents;
+    private final Scope scope;
 
     /**
      * Key to find the referenced declaration.
@@ -48,47 +49,47 @@ public final class BaseCtxMetadata implements ContextMetadata {
     /**
      * The key to get information about the type resolved.
      */
-    private String typeReferenceKey;
+    private String reference;
 
     /**
      * Identifier name.
      */
-    private String name;
+    private final String name;
 
     /**
      * Ctor.
      *
-     * @param parents Parent scope.
+     * @param scope Scope.
      * @param declaration Key to find the referenced declaration.
      * @param start Represent the start of the identifier.
      * @param identifierType Identifier type.
      * @param type Resolved type.
-     * @param typeReferenceKey key to the type definition.
+     * @param reference Key to the type definition.
      * @param name Identifier name.
      * @checkstyle ParameterNumberCheck (20 lines)
      * @checkstyle ParameterNameCheck (20 lines)
      */
     public BaseCtxMetadata(
-        final String parents,
+        final Scope scope,
         final String declaration,
         final Token start,
         final IdentifierType identifierType,
         final Type type,
-        final String typeReferenceKey,
+        final String reference,
         final String name
     ) {
-        this.parents = parents;
+        this.scope = scope;
         this.declaration = declaration;
         this.start = start;
         this.identifierType = identifierType;
         this.type = type;
-        this.typeReferenceKey = typeReferenceKey;
+        this.reference = reference;
         this.name = name;
     }
 
     @Override
-    public String getParents() {
-        return this.parents;
+    public Scope getScope() {
+        return this.scope;
     }
 
     @Override
@@ -117,14 +118,14 @@ public final class BaseCtxMetadata implements ContextMetadata {
     }
 
     @Override
-    public Optional<String> getTypeReferenceKey() {
-        return Optional.of(this.typeReferenceKey)
+    public Optional<String> getReference() {
+        return Optional.of(this.reference)
             .filter(item -> !item.isEmpty());
     }
 
     @Override
-    public void setTypeReferenceKey(final String key) {
-        this.typeReferenceKey = key;
+    public void setReference(final String key) {
+        this.reference = key;
     }
 
     @Override
