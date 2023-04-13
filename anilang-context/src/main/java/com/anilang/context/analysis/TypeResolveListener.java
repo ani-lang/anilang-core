@@ -40,6 +40,7 @@ final class TypeResolveListener extends AniBaseListener {
     @Override
     public void enterStructBodyMember(final AniParser.StructBodyMemberContext rule) {
         final String raw = new RuleType(rule.type()).raw();
+        // @checkstyle MethodBodyCommentsCheck (10 lines)
         // TODO remove all String scopes and replace them by Objects
         // #118
         // in this example we can't just replace it by the object since the string is used to be
