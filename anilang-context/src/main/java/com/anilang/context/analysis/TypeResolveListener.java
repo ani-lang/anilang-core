@@ -40,6 +40,11 @@ final class TypeResolveListener extends AniBaseListener {
     @Override
     public void enterStructBodyMember(final AniParser.StructBodyMemberContext rule) {
         final String raw = new RuleType(rule.type()).raw();
+        // TODO remove all String scopes and replace them by Objects
+        // #118
+        // in this example we can't just replace it by the object since the string is used to be
+        // compared and the object generates the String every time it needs it.
+        // A cache type scope must be implemented to avoid multiple calculation of the same value.
         final String scope = new FormattedScope(
             new ListParents(
                 rule.variableDeclaratorId(),
