@@ -37,7 +37,7 @@ public final class BaseAniContext implements AniContext {
             System.err.printf("duplicated entry %s%n", entry.getKey());
         } else {
             if (entry.getValue().getIdentifierType() == IdentifierType.DECLARATION) {
-                this.keys.put(entry.getValue().getParents(), entry.getKey());
+                this.keys.put(entry.getValue().getScope().formatted(), entry.getKey());
             }
             this.metadata.put(entry.getKey(), entry.getValue());
         }

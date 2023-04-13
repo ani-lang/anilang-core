@@ -86,7 +86,7 @@ public final class BaseEntry implements ContextEntry {
                     this.rule,
                     this.identifier
                 ).asList()
-            ).formatted(),
+            ),
             this.declaration,
             this.rule.getStart(),
             this.type,

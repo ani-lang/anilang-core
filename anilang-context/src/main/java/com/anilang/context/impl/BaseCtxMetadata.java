@@ -6,6 +6,7 @@ package com.anilang.context.impl;
 
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
+import com.anilang.context.scope.Scope;
 import java.util.Optional;
 import org.antlr.v4.runtime.Token;
 
@@ -17,9 +18,9 @@ import org.antlr.v4.runtime.Token;
 public final class BaseCtxMetadata implements ContextMetadata {
 
     /**
-     * Parent scope.
+     * Scope.
      */
-    private final String parents;
+    private final Scope scope;
 
     /**
      * Key to find the referenced declaration.
@@ -58,7 +59,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
     /**
      * Ctor.
      *
-     * @param parents Parent scope.
+     * @param scope Scope.
      * @param declaration Key to find the referenced declaration.
      * @param start Represent the start of the identifier.
      * @param identifierType Identifier type.
@@ -69,7 +70,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
      * @checkstyle ParameterNameCheck (20 lines)
      */
     public BaseCtxMetadata(
-        final String parents,
+        final Scope scope,
         final String declaration,
         final Token start,
         final IdentifierType identifierType,
@@ -77,7 +78,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
         final String reference,
         final String name
     ) {
-        this.parents = parents;
+        this.scope = scope;
         this.declaration = declaration;
         this.start = start;
         this.identifierType = identifierType;
@@ -87,8 +88,8 @@ public final class BaseCtxMetadata implements ContextMetadata {
     }
 
     @Override
-    public String getParents() {
-        return this.parents;
+    public Scope getScope() {
+        return this.scope;
     }
 
     @Override

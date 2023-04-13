@@ -113,7 +113,7 @@ public final class ResolveExpressionType {
             final ContextMetadata type = context.get(data.getReference().orElse(""));
             final String scope = String.format(
                 "%s$%s",
-                type.getParents(),
+                type.getScope().formatted(),
                 propertyId
             );
             if (context.hasDeclaration(scope)) {
