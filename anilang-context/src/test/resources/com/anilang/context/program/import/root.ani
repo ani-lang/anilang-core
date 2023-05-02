@@ -1,0 +1,8 @@
+import 'sibling.ani'
+import 'libs/lib1.ani'
+
+a = 1
+
+def foo():
+    b = 2
+end

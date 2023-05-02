@@ -1,0 +1,7 @@
+import 'root.ani'
+
+c = 3
+
+def bar():
+    d = 4
+end
