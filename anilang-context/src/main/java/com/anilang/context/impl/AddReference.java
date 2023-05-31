@@ -53,6 +53,7 @@ public final class AddReference {
      * Add the rule as {@link IdentifierType#REFERENCE} to the context if it has been declared.
      * TODO this method name looks weird, rename it or refactor it to make it more readable
      * #144
+     *
      * @since 0.7.1
      */
     public void ifFound() {
@@ -67,6 +68,24 @@ public final class AddReference {
                     this.rule,
                     this.identifier,
                     this.context.getDeclarationKey(scope.formatted()),
+                    IdentifierType.REFERENCE
+                )
+            );
+        }
+    }
+
+    public void ifNotFound() {
+        final Scope scope = new ScopeLookup(
+            this.context,
+            this.identifier,
+            this.rule
+        ).scope();
+        if (new IsDefaultScope(scope).value()) {
+            this.context.addContext(
+                new BaseEntry(
+                    this.rule,
+                    this.identifier,
+                    "",
                     IdentifierType.REFERENCE
                 )
             );

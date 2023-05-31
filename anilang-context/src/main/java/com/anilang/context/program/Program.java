@@ -29,11 +29,30 @@ public final class Program {
         paths.reset();
         runIdentifiersValidationForPath(this.root);
         paths.reset();
+        runImportedUsage(this.root);
+        paths.reset();
         runSelfContainedTypesForPath(this.root);
         paths.reset();
         runCrossContainedTypesForPath(this.root);
         paths.reset();
         runTypeValidationForPath(this.root);
+    }
+
+    private void runImportedUsage(final Path base) throws IOException {
+        if (paths.contains(base)) {
+            // skip if it was already ran over the path
+            return;
+        }
+        this.paths.add(base);
+        final AniParser parser = new AniFile(Files.newInputStream(base)).parse();
+        final AniContext context = this.context.context(base);
+        new FileAnalysisBuilder(context, parser)
+            .analyzeImportedUsage()
+            .build()
+            .run();
+        for (final Path path : context.getImports()) {
+            runImportedUsage(path);
+        }
     }
 
     public ProgramContext context() {

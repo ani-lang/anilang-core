@@ -7,7 +7,6 @@ package com.anilang.context.analysis;
 import com.anilang.context.AniContext;
 import com.anilang.context.impl.ProgramContext;
 import com.anilang.parser.antlr.AniParser;
-import java.io.File;
 import java.nio.file.Path;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -174,6 +173,14 @@ public final class FileAnalysisBuilder {
             new DtrImports(
                 this.analysis,
                 root
+            )
+        );
+    }
+
+    public FileAnalysisBuilder analyzeImportedUsage() {
+        return new FileAnalysisBuilder(
+            new DctrImportedUsageAnalysis(
+                this.analysis
             )
         );
     }
