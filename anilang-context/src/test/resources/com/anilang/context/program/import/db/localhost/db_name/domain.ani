@@ -1,0 +1,9 @@
+class Entity1:
+    name = ''
+    age = 0
+end
+
+class Entity2:
+    prop1 = 1
+    prop2 = 'hello'
+end

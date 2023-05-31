@@ -1,0 +1,7 @@
+class Connection:
+    db = 'db_name'
+    port = 3333
+    host = 'localhost'
+    user = 'userName'
+    password = 'pass123'
+end

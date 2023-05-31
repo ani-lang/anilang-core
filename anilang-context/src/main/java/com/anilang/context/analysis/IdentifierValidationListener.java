@@ -68,7 +68,8 @@ final class IdentifierValidationListener extends AniBaseListener {
      * @param identifier Identifier.
      */
     private void validate(final ParserRuleContext rule, final String identifier) {
-        if (!this.context.contains(new PositionKey(rule).toString())) {
+        final String key = new PositionKey(rule).toString();
+        if (!this.context.contains(key)) {
             this.consumer.accept(rule, identifier);
         }
     }

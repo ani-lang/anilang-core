@@ -79,4 +79,6 @@ public interface ContextMetadata {
      * @return Name.
      */
     String name();
+
+    void setIdentifierType(IdentifierType identifierType);
 }

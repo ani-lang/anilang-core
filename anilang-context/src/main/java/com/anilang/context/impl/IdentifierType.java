@@ -17,6 +17,7 @@ public enum IdentifierType {
      */
     REFERENCE,
 
+    IMPORTED,
     /**
      * An item being declared for the first time.
      */

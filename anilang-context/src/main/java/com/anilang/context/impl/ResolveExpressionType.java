@@ -88,7 +88,7 @@ public final class ResolveExpressionType {
 
                 final String declarationKey = context.getDeclarationKey(parentScope);
                 final ContextMetadata declaration = context.get(declarationKey);
-                if (context.contains(key)) {
+                if (context.contains(key) && declaration != null) {
                     final ContextMetadata metadata = context.get(key);
                     metadata.asType(declaration.getType());
                     metadata.setReference(

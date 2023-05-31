@@ -27,7 +27,7 @@ public final class ProgramContext {
         if (this.map.containsKey(key)) {
             return this.map.get(key);
         }
-        final BaseAniContext context = new BaseAniContext();
+        final BaseAniContext context = new BaseAniContext(key);
         this.map.put(key, context);
         return context;
     }

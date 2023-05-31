@@ -51,7 +51,8 @@ public final class AddReference {
 
     /**
      * Add the rule as {@link IdentifierType#REFERENCE} to the context if it has been declared.
-     *
+     * TODO this method name looks weird, rename it or refactor it to make it more readable
+     * #144
      * @since 0.7.1
      */
     public void ifFound() {

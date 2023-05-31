@@ -39,7 +39,7 @@ public final class BaseCtxMetadata implements ContextMetadata {
      *
      * @checkstyle MemberNameCheck (5 lines)
      */
-    private final IdentifierType identifierType;
+    private IdentifierType identifierType;
 
     /**
      * Resolved type.
@@ -131,5 +131,10 @@ public final class BaseCtxMetadata implements ContextMetadata {
     @Override
     public String name() {
         return this.name;
+    }
+
+    @Override
+    public void setIdentifierType(final IdentifierType identifierType) {
+        this.identifierType = identifierType;
     }
 }
