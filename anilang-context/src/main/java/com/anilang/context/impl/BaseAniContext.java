@@ -9,7 +9,9 @@ import com.anilang.context.ContextEntry;
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.scope.ScopeLookup;
 import com.anilang.context.utils.IsDefaultScope;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.antlr.v4.runtime.ParserRuleContext;
 
@@ -29,6 +31,16 @@ public final class BaseAniContext implements AniContext {
      * Scope declaration to its key in metadata.
      */
     private final Map<String, String> keys = new HashMap<>();
+    private final String key;
+    private List<Path> imports;
+
+    public BaseAniContext() {
+        this("");
+    }
+
+    public BaseAniContext(final String key) {
+        this.key = key;
+    }
 
     @Override
     @SuppressWarnings("PMD.SystemPrintln")
@@ -82,5 +94,20 @@ public final class BaseAniContext implements AniContext {
     @Override
     public String getDeclarationKey(final String parent) {
         return this.keys.get(parent);
+    }
+
+    @Override
+    public void setImports(final List<Path> imports) {
+        this.imports = imports;
+    }
+
+    @Override
+    public List<Path> getImports() {
+        return this.imports;
+    }
+
+    @Override
+    public String contextKey() {
+        return this.key;
     }
 }

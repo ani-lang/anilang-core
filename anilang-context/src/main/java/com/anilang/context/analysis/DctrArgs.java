@@ -12,7 +12,7 @@ import com.anilang.parser.antlr.AniParser;
  *
  * @since 0.7.1
  */
-final class DctrArgs {
+public final class DctrArgs {
 
     /**
      * Context.
@@ -40,7 +40,7 @@ final class DctrArgs {
      *
      * @return Parser.
      */
-    AniParser parser() {
+    public AniParser parser() {
         this.parser.reset();
         return this.parser;
     }
@@ -50,7 +50,7 @@ final class DctrArgs {
      *
      * @return Context.
      */
-    AniContext context() {
+    public AniContext context() {
         return this.context;
     }
 }

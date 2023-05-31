@@ -4,6 +4,8 @@
 
 package com.anilang.context;
 
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import org.antlr.v4.runtime.ParserRuleContext;
 
@@ -75,4 +77,10 @@ public interface AniContext {
      * @return Key.
      */
     String getDeclarationKey(String parent);
+
+    void setImports(List<Path> imports);
+
+    List<Path> getImports();
+
+    String contextKey();
 }

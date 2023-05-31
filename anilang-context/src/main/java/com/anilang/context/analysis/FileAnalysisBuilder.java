@@ -5,6 +5,7 @@
 package com.anilang.context.analysis;
 
 import com.anilang.context.AniContext;
+import com.anilang.context.impl.ProgramContext;
 import com.anilang.parser.antlr.AniParser;
 import java.nio.file.Path;
 import java.util.function.BiConsumer;
@@ -156,5 +157,31 @@ public final class FileAnalysisBuilder {
      */
     public FileAnalysis build() {
         return this.analysis;
+    }
+
+    public FileAnalysisBuilder analyzeCrossFileTypeResolve(final ProgramContext context) {
+        return new FileAnalysisBuilder(
+            new DtrCrossFileTypeResolve(
+                this.analysis,
+                context
+            )
+        );
+    }
+
+    public FileAnalysisBuilder analyzeImports(final Path root) {
+        return new FileAnalysisBuilder(
+            new DtrImports(
+                this.analysis,
+                root
+            )
+        );
+    }
+
+    public FileAnalysisBuilder analyzeImportedUsage() {
+        return new FileAnalysisBuilder(
+            new DctrImportedUsageAnalysis(
+                this.analysis
+            )
+        );
     }
 }

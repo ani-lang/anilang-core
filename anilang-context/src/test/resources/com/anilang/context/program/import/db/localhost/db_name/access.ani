@@ -1,0 +1,10 @@
+class Db_Name:
+    def execute(string query) -> DbResult:
+
+    end
+end
+
+class DbResult:
+    affectedRows = 0
+    rows = []
+end
