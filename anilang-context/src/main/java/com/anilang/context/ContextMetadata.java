@@ -74,6 +74,15 @@ public interface ContextMetadata {
     void setReference(String reference);
 
     /**
+     * Returns the file where this was imported.
+     * The reference key can be used in this file.
+     * @return File name where it was imported from.
+     */
+    Optional<String> getFileSource();
+
+    void setFileSource(String source);
+
+    /**
      * Identifier name.
      *
      * @return Name.

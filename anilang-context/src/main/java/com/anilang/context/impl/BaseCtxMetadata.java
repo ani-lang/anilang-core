@@ -57,6 +57,11 @@ public final class BaseCtxMetadata implements ContextMetadata {
     private final String name;
 
     /**
+     * File where it came from.
+     */
+    private String fileSource;
+
+    /**
      * Ctor.
      *
      * @param scope Scope.
@@ -126,6 +131,16 @@ public final class BaseCtxMetadata implements ContextMetadata {
     @Override
     public void setReference(final String key) {
         this.reference = key;
+    }
+
+    @Override
+    public Optional<String> getFileSource() {
+        return Optional.ofNullable(this.fileSource);
+    }
+
+    @Override
+    public void setFileSource(final String source) {
+        this.fileSource = source;
     }
 
     @Override

@@ -1,0 +1,3 @@
+import 'file.ani'
+
+a = new A()
