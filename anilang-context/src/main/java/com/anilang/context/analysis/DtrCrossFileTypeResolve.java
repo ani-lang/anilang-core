@@ -36,17 +36,6 @@ public final class DtrCrossFileTypeResolve implements FileAnalysis {
         return args;
     }
 
-    private void updateReferences(final ContextMetadata metadata, final AniContext source) {
-        final Optional<String> reference = metadata.getReference();
-        if (reference.isEmpty()) {
-            metadata.setIdentifierType(IdentifierType.IMPORTED);
-            final String declarationKey = source.getDeclarationKey("$file$" + metadata.name());
-            metadata.setReference(declarationKey);
-            ContextMetadata contextMetadata = source.get(declarationKey);
-            metadata.asType(contextMetadata.getType());
-        }
-    }
-
     private Optional<AniContext> programLookup(
         final ContextMetadata metadata,
         final String exclude
@@ -57,5 +46,17 @@ public final class DtrCrossFileTypeResolve implements FileAnalysis {
             .filter(entry -> entry.getKey() != exclude && entry.getValue().hasDeclaration("$file$" + metadata.name()))
             .map(Map.Entry::getValue)
             .findFirst();
+    }
+
+    private void updateReferences(final ContextMetadata metadata, final AniContext sourceContext) {
+        final Optional<String> reference = metadata.getReference();
+        if (reference.isEmpty()) {
+            metadata.setIdentifierType(IdentifierType.IMPORTED);
+            final String declarationKey = sourceContext.getDeclarationKey("$file$" + metadata.name());
+            metadata.setReference(declarationKey);
+            ContextMetadata sourceMetadata = sourceContext.get(declarationKey);
+            metadata.asType(sourceMetadata.getType());
+            metadata.setContextSourceKey(sourceContext.contextKey());
+        }
     }
 }

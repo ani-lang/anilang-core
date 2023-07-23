@@ -91,6 +91,6 @@ class ProgramTest {
         Assertions.assertEquals("$file$A", mainContext.get("3-4").getScope().formatted());
         Assertions.assertEquals(IdentifierType.IMPORTED, mainContext.get("3-4").getIdentifierType());
         Assertions.assertEquals("1-0", mainContext.get("3-4").getReference().orElse(""));
-        Assertions.assertEquals("file.ani", mainContext.get("3-4").getFileSource().orElse(""));
+        Assertions.assertEquals("file.ani", mainContext.get("3-4").getContextSourceKey().orElse(""));
     }
 }

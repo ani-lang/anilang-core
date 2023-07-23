@@ -78,9 +78,9 @@ public interface ContextMetadata {
      * The reference key can be used in this file.
      * @return File name where it was imported from.
      */
-    Optional<String> getFileSource();
+    Optional<String> getContextSourceKey();
 
-    void setFileSource(String source);
+    void setContextSourceKey(String source);
 
     /**
      * Identifier name.
