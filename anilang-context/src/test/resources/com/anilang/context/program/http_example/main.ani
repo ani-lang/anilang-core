@@ -1,0 +1,8 @@
+import 'http.ani'
+import 'lang.ani'
+
+http = new Http()
+
+response = http.get('www.api.com/data')
+
+print(response.json())

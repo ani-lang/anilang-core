@@ -1,0 +1,9 @@
+/*
+Metodos generales de Ani.
+
+Interactuar on el sistema require del interprete.
+*/
+
+def print(string text):
+   # VM.print(txt)
+end

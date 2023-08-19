@@ -1,0 +1,29 @@
+class Json:
+    def asString() -> string:
+
+    end
+end
+
+class Response:
+    def json() -> Json:
+
+    end
+end
+
+class Http:
+    def get(string url) -> Response:
+
+    end
+
+    def delete(string url) -> Response:
+
+    end
+
+    def post(string url, Json data) -> Response:
+
+    end
+
+    def put(string url, Json data) -> Response:
+
+    end
+end
