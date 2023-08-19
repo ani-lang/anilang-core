@@ -1,0 +1,27 @@
+import 'server.ani'
+
+class GetHandler:
+
+    url = 'data'
+
+    def get() -> Json:
+        return new Json()
+    end
+end
+
+class PostHandler:
+
+    url = 'data'
+
+    def post(Json body) -> Json:
+        return new Json()
+    end
+end
+
+server = new Server()
+
+server.addHandler(new GetHandler())
+server.addHandler(new PostHandler())
+
+server.start()
+
