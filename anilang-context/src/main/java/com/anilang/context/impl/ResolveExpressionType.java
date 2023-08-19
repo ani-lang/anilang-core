@@ -7,6 +7,7 @@ package com.anilang.context.impl;
 import com.anilang.context.AniContext;
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.Type;
+import com.anilang.context.scope.Scope;
 import com.anilang.context.scope.ScopeLookup;
 import com.anilang.context.type.RawType;
 import com.anilang.context.utils.MetadataFrom;
@@ -149,6 +150,9 @@ public final class ResolveExpressionType {
                 method.expression().getText(),
                 rule
             ).scope().formatted();
+            if (Scope.DEFAULT_SCOPE.equals(scope)) {
+                return;
+            }
             final String declarationKey = context.getDeclarationKey(scope);
             final ContextMetadata declaration = context.get(declarationKey);
             final String key = new PositionKey(rule).toString();

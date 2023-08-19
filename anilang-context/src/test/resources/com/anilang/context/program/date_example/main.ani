@@ -1,0 +1,13 @@
+import 'time.ani'
+import 'lang.ani'
+
+d = new DateTime().now()
+
+print(d.strftime('%d-%m-%Y'))
+# 13-04-2020
+print(d.strftime('%A, %d %B, %y'))
+# Monday, 13 April, 20
+print(d.strftime('%H:%M:%S'))
+# 20:55:53
+print(d.strftime('%H horas, %M minutos y %S segundos'))
+# 20 horas, 55 minutos y 53 segundos
