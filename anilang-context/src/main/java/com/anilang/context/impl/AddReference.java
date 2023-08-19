@@ -7,7 +7,7 @@ package com.anilang.context.impl;
 import com.anilang.context.AniContext;
 import com.anilang.context.scope.Scope;
 import com.anilang.context.scope.ScopeLookup;
-import com.anilang.context.utils.IsDefaultScope;
+import com.anilang.context.scope.IsDefaultScope;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 /**

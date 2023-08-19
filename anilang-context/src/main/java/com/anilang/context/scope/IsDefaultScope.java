@@ -2,7 +2,11 @@
  * Property of ani-lang project.
  */
 
-package com.anilang.context.utils;
+/*
+ * Property of ani-lang project.
+ */
+
+package com.anilang.context.scope;
 
 import com.anilang.context.scope.Scope;
 

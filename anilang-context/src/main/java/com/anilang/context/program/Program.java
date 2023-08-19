@@ -38,27 +38,6 @@ public final class Program {
         runTypeValidationForPath(this.root);
     }
 
-    private void runImportedUsage(final Path base) throws IOException {
-        if (paths.contains(base)) {
-            // skip if it was already ran over the path
-            return;
-        }
-        this.paths.add(base);
-        final AniParser parser = new AniFile(Files.newInputStream(base)).parse();
-        final AniContext context = this.context.context(base);
-        new FileAnalysisBuilder(context, parser)
-            .analyzeImportedUsage()
-            .build()
-            .run();
-        for (final Path path : context.getImports()) {
-            runImportedUsage(path);
-        }
-    }
-
-    public ProgramContext context() {
-        return this.context;
-    }
-
     private void runIdentifiersForPath(final Path base) throws IOException {
         if (paths.contains(base)) {
             // skip if it was already ran over the path
@@ -92,6 +71,27 @@ public final class Program {
         for (final Path path : context.getImports()) {
             runIdentifiersValidationForPath(path);
         }
+    }
+
+    private void runImportedUsage(final Path base) throws IOException {
+        if (paths.contains(base)) {
+            // skip if it was already ran over the path
+            return;
+        }
+        this.paths.add(base);
+        final AniParser parser = new AniFile(Files.newInputStream(base)).parse();
+        final AniContext context = this.context.context(base);
+        new FileAnalysisBuilder(context, parser)
+            .analyzeImportedUsage()
+            .build()
+            .run();
+        for (final Path path : context.getImports()) {
+            runImportedUsage(path);
+        }
+    }
+
+    public ProgramContext context() {
+        return this.context;
     }
 
     private void runSelfContainedTypesForPath(final Path base) throws IOException {

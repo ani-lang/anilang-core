@@ -8,7 +8,7 @@ import com.anilang.context.AniContext;
 import com.anilang.context.ContextEntry;
 import com.anilang.context.ContextMetadata;
 import com.anilang.context.scope.ScopeLookup;
-import com.anilang.context.utils.IsDefaultScope;
+import com.anilang.context.scope.IsDefaultScope;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
