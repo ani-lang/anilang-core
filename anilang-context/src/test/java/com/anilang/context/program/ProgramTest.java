@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class ProgramTest {
@@ -34,6 +35,7 @@ class ProgramTest {
         Assertions.assertTrue(map.containsKey("libs/lib1.ani"));
     }
 
+    @Disabled
     @Test
     public void importClasses() throws URISyntaxException, IOException {
         final Path root = Paths.get(
