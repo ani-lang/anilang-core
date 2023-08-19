@@ -1,0 +1,29 @@
+
+class Json:
+
+end
+
+class Handler:
+    url = ''
+
+    def get():
+
+    end
+
+    def post(Json body):
+
+    end
+end
+
+class Server:
+
+    baseUrl = ''
+
+    def start():
+
+    end
+
+    def addHandler(Handler handler):
+
+    end
+end

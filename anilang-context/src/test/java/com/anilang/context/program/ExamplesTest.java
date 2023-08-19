@@ -42,4 +42,18 @@ class ExamplesTest {
 
         Assertions.assertEquals(3, map.size());
     }
+
+    @Test
+    void serverTest() throws URISyntaxException, IOException {
+        final Path root = Paths.get(
+            this.getClass().getResource("/com/anilang/context/program/server_example/main.ani").toURI()
+        );
+
+        final Program program = new Program(root);
+        program.run();
+        final ProgramContext context = program.context();
+        final Map<String, AniContext> map = context.asMap();
+
+        Assertions.assertEquals(2, map.size());
+    }
 }
