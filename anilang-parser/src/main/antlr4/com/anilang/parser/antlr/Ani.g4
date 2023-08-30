@@ -40,7 +40,8 @@ structBodyMember
     ;
 
 classDeclaration
-    :   'class' Identifier classBody
+    :   (decorator NEWLINE)?
+        'class' Identifier classBody
     ;
 
 classBody
@@ -118,7 +119,8 @@ sqlExpressionList
     ;
 
 funcDeclaration
-    :   'def' Identifier formalParameters funcReturnTypeDeclaration? methodDeclarationRest
+    :   (decorator NEWLINE)?
+        'def' Identifier formalParameters funcReturnTypeDeclaration? methodDeclarationRest
     ;
 
 funcReturnTypeDeclaration
@@ -126,7 +128,8 @@ funcReturnTypeDeclaration
     ;
 
 variableDeclarator
-    :   variableDeclaratorId '=' variableInitializer
+    :   (decorator NEWLINE)?
+        variableDeclaratorId '=' variableInitializer
     ;
 
 formalParameters
@@ -134,7 +137,8 @@ formalParameters
     ;
 
 formalParameterDecls
-    :   type formalParameterDeclsRest
+    :   decorator?
+        type formalParameterDeclsRest
     ;
 
 formalParameterDeclsRest
@@ -256,6 +260,10 @@ primitiveType
     |   'list'
     |   'dict'
     |   'set'
+    ;
+
+decorator
+    :   '@' Identifier ('(' StringLiteral? ')')?
     ;
 
 Identifier

@@ -1,0 +1,33 @@
+@decorator
+class A:
+
+    @decorator
+    def bar(@decorator string s):
+
+    end
+end
+
+@decorator
+def foo():
+
+end
+
+@decorator
+a = 1
+
+@decorator('arg')
+class B:
+
+    @decorator('arg')
+    def bar(@decorator string s):
+
+    end
+end
+
+@decorator()
+def bar():
+
+end
+
+@decorator()
+b = 1

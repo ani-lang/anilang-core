@@ -262,4 +262,15 @@ class AniParserCheckTest {
             "no errors for valid primitive types example"
         );
     }
+
+    @Test
+    void decoratorExample() throws IOException {
+        Assertions.assertEquals(
+            0,
+            new AniParserCheck(
+                new ExampleFile("decorator", "ani").inputStream()
+            ).errors().size(),
+            "no errors for valid decorators example"
+        );
+    }
 }
