@@ -15,7 +15,7 @@ public final class ExampleFile {
     /**
      * Example.
      */
-    private final ExampleCode example;
+    private final String example;
 
     /**
      * File extension.
@@ -28,7 +28,7 @@ public final class ExampleFile {
      * @param example Example code name.
      */
     public ExampleFile(final ExampleCode example) {
-        this(example, "ani");
+        this(example.toString(), "ani");
     }
 
     /**
@@ -37,7 +37,7 @@ public final class ExampleFile {
      * @param example File name.
      * @param extension Extension name.
      */
-    public ExampleFile(final ExampleCode example, final String extension) {
+    public ExampleFile(final String example, final String extension) {
         this.example = example;
         this.extension = extension;
     }
@@ -49,7 +49,7 @@ public final class ExampleFile {
      */
     public InputStream inputStream() {
         return this.getClass().getResourceAsStream(
-            String.format("/com/anilang/parser/%s.%s", this.example.toString(), this.extension)
+            String.format("/com/anilang/parser/%s.%s", this.example, this.extension)
         );
     }
 }
