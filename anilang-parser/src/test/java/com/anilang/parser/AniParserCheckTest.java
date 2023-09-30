@@ -30,6 +30,19 @@ class AniParserCheckTest {
     }
 
     @Test
+    void spanishDefaultError() throws IOException {
+        Assertions.assertEquals(
+            "[1:4]: Token no esperado.",
+            new AniParserCheck(
+                new ExampleFile(
+                    ExampleCode.INVALID_ASSIGNATION
+                ).inputStream()
+            ).errors().get(0).getError(),
+            "spanish default"
+        );
+    }
+
+    @Test
     void validCharacterAssignation() throws IOException {
         Assertions.assertEquals(
             0,

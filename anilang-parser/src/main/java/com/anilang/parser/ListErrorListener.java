@@ -42,7 +42,7 @@ final class ListErrorListener extends BaseErrorListener {
             new ParseError(
                 line,
                 column,
-                msg
+                new SyntaxError(exception).message()
             )
         );
     }
