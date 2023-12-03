@@ -1,8 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Property of ani-lang project.
-  -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,17 +7,15 @@
         <artifactId>anilang-core</artifactId>
         <version>0.9.0</version>
     </parent>
-    <artifactId>anilang-context</artifactId>
+    <artifactId>java-based-anilang</artifactId>
     <packaging>jar</packaging>
-    <name>anilang-context</name>
-    <description>Ani context generator</description>
-    <version>0.9.0</version>
+    <name>java-based-anilang</name>
+    <description>java syntax based ani lang</description>
+    <version>0.1.0</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
-        <dependency>
-            <groupId>com.anilang</groupId>
-            <artifactId>anilang-parser</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>

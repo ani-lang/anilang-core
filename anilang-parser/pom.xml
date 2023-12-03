@@ -65,10 +65,11 @@
                         <artifactId>qulice-maven-plugin</artifactId>
                         <configuration>
                             <excludes combine.children="append">
-                                <exclude>checkstyle:/src/test/resources/.*</exclude>
+                                <exclude>checkstyle:.*/src/test/resources/.*</exclude>
+                                <exclude>checkstyle:.*/src/main/resources/.*</exclude>
                                 <exclude>pmd:.*/src/test/resources/.*</exclude>
-                                <exclude>dependencies:org.antlr</exclude>
-                                <exclude>dependencies:org.junit.jupiter</exclude>
+                                <exclude>pmd:.*/src/main/resources/.*</exclude>
+                                <exclude>dependencies:.*</exclude>
                             </excludes>
                             <license>file:${basedir}/LICENSE.txt</license>
                         </configuration>

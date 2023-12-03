@@ -26,6 +26,6 @@ jobs:
         stale-issue-label: 'no-issue-activity'
         stale-pr-label: 'no-pr-activity'
         exempt-issue-labels: 'todo'
-        days-before-issue-stale: 30
-        days-before-issue-close: 30
+        days-before-issue-stale: 180
+        days-before-issue-close: 180
 
